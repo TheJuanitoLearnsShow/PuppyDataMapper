@@ -8,8 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Update="SampleMapping.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <AdditionalFiles Include="SampleMapping.xml">
+    </AdditionalFiles>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PuppyDataMapper\PuppyDataMapper.csproj"  
+    OutputItemType="Analyzer"
+    ReferenceOutputAssembly="false"
+    />
   </ItemGroup>
 </Project>

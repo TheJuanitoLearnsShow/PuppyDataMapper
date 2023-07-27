@@ -44,7 +44,7 @@ namespace Mapper {
         var outputType = outputNode?.Attributes?["type"]?.Value ?? "object";
         var mapName = mapNode?.Attributes?["name"]?.Value ?? "Unkown";
         var inputs = mapNode.SelectNodes("inputs/input").Cast<XmlNode>().Select(GenerateInputParam).ToList();
-        var paramListComments = string.Join("\n/// ", inputs.Select(r => r.Comments));
+        var paramListComments = string.Join("\n", inputs.Select(r => r.Comments));
         var paramListCode = string.Join(", ", inputs.Select(r => r.ParamSource));
         var customLogic = mapNode?.SelectSingleNode("customLogic")?.InnerText ?? string.Empty;
         return $"""
@@ -60,7 +60,7 @@ namespace Mapper {
         var description = inputNode?.SelectSingleNode("comments")?.InnerText ?? string.Empty;
         var source = inputNode?.SelectSingleNode("source")?.InnerText ?? string.Empty;
         return (
-            $"<param name=\"{inputName}\">{description}. Source: {source}</param>",
+            $"/// <param name=\"{inputName}\">{description}. Source: {source}</param>",
             $"string {inputName}");
     }
 
