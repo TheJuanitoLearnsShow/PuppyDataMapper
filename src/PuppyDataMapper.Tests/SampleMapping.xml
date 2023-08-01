@@ -1,15 +1,56 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
-<fieldMaps>
-    <map name="AdjustedScore">
-        <inputs>
-            <input name="DateTaken">
-                <source>Test.DateTaken</source>
-            </input>
-            <input name="Score">
-                <comments>The score obtained by the student</comments>
-            </input>
-        </inputs>
-        <output type="string"/>
-        <customLogic>divide score by number of days ago that DateTaken </customLogic>
-    </map>
-</fieldMaps>
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<m:mapper xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://example/mapper ../schemas/data-mapper.xsd"
+    xmlns:m="http://example/mapper" >
+    <name>From Test to Stat Entry</name>
+    <description>
+        Maps from a test taken to a score to be added to the statistical software.
+    </description>
+    <inputs>
+        <input>
+            <name>Test Record</name>
+            <type>Test</type>
+            <referenceName>Test</referenceName>
+        </input>
+        <input>
+            <name>Population Test Statistics</name>
+            <type>TestSummary</type>
+            <referenceName>Stats</referenceName>
+        </input>
+    </inputs>
+    <maps>
+        <map>
+            <name>Adjusted Score</name>
+            <inputs>
+                <input>
+                    <source>Test</source>
+                    <formula>DateTaken</formula>
+                </input>
+                <input>
+                    <source>Test</source>
+                    <formula>Score</formula>
+                </input>
+                <input>
+                    <source>Stats</source>
+                    <formula>Scores.Avg</formula>
+                    <comments>The avg of the whole population</comments>
+                </input>
+            </inputs>
+            <outputType>string</outputType>
+            <customLogic>divide score by average of population, multiplied by the number of days ago
+                that DateTaken</customLogic>
+        </map>
+        <map>
+            <name>End of Month</name>
+            <inputs>
+                <input>
+                    <source>Test</source>
+                    <formula>DateTaken</formula>
+                    <comments>Must be the month where the test was taken</comments>
+                </input>
+            </inputs>
+            <outputType>date</outputType>
+            <customLogic>the last date of the month when the test was taken</customLogic>
+        </map>
+    </maps>
+</m:mapper>

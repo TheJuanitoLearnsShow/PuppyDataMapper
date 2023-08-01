@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Xml;
+using System.Xml.Serialization;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 
@@ -12,13 +13,18 @@ public class DataMapperGenerator : ISourceGenerator
     public static string GenerateClassFile(string className, string filePath)
     {
         StringBuilder sb = new StringBuilder();
-        XmlDocument doc = new XmlDocument();
-        doc.Load(filePath);
+        //XmlDocument doc = new XmlDocument();
+        //doc.Load(filePath);
 
-        var mapInstructions = doc.SelectNodes("/fieldMaps/map");
+        //var mapInstructions = doc.SelectNodes("/fieldMaps/map");
 
-        var mappingMethods = mapInstructions.Cast<XmlNode>().Select(GenerateMappingMethod);
-
+        //var mappingMethods = mapInstructions.Cast<XmlNode>().Select(GenerateMappingMethod);
+        XmlSerializer serializer = new XmlSerializer(typeof(Mapper));
+        using var reader = new StreamReader(filePath);
+        
+        var test = (serializer.Deserialize(reader) as Mapper)!;
+        
+       
         //// Usings
         sb.Append(@"
 namespace Mapper {
@@ -26,9 +32,9 @@ namespace Mapper {
 
 ");
         sb.Append($"    public class {className} {{\n");
-        foreach ( var mappingMethoid in mappingMethods)
+        foreach ( var mappingMethoid in test.Maps.FieldMaps.SelectMany(r => r.Inputs.Input))
         {
-            sb.AppendLine($"    {mappingMethoid}");
+            sb.AppendLine($"    {mappingMethoid.Formula}");
         }
         
 
