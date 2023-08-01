@@ -7,17 +7,17 @@ namespace PuppyDataMapper;
 public class Inputs
 {
     [XmlElement(ElementName = "input")]
-    public List<FieldInput> Input { get; set; }
+    public List<FieldInput> Input { get; set; } = new List<FieldInput>();
 }
 
 public class FieldInput
 {
     [XmlElement(ElementName = "source")]
-    public string Source { get; set; }
+    public string Source { get; set; } = string.Empty;
 
     [XmlElement(ElementName = "formula")]
-    public string Formula { get; set; }
+    public string Formula { get; set; } = string.Empty;
 
     [XmlElement(ElementName = "comments")]
-    public string Comments { get; set; }
+    public string Comments { get; set; } = string.Empty;
 }

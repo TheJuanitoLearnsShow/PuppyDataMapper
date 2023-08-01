@@ -7,5 +7,5 @@ public class Maps
 {
 
     [XmlElement(ElementName = "map")]
-    public List<FieldMap> FieldMaps { get; set; }
+    public List<FieldMap> FieldMaps { get; set; } = new List<FieldMap>();
 }
