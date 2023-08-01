@@ -20,6 +20,7 @@ public class DataMapperGenerator : ISourceGenerator
 
         //var mappingMethods = mapInstructions.Cast<XmlNode>().Select(GenerateMappingMethod);
         XmlSerializer serializer = new XmlSerializer(typeof(Mapper));
+     
         using var reader = new StreamReader(filePath);
         
         var test = (serializer.Deserialize(reader) as Mapper)!;
@@ -27,19 +28,20 @@ public class DataMapperGenerator : ISourceGenerator
        
         //// Usings
         sb.Append(@"
-namespace Mapper {
-    using System.Collections.Generic;
+namespace Mapper;
+using System.Collections.Generic;
 
 ");
-        sb.Append($"    public class {className} {{\n");
-        foreach ( var mappingMethoid in test.Maps.FieldMaps.SelectMany(r => r.Inputs.Input))
-        {
-            sb.AppendLine($"    {mappingMethoid.Formula}");
-        }
+        var classCode = test.ToCode();
+        sb.Append(classCode);
+        //foreach ( var mappingMethoid in test.Maps.FieldMaps.SelectMany(r => r.Inputs.Input))
+        //{
+        //    sb.AppendLine($"    {mappingMethoid.Formula}");
+        //}
         
 
         // Close things (class, namespace)
-        sb.Append("              }\n}\n");
+        //sb.Append("              }\n}\n");
         return sb.ToString();
 
     }
