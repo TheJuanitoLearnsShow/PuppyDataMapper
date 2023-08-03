@@ -28,16 +28,37 @@ public class FieldMap
         """;
     }
 
+
     private string GenerateMappingMethod(MapperInputCollection mapperInputs)
     {
         var inputs = Inputs.Input.GroupBy(i => i.Source).Select(grp => GenerateInputParam(grp.Key, grp, mapperInputs.GetTypeFor(grp.Key))).ToList();
         var paramListComments = string.Join("\n", inputs.Select(r => r.Comments));
         var paramListCode = string.Join(", ", inputs.Select(r => r.ParamSource));
-        return $"""
+        if (Inputs.GenerateCode)
+        {
+            var formulaCode = string.Join(",\n", Inputs.Input
+                .Select(i => i.Source.ToCamelCase() + "." + i.Formula
+
+                ).ToList()
+                );
+            return $"""
             /* {CustomLogic} */
             {paramListComments}
-            public partial {OutputType} Map{OutputType.ToPascalCase()}({paramListCode});
+            public partial {OutputType} Map{Name.ToPascalCase()}({paramListCode}) =>
+                return MapFieldsTo{Name.ToPascalCase()}(
+                {formulaCode}
+                );
+                
             """;
+        }
+        else
+        {
+            return $"""
+            /* {CustomLogic} */
+            {paramListComments}
+            public partial {OutputType} Map{Name.ToPascalCase()}({paramListCode});
+            """;
+        }
     }
 
     private (string Comments, string ParamSource) GenerateInputParam(string key, IEnumerable<FieldInput> fieldInputs, string inputType)
