@@ -23,4 +23,7 @@ public class FieldInput
 
     [XmlElement(ElementName = "comments")]
     public string Comments { get; set; } = string.Empty;
+
+    [XmlElement(ElementName = "referenceName")]
+    public string ReferenceName { get; set; } = string.Empty;
 }

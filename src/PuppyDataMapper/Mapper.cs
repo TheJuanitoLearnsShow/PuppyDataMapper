@@ -30,6 +30,24 @@ public class Mapper
         var paramListCode = string.Join(", ", mapperInputParams.Select(r => r.ParamSource));
 
         var fieldMethods = Maps.ToCode(Inputs);
+
+
+        // TODO add autogenration attribute for mapper whihc would in turn call the MapToXXX methods and set them in initilizer
+
+        //return $"\npublic partial static class {Name.ToPascalCase()}Mapper \n{{\n " +
+        //$"""
+        //    {paramListComments}
+        //    public partial static {OutputType.ToPascalCase()} Map({paramListCode})
+        //    {{
+        //        return new {OutputType.ToPascalCase()} {{
+        //            {list of MapToMethod calls}
+        //        }}
+        //    }}
+
+        //    {fieldMethods}
+        //""" +
+        //"\n";
+
         return $"\npublic partial static class {Name.ToPascalCase()}Mapper \n{{\n " +
         $"""
             {paramListComments}

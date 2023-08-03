@@ -20,6 +20,12 @@ public class FieldMap
     [XmlElement(ElementName = "customLogic")]
     public string CustomLogic { get; set; } = string.Empty;
 
+    [XmlAttribute(attributeName: "generate-code")]
+    public bool GenerateCode { get; set; }
+
+    [XmlElement(ElementName = "formula")]
+    public string Formula { get; set; } = string.Empty;
+
     public string ToCode(MapperInputCollection mapperInputs)
     {
         return $"\n" +
@@ -34,6 +40,27 @@ public class FieldMap
         var inputs = Inputs.Input.GroupBy(i => i.Source).Select(grp => GenerateInputParam(grp.Key, grp, mapperInputs.GetTypeFor(grp.Key))).ToList();
         var paramListComments = string.Join("\n", inputs.Select(r => r.Comments));
         var paramListCode = string.Join(", ", inputs.Select(r => r.ParamSource));
+        if (GenerateCode)
+        {
+
+            var varsCode = string.Join(",\n", Inputs.Input
+                .Select(i => $"var {i.ReferenceName.ToCamelCase()} = {i.Source.ToCamelCase()}.{i.Formula};"
+
+                ).ToList()
+                ); ;
+            return $"""
+            /* {CustomLogic} */
+            {paramListComments}
+            public partial {OutputType} Map{Name.ToPascalCase()}({paramListCode})
+            """
+            + "{"
+            + varsCode
+            + $"""
+                return {Formula};
+                );
+            """;
+        }
+
         if (Inputs.GenerateCode)
         {
             var formulaCode = string.Join(",\n", Inputs.Input
@@ -48,7 +75,6 @@ public class FieldMap
                 return MapFieldsTo{Name.ToPascalCase()}(
                 {formulaCode}
                 );
-                
             """;
         }
         else

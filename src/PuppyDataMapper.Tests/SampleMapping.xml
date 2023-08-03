@@ -54,5 +54,24 @@
                 </input>
             </inputs>
         </map>
+        <map generate-code="true">
+            <name>Next Test Probability</name>
+            <outputType>decimal</outputType>
+            <customLogic></customLogic>
+            <formula>testScore * stdScore</formula>
+            <inputs>
+                <input>
+                    <source>Test</source>
+                    <formula>Score</formula>
+                    <referenceName>testScore</referenceName>
+                </input>
+                <input>
+                    <source>Stats</source>
+                    <formula>Scores.StdScore</formula>
+                    <comments></comments>
+                    <referenceName>stdScore</referenceName>
+                </input>
+            </inputs>
+        </map>
     </maps>
 </mapper>
