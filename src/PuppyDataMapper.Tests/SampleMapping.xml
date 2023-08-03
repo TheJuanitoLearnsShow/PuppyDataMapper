@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <mapper xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://example/mapper ../schemas/data-mapper.xsd"
-    xmlns="http://example/mapper" >
+    xmlns="http://example/mapper"
+    xmlns:m="http://example/mapper" >
     <name>From Test to Stat Entry</name>
     <description>
         Maps from a test taken to a score to be added to the statistical software.
@@ -25,7 +26,7 @@
             <outputType>string</outputType>
             <customLogic>divide score by average of population, multiplied by the number of days ago
                 that DateTaken</customLogic>
-            <inputs>
+            <inputs generate-code="true">
                 <input>
                     <source>Test</source>
                     <formula>DateTaken</formula>

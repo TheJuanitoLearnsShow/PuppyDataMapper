@@ -8,6 +8,9 @@ public class Inputs
 {
     [XmlElement(ElementName = "input")]
     public List<FieldInput> Input { get; set; } = new List<FieldInput>();
+
+    [XmlAttribute(attributeName: "generate-code")]
+    public bool GenerateCode { get; set; }
 }
 
 public class FieldInput

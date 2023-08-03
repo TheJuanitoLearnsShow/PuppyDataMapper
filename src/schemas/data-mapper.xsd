@@ -48,6 +48,7 @@
                             </xs:complexType>
                           </xs:element>
                         </xs:sequence>
+                        <xs:attribute name="generate-code"  form="unqualified"  type="xs:boolean" default="true"/>
                       </xs:complexType>
                     </xs:element>
                   </xs:sequence>
