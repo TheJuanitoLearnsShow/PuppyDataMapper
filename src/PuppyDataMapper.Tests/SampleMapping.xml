@@ -2,7 +2,7 @@
 <mapper xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://example/mapper ../schemas/data-mapper.xsd"
     xmlns="http://example/mapper"
-    xmlns:m="http://example/mapper" >
+    xmlns:m="http://example/mapper" generate-code="true">
     <name>From Test to Stat Entry</name>
     <description>
         Maps from a test taken to a score to be added to the statistical software.
@@ -23,6 +23,7 @@
     <maps>
         <map>
             <name>Adjusted Score</name>
+            <outputTo>AdjustedScore</outputTo>
             <outputType>string</outputType>
             <customLogic>divide score by average of population, multiplied by the number of days ago
                 that DateTaken</customLogic>
@@ -44,6 +45,7 @@
         </map>
         <map>
             <name>End of Month</name>
+            <outputTo>Eom</outputTo>
             <outputType>date</outputType>
             <customLogic>the last date of the month when the test was taken</customLogic>
             <inputs>
@@ -56,6 +58,7 @@
         </map>
         <map generate-code="true">
             <name>Next Test Probability</name>
+            <outputTo>NextTestProb</outputTo>
             <outputType>decimal</outputType>
             <customLogic></customLogic>
             <formula>testScore * stdScore</formula>

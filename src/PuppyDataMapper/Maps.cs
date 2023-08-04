@@ -17,6 +17,6 @@ public class Maps
         $"""
             {fieldMethods}
         """ +
-        "\n}";
+        "\n";
     }
 }

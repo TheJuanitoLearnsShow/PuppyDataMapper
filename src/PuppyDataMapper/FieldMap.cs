@@ -26,6 +26,9 @@ public class FieldMap
     [XmlElement(ElementName = "formula")]
     public string Formula { get; set; } = string.Empty;
 
+    [XmlElement(ElementName = "outputTo")]
+    public string OutputTo { get; set; } = string.Empty;
+
     public string ToCode(MapperInputCollection mapperInputs)
     {
         return $"\n" +
@@ -51,14 +54,12 @@ public class FieldMap
             return $"""
             /* {CustomLogic} */
             {paramListComments}
-            public partial {OutputType} Map{Name.ToPascalCase()}({paramListCode})
+            public partial {OutputType} {GetMappingMethodName()}({paramListCode})
             """
-            + "{"
+            + "{\n"
             + varsCode
-            + $"""
-                return {Formula};
-                );
-            """;
+            + $"\nreturn {Formula};"
+            + "\n}\n";
         }
 
         if (Inputs.GenerateCode)
@@ -71,7 +72,7 @@ public class FieldMap
             return $"""
             /* {CustomLogic} */
             {paramListComments}
-            public partial {OutputType} Map{Name.ToPascalCase()}({paramListCode}) =>
+            public partial {OutputType} {GetMappingMethodName()}({paramListCode}) =>
                 return MapFieldsTo{Name.ToPascalCase()}(
                 {formulaCode}
                 );
@@ -82,7 +83,7 @@ public class FieldMap
             return $"""
             /* {CustomLogic} */
             {paramListComments}
-            public partial {OutputType} Map{Name.ToPascalCase()}({paramListCode});
+            public partial {OutputType} {GetMappingMethodName()}({paramListCode});
             """;
         }
     }
@@ -94,11 +95,16 @@ public class FieldMap
         return ($"/// <param name=\"{key.ToCamelCase()}\">{combinedComments}.</param>", inputType + " " + key.ToCamelCase());
     }
 
-    //private (string Comments, string ParamSource) GenerateInputParam(FieldInput input)
-    //{
-    //    var description = input.Comments;
-    //    return (
-    //        $"/// <param name=\"{input.Source.ToCamelCase()}\">{description}. Source: {input.Name}</param>",
-    //        $"{input.ou} {input.ReferenceName.ToCamelCase()}");
-    //}
+    internal object GetMappingMethodName()
+    {
+        return $"Map{Name.ToPascalCase()}";
+    }
+
+    internal object GetMappingMethodCall()
+    {
+        var inputs = Inputs.Input.GroupBy(i => i.Source).Select(grp => grp.Key.ToCamelCase()).ToList();
+        var paramListCode = string.Join(", ", inputs);
+        return $"Map{Name.ToPascalCase()}({paramListCode})";
+    }
+
 }

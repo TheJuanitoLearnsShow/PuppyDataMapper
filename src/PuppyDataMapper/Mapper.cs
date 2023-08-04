@@ -24,6 +24,9 @@ public class Mapper
     [XmlElement(ElementName = "outputType")]
     public string OutputType { get; set; } = string.Empty;
 
+    [XmlAttribute(attributeName: "generate-code")]
+    public bool GenerateCode { get; set; }
+
     public string ToCode() {
         var mapperInputParams = Inputs.Inputs.Select(GenerateInputParam).ToList();
         var paramListComments = string.Join("\n", mapperInputParams.Select(r => r.Comments));
@@ -31,22 +34,24 @@ public class Mapper
 
         var fieldMethods = Maps.ToCode(Inputs);
 
+        if (GenerateCode)
+        {
 
-        // TODO add autogenration attribute for mapper whihc would in turn call the MapToXXX methods and set them in initilizer
+            var propertiesInitializationCode = Maps.FieldMaps.Select(
+                f => $"{f.OutputTo} = {f.GetMappingMethodCall()}")
+                ;
 
-        //return $"\npublic partial static class {Name.ToPascalCase()}Mapper \n{{\n " +
-        //$"""
-        //    {paramListComments}
-        //    public partial static {OutputType.ToPascalCase()} Map({paramListCode})
-        //    {{
-        //        return new {OutputType.ToPascalCase()} {{
-        //            {list of MapToMethod calls}
-        //        }}
-        //    }}
-
-        //    {fieldMethods}
-        //""" +
-        //"\n";
+            return $"\npublic partial static class {Name.ToPascalCase()}Mapper \n{{\n " +
+            $"""
+            {paramListComments}
+            public partial static {OutputType.ToPascalCase()} Map({paramListCode})
+            """
+            + $"{{\n return new {OutputType.ToPascalCase()}() {{\n"
+            + string.Join(",\n", propertiesInitializationCode)
+            + "\n}\n}\n"
+            + fieldMethods
+            + "\n}";
+        }
 
         return $"\npublic partial static class {Name.ToPascalCase()}Mapper \n{{\n " +
         $"""
@@ -55,7 +60,7 @@ public class Mapper
 
             {fieldMethods}
         """ + 
-        "\n";
+        "\n}";
     }
 
     private (string Comments, string ParamSource) GenerateInputParam(MapperInput input)
@@ -64,19 +69,5 @@ public class Mapper
         return (
             $"/// <param name=\"{input.ReferenceName.ToCamelCase()}\">{description}. Source: {input.Name}</param>",
             $"{input.Type} {input.ReferenceName.ToCamelCase()}");
-    }
-}
-
-
-[XmlRoot(ElementName = "inputs")]
-public class MapperInputCollection
-{
-
-    [XmlElement(ElementName = "input")]
-    public List<MapperInput> Inputs { get; set; } = new List<MapperInput>();
-
-    internal string GetTypeFor(string key)
-    {
-        return Inputs.FirstOrDefault(i => i.ReferenceName == key)?.Type ?? "object";
     }
 }
