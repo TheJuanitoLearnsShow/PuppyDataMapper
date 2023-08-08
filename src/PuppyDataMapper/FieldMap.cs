@@ -54,7 +54,7 @@ public class FieldMap
             return $"""
             /* {Comments} */
             {paramListComments}
-            public static partial {OutputType} {GetMappingMethodName()}({paramListCode})
+            public static {OutputType} {GetMappingMethodName()}({paramListCode})
             """
             + "{\n"
             + varsCode
@@ -72,8 +72,8 @@ public class FieldMap
             return $"""
             /* {Comments} */
             {paramListComments}
-            public static partial {OutputType} {GetMappingMethodName()}({paramListCode}) =>
-                return MapFieldsTo{Name.ToPascalCase()}(
+            public static {OutputType} {GetMappingMethodName()}({paramListCode}) =>
+                MapFieldsTo{Name.ToPascalCase()}(
                 {formulaCode}
                 );
             """;

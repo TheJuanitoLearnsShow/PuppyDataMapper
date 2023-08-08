@@ -44,7 +44,7 @@ public class Mapper
             return $"\npublic static partial class {Name.ToPascalCase()}Mapper \n{{\n " +
             $"""
             {paramListComments}
-            public static partial {OutputType.ToPascalCase()} Map({paramListCode})
+            public static {OutputType.ToPascalCase()} Map({paramListCode})
             """
             + $"{{\n return new {OutputType.ToPascalCase()}() {{\n"
             + string.Join(",\n", propertiesInitializationCode)
