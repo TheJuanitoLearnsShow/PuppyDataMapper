@@ -41,10 +41,10 @@ public class Mapper
                 f => $"{f.OutputTo} = {f.GetMappingMethodCall()}")
                 ;
 
-            return $"\npublic partial static class {Name.ToPascalCase()}Mapper \n{{\n " +
+            return $"\npublic static partial class {Name.ToPascalCase()}Mapper \n{{\n " +
             $"""
             {paramListComments}
-            public partial static {OutputType.ToPascalCase()} Map({paramListCode})
+            public static partial {OutputType.ToPascalCase()} Map({paramListCode})
             """
             + $"{{\n return new {OutputType.ToPascalCase()}() {{\n"
             + string.Join(",\n", propertiesInitializationCode)
@@ -53,10 +53,10 @@ public class Mapper
             + "\n}";
         }
 
-        return $"\npublic partial static class {Name.ToPascalCase()}Mapper \n{{\n " +
+        return $"\npublic static partial class {Name.ToPascalCase()}Mapper \n{{\n " +
         $"""
             {paramListComments}
-            public partial static {OutputType.ToPascalCase()} Map({paramListCode});
+            public static partial {OutputType.ToPascalCase()} Map({paramListCode});
 
             {fieldMethods}
         """ + 

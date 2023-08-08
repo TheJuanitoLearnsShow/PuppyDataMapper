@@ -46,22 +46,6 @@ using System.Collections.Generic;
 
     }
 
-    private static string GenerateMappingMethod(XmlNode mapNode)
-    {
-        var outputNode = mapNode.SelectSingleNode("output");
-        var outputType = outputNode?.Attributes?["type"]?.Value ?? "object";
-        var mapName = mapNode?.Attributes?["name"]?.Value ?? "Unkown";
-        var inputs = mapNode.SelectNodes("inputs/input").Cast<XmlNode>().Select(GenerateInputParam).ToList();
-        var paramListComments = string.Join("\n", inputs.Select(r => r.Comments));
-        var paramListCode = string.Join(", ", inputs.Select(r => r.ParamSource));
-        var customLogic = mapNode?.SelectSingleNode("customLogic")?.InnerText ?? string.Empty;
-        return $"""
-            /* {customLogic} */
-            {paramListComments}
-            public partial {outputType} Map{mapName}({paramListCode});
-            """;
-    }
-
     private static (string Comments,string ParamSource) GenerateInputParam(XmlNode inputNode)
     {
         var inputName = inputNode?.Attributes?["name"]?.Value ?? "unkown";
@@ -83,7 +67,7 @@ using System.Collections.Generic;
 
     static IEnumerable<(string, string)> SourceFilesFromAdditionalFile(AdditionalText file)
     {
-        string className = Path.GetFileNameWithoutExtension(file.Path).Replace("mapping", string.Empty, StringComparison.OrdinalIgnoreCase);
+        string className = Path.GetFileNameWithoutExtension(file.Path).Replace("Mapping", string.Empty);
         return new (string, string)[] { (className, GenerateClassFile(className, file.Path)) };
     }
 
@@ -95,7 +79,7 @@ using System.Collections.Generic;
         foreach (AdditionalText file in context.AdditionalFiles)
         {
             bool pathMatchesMappingFile = Path.GetExtension(file.Path).Equals(".xml", StringComparison.OrdinalIgnoreCase)
-                            && Path.GetFileName(file.Path).StartsWith("mapping", StringComparison.OrdinalIgnoreCase);
+                            && Path.GetFileName(file.Path).StartsWith("Mapping", StringComparison.OrdinalIgnoreCase);
             if (pathMatchesMappingFile)
             {
                 yield return file;
@@ -108,7 +92,7 @@ using System.Collections.Generic;
         IEnumerable<AdditionalText> filesToProcess = GetLoadOptions(context);
         IEnumerable<(string, string)> nameCodeSequence = SourceFilesFromAdditionalFiles(filesToProcess);
         foreach ((string name, string code) in nameCodeSequence)
-            context.AddSource($"Csv_{name}.g.cs", SourceText.From(code, Encoding.UTF8));
+            context.AddSource($"Mapper_{name}.g.cs", SourceText.From(code, Encoding.UTF8));
     }
 
     public void Initialize(GeneratorInitializationContext context)

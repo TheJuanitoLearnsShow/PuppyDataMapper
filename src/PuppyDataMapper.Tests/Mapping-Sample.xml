@@ -25,8 +25,8 @@
             <name>Adjusted Score</name>
             <outputTo>AdjustedScore</outputTo>
             <outputType>string</outputType>
-            <customLogic>divide score by average of population, multiplied by the number of days ago
-                that DateTaken</customLogic>
+            <description>divide score by average of population, multiplied by the number of days ago
+                that DateTaken</description>
             <inputs generate-code="true">
                 <input>
                     <source>Test</source>
@@ -47,7 +47,7 @@
             <name>End of Month</name>
             <outputTo>Eom</outputTo>
             <outputType>date</outputType>
-            <customLogic>the last date of the month when the test was taken</customLogic>
+            <description>the last date of the month when the test was taken</description>
             <inputs>
                 <input>
                     <source>Test</source>
@@ -60,7 +60,7 @@
             <name>Next Test Probability</name>
             <outputTo>NextTestProb</outputTo>
             <outputType>decimal</outputType>
-            <customLogic></customLogic>
+            <description></description>
             <formula>testScore * stdScore</formula>
             <inputs>
                 <input>

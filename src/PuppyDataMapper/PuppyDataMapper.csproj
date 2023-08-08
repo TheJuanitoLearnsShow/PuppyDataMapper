@@ -1,9 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <!-- https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/source-generators-overview#:~:text=The%20source%20generator%20project%20needs%20to%20target%20the%20netstandard2.0%20TFM%2C%20otherwise%20it%20will%20not%20work.
+    Source Generator libraries must use netstandard2.0 in order to work
+    -->
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>preview</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
   </PropertyGroup>
 
   <ItemGroup>

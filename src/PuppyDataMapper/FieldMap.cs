@@ -17,8 +17,8 @@ public class FieldMap
     [XmlElement(ElementName = "outputType")]
     public string OutputType { get; set; } = string.Empty;
 
-    [XmlElement(ElementName = "customLogic")]
-    public string CustomLogic { get; set; } = string.Empty;
+    [XmlElement(ElementName = "comments")]
+    public string Comments { get; set; } = string.Empty;
 
     [XmlAttribute(attributeName: "generate-code")]
     public bool GenerateCode { get; set; }
@@ -52,9 +52,9 @@ public class FieldMap
                 ).ToList()
                 ); ;
             return $"""
-            /* {CustomLogic} */
+            /* {Comments} */
             {paramListComments}
-            public partial {OutputType} {GetMappingMethodName()}({paramListCode})
+            public static partial {OutputType} {GetMappingMethodName()}({paramListCode})
             """
             + "{\n"
             + varsCode
@@ -70,9 +70,9 @@ public class FieldMap
                 ).ToList()
                 );
             return $"""
-            /* {CustomLogic} */
+            /* {Comments} */
             {paramListComments}
-            public partial {OutputType} {GetMappingMethodName()}({paramListCode}) =>
+            public static partial {OutputType} {GetMappingMethodName()}({paramListCode}) =>
                 return MapFieldsTo{Name.ToPascalCase()}(
                 {formulaCode}
                 );
@@ -81,9 +81,9 @@ public class FieldMap
         else
         {
             return $"""
-            /* {CustomLogic} */
+            /* {Comments} */
             {paramListComments}
-            public partial {OutputType} {GetMappingMethodName()}({paramListCode});
+            public static partial {OutputType} {GetMappingMethodName()}({paramListCode});
             """;
         }
     }
