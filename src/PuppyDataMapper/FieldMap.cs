@@ -40,13 +40,18 @@ public class FieldMap
 
     private string GenerateMappingMethod(MapperInputCollection mapperInputs)
     {
-        var inputs = Inputs.Input.GroupBy(i => i.Source).Select(grp => GenerateInputParam(grp.Key, grp, mapperInputs.GetTypeFor(grp.Key))).ToList();
+        var inputs = (Inputs?.Input.Any() ?? false) ?
+            Inputs.Input.GroupBy(i => i.Source).Select(grp => GenerateInputParam(grp.Key, grp, mapperInputs.GetTypeFor(grp.Key))).ToList()
+            : mapperInputs.Inputs.Select(grp => GenerateInputParam(grp.ReferenceName, Array.Empty<FieldInput>(),
+                mapperInputs.GetTypeFor(grp.ReferenceName))).ToList()
+            ;
         var paramListComments = string.Join("\n", inputs.Select(r => r.Comments));
+
         var paramListCode = string.Join(", ", inputs.Select(r => r.ParamSource));
         if (GenerateCode)
         {
 
-            var varsCode = string.Join(",\n", Inputs.Input
+            var varsCode = string.Join("\n", Inputs.Input
                 .Select(i => $"var {i.ReferenceName.ToCamelCase()} = {i.Source.ToCamelCase()}.{i.Formula};"
 
                 ).ToList()
@@ -62,7 +67,7 @@ public class FieldMap
             + "\n}\n";
         }
 
-        if (Inputs.GenerateCode)
+        if (Inputs?.GenerateCode ?? false)
         {
             var formulaCode = string.Join(",\n", Inputs.Input
                 .Select(i => i.Source.ToCamelCase() + "." + i.Formula
@@ -83,7 +88,7 @@ public class FieldMap
             return $"""
             /* {Comments} */
             {paramListComments}
-            public static partial {OutputType} {GetMappingMethodName()}({paramListCode});
+            public abstract {OutputType} {GetMappingMethodName()}({paramListCode});
             """;
         }
     }
@@ -96,15 +101,19 @@ public class FieldMap
     }
 
     internal object GetMappingMethodName()
-    {
-        return $"Map{Name.ToPascalCase()}";
+    {   
+        return string.IsNullOrEmpty(Name) ? $"Map{OutputTo.ToPascalCase()}" : $"Map{Name.ToPascalCase()}";
     }
 
-    internal object GetMappingMethodCall()
+    internal object GetMappingMethodCall(MapperInputCollection mapperInputs)
     {
-        var inputs = Inputs.Input.GroupBy(i => i.Source).Select(grp => grp.Key.ToCamelCase()).ToList();
+
+        var inputs = (Inputs?.Input.Any() ?? false) ?
+            Inputs.Input.GroupBy(i => i.Source).Select(grp => grp.Key.ToCamelCase()).ToList()
+            : mapperInputs.Inputs.Select(grp => grp.ReferenceName.ToCamelCase()).ToList()
+            ;
         var paramListCode = string.Join(", ", inputs);
-        return $"Map{Name.ToPascalCase()}({paramListCode})";
+        return $"{GetMappingMethodName()}({paramListCode})";
     }
 
 }

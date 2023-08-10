@@ -46,7 +46,7 @@
         <map>
             <name>End of Month</name>
             <outputTo>Eom</outputTo>
-            <outputType>date</outputType>
+            <outputType>DateTime</outputType>
             <description>the last date of the month when the test was taken</description>
             <inputs>
                 <input>
@@ -75,6 +75,12 @@
                     <referenceName>stdScore</referenceName>
                 </input>
             </inputs>
+        </map>
+
+        <map generate-code="true">
+            <outputTo>FinalScore</outputTo>
+            <outputType>decimal</outputType>
+            <formula>Test.MyScore</formula>
         </map>
     </maps>
 </mapper>

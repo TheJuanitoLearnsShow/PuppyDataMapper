@@ -37,7 +37,7 @@
                     <xs:element name="outputType" type="xs:string" minOccurs="0" maxOccurs="1" />
                     <xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1"/>
                     <xs:element name="formula" type="xs:string" minOccurs="0" maxOccurs="1" />
-                    <xs:element name="inputs">
+                    <xs:element name="inputs" minOccurs="0" maxOccurs="1">
                       <xs:complexType>
                         <xs:sequence>
                           <xs:element name="input" maxOccurs="unbounded">

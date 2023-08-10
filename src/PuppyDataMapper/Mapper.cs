@@ -38,25 +38,25 @@ public class Mapper
         {
 
             var propertiesInitializationCode = Maps.FieldMaps.Select(
-                f => $"{f.OutputTo} = {f.GetMappingMethodCall()}")
+                f => $"{f.OutputTo} = {f.GetMappingMethodCall(Inputs)}")
                 ;
 
-            return $"\npublic static partial class {Name.ToPascalCase()}Mapper \n{{\n " +
+            return $"\npublic abstract class {Name.ToPascalCase()}MapperBase \n{{\n " +
             $"""
             {paramListComments}
-            public static {OutputType.ToPascalCase()} Map({paramListCode})
+            public {OutputType.ToPascalCase()} Map({paramListCode})
             """
             + $"{{\n return new {OutputType.ToPascalCase()}() {{\n"
             + string.Join(",\n", propertiesInitializationCode)
-            + "\n}\n}\n"
+            + "\n};\n}\n"
             + fieldMethods
             + "\n}";
         }
 
-        return $"\npublic static partial class {Name.ToPascalCase()}Mapper \n{{\n " +
+        return $"\npublic abstract class {Name.ToPascalCase()}MapperBase \n{{\n " +
         $"""
             {paramListComments}
-            public static partial {OutputType.ToPascalCase()} Map({paramListCode});
+            public abstract {OutputType.ToPascalCase()} Map({paramListCode});
 
             {fieldMethods}
         """ + 
