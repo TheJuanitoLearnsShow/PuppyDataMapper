@@ -7,6 +7,10 @@ namespace Mapper;
 // See https://aka.ms/new-console-template for more information
 public partial class FromTestToStatEntryMapper : FromTestToStatEntryMapperBase
 {
+    public override DateTime MapEndOfMonth(Test test)
+    {
+        throw new NotImplementedException();
+    }
 }
 public class Test
 {
