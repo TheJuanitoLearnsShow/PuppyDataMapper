@@ -47,6 +47,7 @@
             <th>Notes</th>
             <th>Formula</th>
             <th>Inputs</th>
+            <th>Example</th>
             <th>Output System Type</th>
           </tr>
           <xsl:for-each select="/m:mapper/m:maps/m:map">
@@ -75,6 +76,9 @@
                   </xsl:for-each>
                 </ol>
 
+              </td>
+              <td>
+                <xsl:value-of select="m:example" />
               </td>
               <td>
                 <xsl:value-of select="m:outputType" />

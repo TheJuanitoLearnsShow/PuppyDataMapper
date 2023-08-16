@@ -82,6 +82,7 @@
             <outputTo>FinalScore</outputTo>
             <outputType>decimal</outputType>
             <formula>Test.MyScore</formula>
+            <example>12.0</example>
         </map>
     </maps>
 </mapper>
