@@ -1,0 +1,1 @@
+xsltproc "src/PuppyDataMapper.Tests/Mapping-Report.html" -o "docs\Sample-Mapping-Report.html"
