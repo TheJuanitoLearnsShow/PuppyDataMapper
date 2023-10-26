@@ -1,0 +1,92 @@
+<html xmlns:m="http://example/mapper"><body>
+<h2>From Test to Stat Entry (StatEntry)</h2>
+<p>
+        Maps from a test taken to a score to be added to the statistical software.
+    </p>
+<h3>Inputs</h3>
+<table border="1">
+<tr>
+<th>Name</th>
+<th>System Type</th>
+<th>Reference Name</th>
+</tr>
+<tr>
+<td>Test Record</td>
+<td>Test</td>
+<td>Test</td>
+</tr>
+<tr>
+<td>Population Test Statistics</td>
+<td>TestSummary</td>
+<td>Stats</td>
+</tr>
+</table>
+<h3>Fields Mapping</h3>
+<table border="1">
+<tr>
+<th>Name</th>
+<th>Destination Field</th>
+<th>Notes</th>
+<th>Formula</th>
+<th>Inputs</th>
+<th>Example</th>
+<th>Output System Type</th>
+</tr>
+<tr>
+<td>Adjusted Score</td>
+<td>AdjustedScore</td>
+<td>divide score by average of population, multiplied by the number of days ago
+                that DateTaken</td>
+<td></td>
+<td><ol>
+<li>
+<b>Test -&gt; DateTaken</b><p></p>
+</li>
+<li>
+<b>Test -&gt; Score</b><p></p>
+</li>
+<li>
+<b>Stats -&gt; Scores.Avg</b><p>The avg of the whole population</p>
+</li>
+</ol></td>
+<td></td>
+<td>string</td>
+</tr>
+<tr>
+<td>End of Month</td>
+<td>Eom</td>
+<td>the last date of the month when the test was taken</td>
+<td></td>
+<td><ol><li>
+<b>Test -&gt; DateTaken</b><p>Must be the month where the test was taken</p>
+</li></ol></td>
+<td></td>
+<td>DateTime</td>
+</tr>
+<tr>
+<td>Next Test Probability</td>
+<td>NextTestProb</td>
+<td></td>
+<td>testScore * stdScore</td>
+<td><ol>
+<li>
+<b>Test -&gt; Score</b><p></p>
+</li>
+<li>
+<b>Stats -&gt; Scores.StdScore</b><p></p>
+</li>
+</ol></td>
+<td></td>
+<td>decimal</td>
+</tr>
+<tr>
+<td></td>
+<td>FinalScore</td>
+<td></td>
+<td>Test.MyScore</td>
+<td><ol></ol></td>
+<td>12.0</td>
+<td>decimal</td>
+</tr>
+</table>
+</body></html>
