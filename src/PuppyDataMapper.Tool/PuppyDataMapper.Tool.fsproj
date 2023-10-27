@@ -9,11 +9,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Program.fs"/>
         <Compile Include="JsonToSql.fs" />
+        <Compile Include="Program.fs" />
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Argu" Version="6.1.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\PuppyDataMapper\PuppyDataMapper.csproj" />
     </ItemGroup>
 </Project>
