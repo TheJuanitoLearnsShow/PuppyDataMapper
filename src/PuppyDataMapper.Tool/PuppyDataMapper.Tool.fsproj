@@ -10,6 +10,7 @@
 
     <ItemGroup>
         <Compile Include="Program.fs"/>
+        <Compile Include="JsonToSql.fs" />
     </ItemGroup>
 
     <ItemGroup>
