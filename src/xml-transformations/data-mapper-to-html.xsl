@@ -12,7 +12,7 @@
         <h2><xsl:value-of select="/m:mapper/m:name" /> (<xsl:value-of
             select="/m:mapper/m:outputType" />)</h2>
         <p>
-          <xsl:value-of select="/m:mapper/m:description" />
+          <xsl:value-of select="/m:mapper/m:comments" />
         </p>
 
         <h3>Inputs</h3>
@@ -59,7 +59,7 @@
                 <xsl:value-of select="m:outputTo" />
               </td>
               <td>
-                <xsl:value-of select="m:description" />
+                <xsl:value-of select="m:comments" />
               </td>
               <td>
                 <xsl:value-of select="m:formula" />

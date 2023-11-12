@@ -11,7 +11,7 @@ public class Mapper
     [XmlElement(ElementName = "name")]
     public string Name { get; set; } = string.Empty;
 
-    [XmlElement(ElementName = "description")]
+    [XmlElement(ElementName = "comments")]
     public string Description { get; set; } = string.Empty;
 
     [XmlElement(ElementName = "inputs")]
@@ -41,7 +41,7 @@ public class Mapper
                 f => $"{f.OutputTo} = {f.GetMappingMethodCall(Inputs)}")
                 ;
 
-            return $"\npublic abstract class {Name.ToPascalCase()}MapperBase \n{{\n " +
+            return $"\npublic abstract partial class {Name.ToPascalCase()}MapperBase \n{{\n " +
             $"""
             {paramListComments}
             public {OutputType.ToPascalCase()} Map({paramListCode})
@@ -53,7 +53,7 @@ public class Mapper
             + "\n}";
         }
 
-        return $"\npublic abstract class {Name.ToPascalCase()}MapperBase \n{{\n " +
+        return $"\npublic abstract partial class {Name.ToPascalCase()}MapperBase \n{{\n " +
         $"""
             {paramListComments}
             public abstract {OutputType.ToPascalCase()} Map({paramListCode});

@@ -3,8 +3,14 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Mapper;
 
-//--
-// See https://aka.ms/new-console-template for more information
+public abstract partial class FromTestToStatEntryMapperBase
+{
+    private string MapFieldsToAdjustedScore(DateTime testDateTaken, int testScore, decimal scoresAvg)
+    {
+        return "Test";
+    }
+}
+
 public partial class FromTestToStatEntryMapper : FromTestToStatEntryMapperBase
 {
     public override DateTime MapEndOfMonth(Test test)

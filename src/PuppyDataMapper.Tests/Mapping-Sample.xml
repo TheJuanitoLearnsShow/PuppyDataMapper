@@ -5,15 +5,15 @@
     xmlns="http://example/mapper"
     xmlns:m="http://example/mapper" generate-code="true">
     <name>From Test to Stat Entry</name>
-    <description>
+    <comments>
         Maps from a test taken to a score to be added to the statistical software.
-    </description>
+    </comments>
     <outputType>StatEntry</outputType>
     <inputs>
         <input>
             <name>Test Record</name>
             <type>Test</type>
-            <referenceName>Test</referenceName>
+            <referenceName>test</referenceName>
         </input>
         <input>
             <name>Population Test Statistics</name>
@@ -26,15 +26,15 @@
             <name>Adjusted Score</name>
             <outputTo>AdjustedScore</outputTo>
             <outputType>string</outputType>
-            <description>divide score by average of population, multiplied by the number of days ago
-                that DateTaken</description>
+            <comments>divide score by average of population, multiplied by the number of days ago
+                that DateTaken</comments>
             <inputs generate-code="true">
                 <input>
-                    <source>Test</source>
+                    <source>test</source>
                     <formula>DateTaken</formula>
                 </input>
                 <input>
-                    <source>Test</source>
+                    <source>test</source>
                     <formula>Score</formula>
                 </input>
                 <input>
@@ -48,10 +48,10 @@
             <name>End of Month</name>
             <outputTo>Eom</outputTo>
             <outputType>DateTime</outputType>
-            <description>the last date of the month when the test was taken</description>
+            <comments>the last date of the month when the test was taken</comments>
             <inputs>
                 <input>
-                    <source>Test</source>
+                    <source>test</source>
                     <formula>DateTaken</formula>
                     <comments>Must be the month where the test was taken</comments>
                 </input>
@@ -61,11 +61,11 @@
             <name>Next Test Probability</name>
             <outputTo>NextTestProb</outputTo>
             <outputType>decimal</outputType>
-            <description></description>
+            <comments></comments>
             <formula>testScore * stdScore</formula>
             <inputs>
                 <input>
-                    <source>Test</source>
+                    <source>test</source>
                     <formula>Score</formula>
                     <referenceName>testScore</referenceName>
                 </input>
@@ -81,7 +81,7 @@
         <map generate-code="true">
             <outputTo>FinalScore</outputTo>
             <outputType>decimal</outputType>
-            <formula>Test.MyScore</formula>
+            <formula>test.MyScore</formula>
             <example>12.0</example>
         </map>
     </maps>

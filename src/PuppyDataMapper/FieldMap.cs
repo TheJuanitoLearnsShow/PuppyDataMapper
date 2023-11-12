@@ -57,7 +57,7 @@ public class FieldMap
                 ).ToList()
                 ); ;
             return $"""
-            /// {Comments}
+            /// {Comments.ToXmlComments()}
             {paramListComments}
             public {OutputType} {GetMappingMethodName()}({paramListCode})
             """
@@ -75,7 +75,7 @@ public class FieldMap
                 ).ToList()
                 );
             return $"""
-            /// {Comments}
+            /// {Comments.ToXmlComments()}
             {paramListComments}
             public {OutputType} {GetMappingMethodName()}({paramListCode}) =>
                 MapFieldsTo{Name.ToPascalCase()}(
@@ -86,7 +86,7 @@ public class FieldMap
         else
         {
             return $"""
-            /// {Comments}
+            /// {Comments.ToXmlComments()}
             {paramListComments}
             public abstract {OutputType} {GetMappingMethodName()}({paramListCode});
             """;
