@@ -6,6 +6,12 @@ namespace CaseExtensions
     public static partial class StringExtensions
     {
         private static readonly char[] Delimeters = { ' ', '-', '_' };
+
+        public static string ToXmlComments(this string source)
+        {
+            return source.Replace("\n", "<br/>\n/// ");
+        }
+
         public static string ToCamelCase(this string source)
         {
             if (source == null)
