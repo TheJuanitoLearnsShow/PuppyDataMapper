@@ -13,6 +13,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "PuppyDataMapper.Tool", "Pup
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "PuppyDataMapper.Tool.Tests", "PuppyDataMapper.Tool.Tests\PuppyDataMapper.Tool.Tests.fsproj", "{04EB70D2-047B-4E0E-938C-DA0E5179FF2B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuppyDataMapper.Cli", "PuppyDataMapper.Cli\PuppyDataMapper.Cli.csproj", "{B6B3B212-0F08-47DE-91B7-81BE3269595C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{04EB70D2-047B-4E0E-938C-DA0E5179FF2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04EB70D2-047B-4E0E-938C-DA0E5179FF2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04EB70D2-047B-4E0E-938C-DA0E5179FF2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6B3B212-0F08-47DE-91B7-81BE3269595C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6B3B212-0F08-47DE-91B7-81BE3269595C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6B3B212-0F08-47DE-91B7-81BE3269595C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6B3B212-0F08-47DE-91B7-81BE3269595C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
