@@ -30,4 +30,10 @@
     <Folder Include="Samples\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Samples\SampleFxMapping.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

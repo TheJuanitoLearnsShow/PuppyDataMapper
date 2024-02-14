@@ -1,7 +1,7 @@
-// VARIABLES SECTION
+// SECTION VARIABLES SECTION
 baseSalary := 561 * MyInput.Score
 
-// Mapping Section
+// SECTION Mapping 
 Diff := Score2 - baseSalary
 Name2 := Name & Diff // here is amultiline comments
 				     // I can put as many comments in here, next mapping line is the one that has the ":=" symbol 
