@@ -1,7 +1,6 @@
 ﻿using System.Collections.Immutable;
 
 namespace PuppyMapper.PowerFX.Service;
-
 // Read a .fx.yaml file and return a group of formulas. 
 // This can produce a flat (non-nested) record where each field is defined by a Fx formula.
 public class MappingDocumentParser
@@ -46,7 +45,7 @@ public class MappingDocumentParser
         }
         var sectionName = sectionLine[11..];
         var line = lines.ReadLine();
-        if (line == null) return (new MappingSection(sectionName, []), line);
+        if (line == null) return (MappingSection.Blank(sectionName.Trim()), line);
         var mappingRules = new List<MappingRule>();
         while (line != null && !IsStartSection(line))
         {
@@ -61,7 +60,7 @@ public class MappingDocumentParser
                 line = lines.ReadLine();
             }
         }
-        return (new MappingSection(sectionName, mappingRules.ToImmutableList()) , line);
+        return (new MappingSection(sectionName.Trim(), mappingRules.ToImmutableList()) , line);
     }
 
     private static bool IsStartSection(string nextLine)

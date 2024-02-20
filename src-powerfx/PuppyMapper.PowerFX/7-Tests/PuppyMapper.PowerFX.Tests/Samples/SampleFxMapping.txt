@@ -1,9 +1,9 @@
-// SECTION VARIABLES SECTION
-baseSalary := 561 * MyInput.Score
+// SECTION VARIABLES
+baseSalary := 561 * input.Score
 
 // SECTION Mapping 
-Diff := Score2 - baseSalary
-Name2 := Name & Diff // here is amultiline comments
+Diff := input.Score2 - baseSalary
+Name2 := input.Name & "-suffix" // here is amultiline comments
 				     // I can put as many comments in here, next mapping line is the one that has the ":=" symbol 
-Total := Total + Score
-RowDiff := Score - Score // here acomments
+Total := input.Score2 + input.Score
+RowDiff := input.Score2 - input.Score // here acomments
