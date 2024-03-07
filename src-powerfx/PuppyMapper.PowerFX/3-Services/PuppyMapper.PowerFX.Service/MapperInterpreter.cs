@@ -51,4 +51,28 @@ public class MapperInterpreter
         return result;
 
     }
+    public static Dictionary<string, object> MapRecord(
+        MappingDocument doc, IEnumerable<(string Key, FormulaValue Value)> inputs)
+    {
+        Dictionary<string, object> result = new();
+        RecalcEngine engine = new RecalcEngine();
+        foreach(var input in inputs)
+        {
+            engine.UpdateVariable(input.Key, input.Value);
+        }
+        foreach (var kv in doc.InternalVars.Rules)
+        {
+            var newField = kv.Name;
+            engine.SetFormula(kv.Name, kv.Formula, OnUpdate);
+
+        }
+        foreach (var kv in doc.MappingRules.Rules)
+        {
+            var value = engine.Eval(kv.Formula);
+
+            result[kv.Name] = value.ToObject();
+        }
+        return result;
+
+    }
 }

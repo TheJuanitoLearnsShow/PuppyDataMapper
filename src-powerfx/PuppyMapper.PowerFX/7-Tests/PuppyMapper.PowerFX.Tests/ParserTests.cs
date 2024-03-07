@@ -1,3 +1,4 @@
+using Microsoft.PowerFx.Types;
 using PuppyMapper.PowerFX.Service;
 
 namespace PuppyMapper.PowerFX.Tests
@@ -16,10 +17,13 @@ namespace PuppyMapper.PowerFX.Tests
         public void TestExecDocument()
         {
             using var fileContents = new StreamReader("Samples/SampleFxMapping.txt");
-            var sections = MappingDocumentParser.ParseSections(fileContents).ToList();
 
-            var doc = new MappingDocument("test", sections);
-            var result = MapperInterpreter.MapRecord("Samples/SampleRecord.json", doc);
+            var doc = MappingDocumentParser.ParseMappingDocument(fileContents);
+            Assert.Single(doc.MappingInputs);
+            Assert.Equal("ExamStat", doc.MappingOutputType.OutputType);
+
+            var input = FormulaValueJSON.FromJson(File.ReadAllText("Samples/SampleRecord.json"));
+            var result = MapperInterpreter.MapRecord(doc, [("input", input)]);
             Assert.Equal(4, result.Keys.Count);
         }
     }

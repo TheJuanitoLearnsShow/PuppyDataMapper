@@ -1,3 +1,9 @@
+// SECTION INPUTS
+Exam input
+
+// SECTION OUTPUT
+ExamStat
+
 // SECTION VARIABLES
 baseSalary := 561 * input.Score
 

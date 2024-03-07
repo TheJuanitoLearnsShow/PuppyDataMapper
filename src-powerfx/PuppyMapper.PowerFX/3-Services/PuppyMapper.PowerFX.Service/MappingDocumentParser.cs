@@ -5,6 +5,54 @@ namespace PuppyMapper.PowerFX.Service;
 // This can produce a flat (non-nested) record where each field is defined by a Fx formula.
 public class MappingDocumentParser
 {
+    public static MappingDocument ParseMappingDocument(StreamReader fileContents)
+    {
+        List<MappingSection> sections = [];
+        List<MappingInput> inputs = [];
+        MappingOutputType outputType = new("Dictionary");
+        var line = fileContents.ReadLine();
+        while (line != null)
+        {
+            var lineSpan = line.AsSpan();
+            if (IsStartSection(lineSpan))
+            {
+                var sectionName = lineSpan[11..].Trim();
+                switch (sectionName)
+                {
+                    case "INPUTS":
+                        inputs = ParseInputs(fileContents).ToList();
+                        break;
+                    case "OUTPUT":
+                        outputType = ParseOutput(fileContents);
+                        sections = MappingDocumentParser.ParseSections(fileContents).ToList();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            line = fileContents.ReadLine();
+        }
+        return new MappingDocument("test", sections, inputs, outputType);
+    }
+
+    public static IEnumerable<MappingInput> ParseInputs(StreamReader lines)
+    {
+        var line = lines.ReadLine();
+        while (!string.IsNullOrWhiteSpace(line)) // force blank line between sections
+        {
+            var input = ParseInputLine(line.Trim());
+            if (input != null)
+            {
+                yield return input;
+            }
+            line = lines.ReadLine();
+        }
+    }
+    public static MappingOutputType ParseOutput(StreamReader lines)
+    {
+        var line = lines.ReadLine();
+        return new(line.Trim());
+    }
     // TODO - share this with Yaml parser in https://github.com/microsoft/PowerApps-Language-Tooling 
     // File is "Name: =formula"
     // Should make this a .fx.yaml
@@ -63,9 +111,18 @@ public class MappingDocumentParser
         return (new MappingSection(sectionName.Trim(), mappingRules.ToImmutableList()) , line);
     }
 
-    private static bool IsStartSection(string nextLine)
+    private static bool IsStartSection(ReadOnlySpan<char> nextLine)
     {
         return nextLine.StartsWith("// SECTION ");
+    }
+    private static MappingInput? ParseInputLine(string line)
+    {
+        var parts = line.Split(" ");
+        if (parts.Length >= 2)
+        {
+            return new(parts[1], parts[0]);
+        }
+        return null;
     }
     private static bool IsStartRule(string nextLine)
     {
