@@ -22,9 +22,27 @@ namespace PuppyMapper.PowerFX.Tests
             Assert.Single(doc.MappingInputs);
             Assert.Equal("ExamStat", doc.MappingOutputType.OutputType);
 
-            var input = FormulaValueJSON.FromJson(File.ReadAllText("Samples/SampleRecord.json"));
+            var input = FormulaValueJSON.FromJson(File.ReadAllText("Samples/SampleRecord1.json"));
             var result = MapperInterpreter.MapRecord(doc, [("input", input)]);
             Assert.Equal(4, result.Keys.Count);
+        }
+        [Fact]
+        public void TestMapMultipleRecords()
+        {
+            using var fileContents = new StreamReader("Samples/SampleFxMapping.txt");
+
+            var doc = MappingDocumentParser.ParseMappingDocument(fileContents);
+            Assert.Single(doc.MappingInputs);
+            Assert.Equal("ExamStat", doc.MappingOutputType.OutputType);
+
+            var row1 = FormulaValueJSON.FromJson(File.ReadAllText("Samples/SampleRecord1.json"));
+            var row2 = FormulaValueJSON.FromJson(File.ReadAllText("Samples/SampleRecord2.json"));
+            var mapper = new MapperInterpreter(doc);
+            var result = mapper.MapRecords([
+                [("input", row1)],
+                [("input", row2)]
+                ]).ToList();
+            Assert.Equal(2, result.Count);
         }
     }
 }

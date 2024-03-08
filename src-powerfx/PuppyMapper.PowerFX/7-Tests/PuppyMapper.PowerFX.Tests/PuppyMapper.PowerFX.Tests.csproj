@@ -27,14 +27,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Samples\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Samples\SampleFxMapping.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Samples\SampleRecord.json">
+    <None Update="Samples\SampleRecord2.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\SampleRecord1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
