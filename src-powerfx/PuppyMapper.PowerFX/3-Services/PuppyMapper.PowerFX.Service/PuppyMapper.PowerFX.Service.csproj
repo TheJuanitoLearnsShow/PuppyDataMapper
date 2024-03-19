@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.PowerFx.Core" Version="1.2.0" />
-    <PackageReference Include="Microsoft.PowerFx.Interpreter" Version="1.2.0" />
-    <PackageReference Include="Microsoft.PowerFx.Json" Version="1.2.0" />
+    <ProjectReference Include="..\..\..\..\..\Power-Fx\src\libraries\Microsoft.PowerFx.Core\Microsoft.PowerFx.Core.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Power-Fx\src\libraries\Microsoft.PowerFx.Interpreter\Microsoft.PowerFx.Interpreter.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Power-Fx\src\libraries\Microsoft.PowerFx.Json\Microsoft.PowerFx.Json.csproj" />
   </ItemGroup>
 
 </Project>

@@ -84,6 +84,7 @@ public class MapperInterpreter
     {
         _doc = doc;
         _engine = new RecalcEngine();
+        PowerFxIntegration.RegisterCustomFunction(_engine);
         //foreach (var input in _doc.MappingInputs)
         //{
         //    _engine.UpdateVariable(input.InputName, FormulaValue.NewBlank(FormulaType.UntypedObject));
