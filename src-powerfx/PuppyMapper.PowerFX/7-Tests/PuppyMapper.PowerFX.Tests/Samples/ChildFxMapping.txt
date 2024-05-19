@@ -1,0 +1,10 @@
+// SECTION INPUTS
+Exam input
+
+// SECTION OUTPUT
+ChildScore
+
+// SECTION VARIABLES
+
+// SECTION Mapping 
+NewScore := 2 * input.Score

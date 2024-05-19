@@ -13,4 +13,4 @@ Name2 := input.Name & "-suffix" // here is amultiline comments
 				     // I can put as many comments in here, next mapping line is the one that has the ":=" symbol 
 Total := input.Score2 + input.Score
 RowDiff := input.Score2 - input.Score // here acomments
-MyMapping := DoMap("MyOtherMap")
+MyMapping := Map input ChildFxMapping

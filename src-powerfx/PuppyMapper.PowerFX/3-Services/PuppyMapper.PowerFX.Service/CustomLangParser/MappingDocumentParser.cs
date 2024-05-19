@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 
-namespace PuppyMapper.PowerFX.Service;
+namespace PuppyMapper.PowerFX.Service.CustomLangParser;
 // Read a .fx.yaml file and return a group of formulas. 
 // This can produce a flat (non-nested) record where each field is defined by a Fx formula.
 public class MappingDocumentParser
@@ -24,7 +24,7 @@ public class MappingDocumentParser
                         break;
                     case "OUTPUT":
                         outputType = ParseOutput(fileContents);
-                        sections = MappingDocumentParser.ParseSections(fileContents).ToList();
+                        sections = ParseSections(fileContents).ToList();
                         break;
                     default:
                         break;
@@ -59,7 +59,7 @@ public class MappingDocumentParser
     public static IEnumerable<MappingSection> ParseSections(StreamReader lines)
     {
         var line = lines.ReadLine();
-        while(line != null)
+        while (line != null)
         {
             if (IsStartSection(line))
             {
@@ -89,7 +89,7 @@ public class MappingDocumentParser
                 comments += Environment.NewLine + nextLine.Trim().TrimStart('/');
                 nextLine = lines.ReadLine();
             }
-            return (new MappingRule(name, formula, comments), nextLine);
+            return (new MappingRule(name, formula.Trim(), comments), nextLine);
         }
         var sectionName = sectionLine[11..];
         var line = lines.ReadLine();
@@ -102,13 +102,13 @@ public class MappingDocumentParser
                 var (newRule, lineLastRead) = ParseRule(line);
                 mappingRules.Add(newRule);
                 line = lineLastRead;
-            } 
+            }
             else
             {
                 line = lines.ReadLine();
             }
         }
-        return (new MappingSection(sectionName.Trim(), mappingRules.ToImmutableList()) , line);
+        return (new MappingSection(sectionName.Trim(), mappingRules.ToImmutableList()), line);
     }
 
     private static bool IsStartSection(ReadOnlySpan<char> nextLine)

@@ -1,5 +1,7 @@
 using Microsoft.PowerFx.Types;
 using PuppyMapper.PowerFX.Service;
+using PuppyMapper.PowerFX.Service.CustomLangParser;
+using System.Collections.Immutable;
 
 namespace PuppyMapper.PowerFX.Tests
 {
@@ -30,17 +32,36 @@ namespace PuppyMapper.PowerFX.Tests
         public void TestMapMultipleRecords()
         {
             using var fileContents = new StreamReader("Samples/SampleFxMapping.txt");
-
             var doc = MappingDocumentParser.ParseMappingDocument(fileContents);
             Assert.Single(doc.MappingInputs);
             Assert.Equal("ExamStat", doc.MappingOutputType.OutputType);
 
             var row1 = FormulaValueJSON.FromJson(File.ReadAllText("Samples/SampleRecord1.json"));
             var row2 = FormulaValueJSON.FromJson(File.ReadAllText("Samples/SampleRecord2.json"));
-            var mapper = new MapperInterpreter(doc);
+            var mapper = new MapperInterpreter(doc, System.Collections.Immutable.ImmutableDictionary<string, MappingDocument>.Empty);
             var result = mapper.MapRecords([
                 [("input", row1)],
                 [("input", row2)]
+                ]).ToList();
+            Assert.Equal(2, result.Count);
+        }
+        [Fact]
+        public void TestMapMultipleRecords_WithChildMappers()
+        {
+            using var fileContents = new StreamReader("Samples/SampleFxMapping.txt");
+            var doc = MappingDocumentParser.ParseMappingDocument(fileContents);
+            Assert.Single(doc.MappingInputs);
+            Assert.Equal("ExamStat", doc.MappingOutputType.OutputType);
+
+            using var fileContentsChild = new StreamReader("Samples/ChildFxMapping.txt");
+            var childDoc = MappingDocumentParser.ParseMappingDocument(fileContentsChild);
+
+            var row1 = FormulaValueJSON.FromJson(File.ReadAllText("Samples/SampleRecord1.json"));
+            var row2 = FormulaValueJSON.FromJson(File.ReadAllText("Samples/SampleRecord2.json"));
+            var childMappers = new Dictionary<string, MappingDocument> { { "ChildFxMapping", childDoc } } ;
+            var mapper = new MapperInterpreter(doc, childMappers.ToImmutableDictionary());
+            var result = mapper.MapRecords([
+                [("input", row1)]
                 ]).ToList();
             Assert.Equal(2, result.Count);
         }

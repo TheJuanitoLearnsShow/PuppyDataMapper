@@ -27,6 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Samples\ChildFxMapping.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Samples\SampleFxMapping.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
