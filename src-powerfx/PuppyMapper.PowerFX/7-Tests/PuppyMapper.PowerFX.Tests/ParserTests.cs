@@ -63,7 +63,8 @@ namespace PuppyMapper.PowerFX.Tests
             var result = mapper.MapRecords([
                 [("input", row1)]
                 ]).ToList();
-            Assert.Equal(2, result.Count);
+            Assert.Single(result);
+            Assert.NotNull(result[0]["MyMapping"]);
         }
     }
 }
