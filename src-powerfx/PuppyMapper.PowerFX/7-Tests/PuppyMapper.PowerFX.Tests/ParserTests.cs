@@ -2,6 +2,8 @@ using Microsoft.PowerFx.Types;
 using PuppyMapper.PowerFX.Service;
 using PuppyMapper.PowerFX.Service.CustomLangParser;
 using System.Collections.Immutable;
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 namespace PuppyMapper.PowerFX.Tests
 {
@@ -52,6 +54,12 @@ namespace PuppyMapper.PowerFX.Tests
             var doc = MappingDocumentParser.ParseMappingDocument(fileContents);
             Assert.Single(doc.MappingInputs);
             Assert.Equal("ExamStat", doc.MappingOutputType.OutputType);
+            
+            var serializer = new SerializerBuilder()
+                .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                .Build();
+            var yaml = serializer.Serialize(doc);
+            File.WriteAllText("sample1.yml", yaml);
 
             using var fileContentsChild = new StreamReader("Samples/ChildFxMapping.txt");
             var childDoc = MappingDocumentParser.ParseMappingDocument(fileContentsChild);

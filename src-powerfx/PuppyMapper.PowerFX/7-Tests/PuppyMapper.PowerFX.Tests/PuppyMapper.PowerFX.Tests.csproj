@@ -39,6 +39,9 @@
     <None Update="Samples\SampleRecord1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Samples\Yaml\SampleFxMapping.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

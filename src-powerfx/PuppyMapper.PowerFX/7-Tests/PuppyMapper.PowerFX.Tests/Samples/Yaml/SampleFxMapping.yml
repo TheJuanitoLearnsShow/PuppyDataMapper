@@ -1,0 +1,22 @@
+DocumentName: Sample Parent
+Variables: 
+	- Name: baseSalary
+	- Formula: 561 * input.Score
+	- Comments: 
+
+// SECTION INPUTS
+Exam input
+
+// SECTION OUTPUT
+ExamStat
+
+// SECTION VARIABLES
+baseSalary := 561 * input.Score
+
+// SECTION Mapping 
+Diff := input.Score2 - baseSalary
+Name2 := input.Name & "-suffix" // here is amultiline comments
+				     // I can put as many comments in here, next mapping line is the one that has the ":=" symbol 
+Total := input.Score2 + input.Score
+RowDiff := input.Score2 - input.Score // here acomments
+MyMapping := Map input ChildFxMapping
