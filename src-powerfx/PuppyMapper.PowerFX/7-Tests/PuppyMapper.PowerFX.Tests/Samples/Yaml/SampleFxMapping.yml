@@ -3,7 +3,38 @@ Variables:
 	- Name: baseSalary
 	- Formula: 561 * input.Score
 	- Comments: 
+mappingRules:
+	name: Mapping
+	rules:
+		- name: Diff
+		  formula: input.Score2 - baseSalary
+		  comments: ''
+		- name: Name2
+		  formula: input.Name & "-suffix"
+		  comments: >2-
+		     here is amultiline comments
+		     I can put as many comments in here, next mapping line is the one that has the ":=" symbol
+		- name: Total
+		  formula: input.Score2 + input.Score
+		  comments: ''
+		- name: RowDiff
+		  formula: input.Score2 - input.Score
+		  comments: ' here acomments'
+		- name: MyMapping
+		  formula: Map input ChildFxMapping
+		  comments: ''
+internalVars:
+	name: VARIABLES
+	rules:
+		- name: baseSalary
+		  formula: 561 * input.Score
+		  comments: >2+
 
+mappingInputs:
+	- inputName: input
+	  inputType: Exam
+mappingOutputType:
+	outputType: ExamStat
 // SECTION INPUTS
 Exam input
 
