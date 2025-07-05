@@ -1,53 +1,51 @@
-DocumentName: Sample Parent
-Variables: 
-	- Name: baseSalary
-	- Formula: 561 * input.Score
-	- Comments: 
+DocumentName: "SampleDocument"
+Sections:
+  - # MappingSection object
+  # Add properties of MappingSection here
+  - # Another MappingSection
+MappingInputs:
+  - # MappingInput object
+  # Add properties of MappingInput here
+  - # Another MappingInput
+MappingOutputType: "SomeOutputType" # Replace with actual enum/string value
+Variables1:
+  - # MappingRule object
+  # Add properties of MappingRule here
+  - # Another MappingRule
+MappingRules1:
+  - # MappingRule object
+  # Add properties of MappingRule here
+  - # Another MappingRule
+    
 mappingRules:
-	name: Mapping
-	rules:
-		- name: Diff
-		  formula: input.Score2 - baseSalary
-		  comments: ''
-		- name: Name2
-		  formula: input.Name & "-suffix"
-		  comments: >2-
-		     here is amultiline comments
-		     I can put as many comments in here, next mapping line is the one that has the ":=" symbol
-		- name: Total
-		  formula: input.Score2 + input.Score
-		  comments: ''
-		- name: RowDiff
-		  formula: input.Score2 - input.Score
-		  comments: ' here acomments'
-		- name: MyMapping
-		  formula: Map input ChildFxMapping
-		  comments: ''
+  name: Mapping
+  rules:
+  - name: Diff
+    formula: input.Score2 - baseSalary
+    comments: ''
+  - name: Name2
+    formula: input.Name & "-suffix"
+    comments: >2-
+       here is amultiline comments
+       I can put as many comments in here, next mapping line is the one that has the ":=" symbol
+  - name: Total
+    formula: input.Score2 + input.Score
+    comments: ''
+  - name: RowDiff
+    formula: input.Score2 - input.Score
+    comments: ' here acomments'
+  - name: MyMapping
+    formula: Map input ChildFxMapping
+    comments: ''
 internalVars:
-	name: VARIABLES
-	rules:
-		- name: baseSalary
-		  formula: 561 * input.Score
-		  comments: >2+
+  name: VARIABLES
+  rules:
+  - name: baseSalary
+    formula: 561 * input.Score
+    comments: >2+
 
 mappingInputs:
-	- inputName: input
-	  inputType: Exam
+- inputName: input
+  inputType: Exam
 mappingOutputType:
-	outputType: ExamStat
-// SECTION INPUTS
-Exam input
-
-// SECTION OUTPUT
-ExamStat
-
-// SECTION VARIABLES
-baseSalary := 561 * input.Score
-
-// SECTION Mapping 
-Diff := input.Score2 - baseSalary
-Name2 := input.Name & "-suffix" // here is amultiline comments
-				     // I can put as many comments in here, next mapping line is the one that has the ":=" symbol 
-Total := input.Score2 + input.Score
-RowDiff := input.Score2 - input.Score // here acomments
-MyMapping := Map input ChildFxMapping
+  outputType: ExamStat

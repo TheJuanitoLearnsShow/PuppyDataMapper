@@ -2,6 +2,7 @@ using Microsoft.PowerFx.Types;
 using PuppyMapper.PowerFX.Service;
 using PuppyMapper.PowerFX.Service.CustomLangParser;
 using System.Collections.Immutable;
+using Xunit.Abstractions;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -9,6 +10,13 @@ namespace PuppyMapper.PowerFX.Tests
 {
     public class ParserTests
     {
+        private readonly ITestOutputHelper _testOutputHelper;
+
+        public ParserTests(ITestOutputHelper testOutputHelper)
+        {
+            _testOutputHelper = testOutputHelper;
+        }
+
         [Fact]
         public void TestParseSections()
         {
@@ -50,19 +58,28 @@ namespace PuppyMapper.PowerFX.Tests
         [Fact]
         public void TestMapMultipleRecords_WithChildMappers()
         {
-            using var fileContents = new StreamReader("Samples/SampleFxMapping.txt");
-            var doc = MappingDocumentParser.ParseMappingDocument(fileContents);
-            Assert.Single(doc.MappingInputs);
-            Assert.Equal("ExamStat", doc.MappingOutputType.OutputType);
-            
+
+            var deserializer = new DeserializerBuilder()
+                .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                .Build();
+
             var serializer = new SerializerBuilder()
                 .WithNamingConvention(CamelCaseNamingConvention.Instance)
                 .Build();
-            var yaml = serializer.Serialize(doc);
-            File.WriteAllText("sample1.yml", yaml);
+
+            using var fileContents = new StreamReader("Samples\\Yaml\\SampleFxMapping.yml");
+            var doc = deserializer.Deserialize<MappingDocumentDto>(fileContents).ToMappingDocument();
+            Assert.Single(doc.MappingInputs);
+            Assert.Equal("ExamStat", doc.MappingOutputType.OutputType);
+            
+            //var yaml = serializer.Serialize(doc);
+            //File.WriteAllText("sample1.yml", yaml);
 
             using var fileContentsChild = new StreamReader("Samples/ChildFxMapping.txt");
             var childDoc = MappingDocumentParser.ParseMappingDocument(fileContentsChild);
+            
+            var yaml = serializer.Serialize(childDoc);
+            File.WriteAllText("childDoc.yml", yaml);
 
             var row1 = FormulaValueJSON.FromJson(File.ReadAllText("Samples/SampleRecord1.json"));
             var row2 = FormulaValueJSON.FromJson(File.ReadAllText("Samples/SampleRecord2.json"));
@@ -73,6 +90,7 @@ namespace PuppyMapper.PowerFX.Tests
                 ]).ToList();
             Assert.Single(result);
             Assert.NotNull(result[0]["MyMapping"]);
+            _testOutputHelper.WriteLine(result[0]["MyMapping"].ToString());
         }
     }
 }
