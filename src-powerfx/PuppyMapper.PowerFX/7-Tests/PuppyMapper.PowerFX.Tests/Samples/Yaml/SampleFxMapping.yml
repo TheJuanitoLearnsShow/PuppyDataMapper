@@ -1,22 +1,3 @@
-DocumentName: "SampleDocument"
-Sections:
-  - # MappingSection object
-  # Add properties of MappingSection here
-  - # Another MappingSection
-MappingInputs:
-  - # MappingInput object
-  # Add properties of MappingInput here
-  - # Another MappingInput
-MappingOutputType: "SomeOutputType" # Replace with actual enum/string value
-Variables1:
-  - # MappingRule object
-  # Add properties of MappingRule here
-  - # Another MappingRule
-MappingRules1:
-  - # MappingRule object
-  # Add properties of MappingRule here
-  - # Another MappingRule
-    
 mappingRules:
   name: Mapping
   rules:

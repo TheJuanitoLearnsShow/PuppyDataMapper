@@ -2,6 +2,10 @@
 
 public class MappingOutputType
 {
+    public MappingOutputType()
+    {
+        
+    }
     public MappingOutputType(string outputType)
     {
         OutputType = outputType;

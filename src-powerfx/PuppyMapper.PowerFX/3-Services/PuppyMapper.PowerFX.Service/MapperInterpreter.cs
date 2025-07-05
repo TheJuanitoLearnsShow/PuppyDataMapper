@@ -16,7 +16,7 @@ namespace PuppyMapper.PowerFX.Service;
 
 public class MapperInterpreter
 {
-    private readonly MappingDocument _doc;
+    private readonly IMappingDocument _doc;
     private readonly ImmutableDictionary<string, MappingDocument> _childMappers;
     private readonly RecalcEngine _engine;
 
@@ -113,7 +113,7 @@ public class MapperInterpreter
         return RecordValue.NewRecordFromFields(fields);
     }
 
-    public MapperInterpreter(MappingDocument doc, ImmutableDictionary<string, MappingDocument> childMappers)
+    public MapperInterpreter(IMappingDocument doc, ImmutableDictionary<string, MappingDocument> childMappers)
     {
         _doc = doc;
         _childMappers = childMappers;
@@ -135,7 +135,7 @@ public class MapperInterpreter
     {
         return MapRecords(_doc, rows);
     }
-    public IEnumerable<Dictionary<string, object>> MapRecords(MappingDocument doc,
+    public IEnumerable<Dictionary<string, object>> MapRecords(IMappingDocument doc,
         LisOfInputs rows)
     {
         var firstRow = true;

@@ -23,7 +23,7 @@ namespace PuppyMapper.PowerFX.Tests
             using var fileContents = new StreamReader("Samples/SampleFxMapping.txt");
             var sections = MappingDocumentParser.ParseSections(fileContents).ToList();
             Assert.Equal(2, sections.Count);
-            Assert.Equal(4, sections.Last().Rules.Count);
+            Assert.Equal(4, sections.Last().Rules.Length);
         }
         [Fact]
         public void TestExecDocument()
@@ -68,7 +68,7 @@ namespace PuppyMapper.PowerFX.Tests
                 .Build();
 
             using var fileContents = new StreamReader("Samples\\Yaml\\SampleFxMapping.yml");
-            var doc = deserializer.Deserialize<MappingDocumentDto>(fileContents).ToMappingDocument();
+            var doc = deserializer.Deserialize<MappingDocumentDto>(fileContents);
             Assert.Single(doc.MappingInputs);
             Assert.Equal("ExamStat", doc.MappingOutputType.OutputType);
             

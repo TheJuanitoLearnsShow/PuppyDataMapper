@@ -16,13 +16,20 @@ public class MappingSection
         Name = name ?? throw new ArgumentNullException(nameof(name));
         Rules = rules ?? throw new ArgumentNullException(nameof(rules));
     }
-    public static MappingSection Blank(string sectionName) => new MappingSection(sectionName, []);
+    public MappingSection(string name,
+        IImmutableList<MappingRule> rules)
+    {
+        Name = name ?? throw new ArgumentNullException(nameof(name));
+        Rules = rules.ToArray() ?? throw new ArgumentNullException(nameof(rules));
+    }
+    public static MappingSection Blank(string sectionName) => 
+        new MappingSection(sectionName, (MappingRule[])[]);
     public string Name { get; set; }
     public MappingRule[] Rules { get; set; }
 
-    public void Deconstruct(out string Name, out MappingRule[] Rules)
+    public void Deconstruct(out string name, out MappingRule[] rules)
     {
-        Name = this.Name;
-        Rules = this.Rules;
+        name = this.Name;
+        rules = this.Rules;
     }
 }
