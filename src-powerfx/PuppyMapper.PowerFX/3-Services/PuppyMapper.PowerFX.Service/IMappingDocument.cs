@@ -6,6 +6,6 @@ public interface IMappingDocument
 {
     MappingSection MappingRules { get; }
     MappingSection InternalVars { get; }
-    ImmutableArray<MappingInput> MappingInputs { get; }
+    MappingInput[] MappingInputs { get; }
     MappingOutputType MappingOutputType { get; }
 }

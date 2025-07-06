@@ -1,32 +1,32 @@
-mappingRules:
-  name: Mapping
-  rules:
-  - name: Diff
-    formula: input.Score2 - baseSalary
-    comments: ''
-  - name: Name2
-    formula: input.Name & "-suffix"
-    comments: >2-
+MappingRules:
+  Name: Mapping
+  Rules:
+  - Name: Diff
+    Formula: input.Score2 - baseSalary
+    Comments: ''
+  - Name: Name2
+    Formula: input.Name & "-suffix"
+    Comments: >2-
        here is amultiline comments
        I can put as many comments in here, next mapping line is the one that has the ":=" symbol
-  - name: Total
-    formula: input.Score2 + input.Score
-    comments: ''
-  - name: RowDiff
-    formula: input.Score2 - input.Score
-    comments: ' here acomments'
-  - name: MyMapping
-    formula: Map input ChildFxMapping
-    comments: ''
-internalVars:
-  name: VARIABLES
+  - Name: Total
+    Formula: input.Score2 + input.Score
+    Comments: ''
+  - Name: RowDiff
+    Formula: input.Score2 - input.Score
+    Comments: ' here acomments'
+  - Name: MyMapping
+    Formula: Map input ChildFxMapping
+    Comments: ''
+InternalVars:
+  Name: VARIABLES
   rules:
-  - name: baseSalary
-    formula: 561 * input.Score
-    comments: >2+
+  - Name: baseSalary
+    Formula: 561 * input.Score
+    Comments: >2+
 
-mappingInputs:
-- inputName: input
-  inputType: Exam
-mappingOutputType:
+MappingInputs:
+- InputName: input
+  InputType: Exam
+MappingOutputType:
   outputType: ExamStat

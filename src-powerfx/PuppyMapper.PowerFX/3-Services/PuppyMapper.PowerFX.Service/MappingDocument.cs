@@ -18,6 +18,6 @@ public class MappingDocument(string documentName, IEnumerable<MappingSection> se
         ? sections.FirstOrDefault(s => s.Name == VariablesSectionName) ?? MappingSection.Blank(VariablesSectionName)
         : new MappingSection(VariablesSectionName, Variables.ToArray());
 
-    public ImmutableArray<MappingInput> MappingInputs { get; } = [..mappingInputs];
+    public MappingInput[] MappingInputs { get; } = [..mappingInputs];
     public MappingOutputType MappingOutputType { get; } = mappingOutputType;
 }
