@@ -1,9 +1,9 @@
 {
   "profiles": {
-    "PuppyMapper.WinUI.App (Package)": {
+    "PuppyMapper.WinUI3.App (Package)": {
       "commandName": "MsixPackage"
     },
-    "PuppyMapper.WinUI.App (Unpackaged)": {
+    "PuppyMapper.WinUI3.App (Unpackaged)": {
       "commandName": "Project"
     }
   }

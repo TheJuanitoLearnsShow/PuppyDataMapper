@@ -8,14 +8,14 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="7dccd265-8031-487c-bfc3-2890ec61adce"
+    Name="04458fc7-20a8-461a-a613-a1e47ab8561f"
     Publisher="CN=jptar"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="7dccd265-8031-487c-bfc3-2890ec61adce" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="04458fc7-20a8-461a-a613-a1e47ab8561f" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>PuppyMapper.WinUI.App</DisplayName>
+    <DisplayName>PuppyMapper.WinUI3.App</DisplayName>
     <PublisherDisplayName>jptar</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -34,8 +34,8 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="PuppyMapper.WinUI.App"
-        Description="PuppyMapper.WinUI.App"
+        DisplayName="PuppyMapper.WinUI3.App"
+        Description="PuppyMapper.WinUI3.App"
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png">
