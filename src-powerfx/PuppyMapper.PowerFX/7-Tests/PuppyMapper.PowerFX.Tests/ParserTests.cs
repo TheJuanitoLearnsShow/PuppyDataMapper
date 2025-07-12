@@ -2,6 +2,7 @@ using Microsoft.PowerFx.Types;
 using PuppyMapper.PowerFX.Service;
 using PuppyMapper.PowerFX.Service.CustomLangParser;
 using System.Collections.Immutable;
+using System.Text.Json;
 using Xunit.Abstractions;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -48,7 +49,7 @@ namespace PuppyMapper.PowerFX.Tests
 
             var row1 = FormulaValueJSON.FromJson(File.ReadAllText("Samples/SampleRecord1.json"));
             var row2 = FormulaValueJSON.FromJson(File.ReadAllText("Samples/SampleRecord2.json"));
-            var mapper = new MapperInterpreter(doc, System.Collections.Immutable.ImmutableDictionary<string, MappingDocument>.Empty);
+            var mapper = new MapperInterpreter(doc, ImmutableDictionary<string, IMappingDocument>.Empty);
             var result = mapper.MapRecords([
                 [("input", row1)],
                 [("input", row2)]
@@ -67,8 +68,20 @@ namespace PuppyMapper.PowerFX.Tests
                 .WithNamingConvention(CamelCaseNamingConvention.Instance)
                 .Build();
 
-            using var fileContents = new StreamReader("Samples\\Yaml\\SampleFxMapping.yml");
-            var doc = deserializer.Deserialize<MappingDocumentDto>(fileContents);
+            // using var fileContents = new StreamReader("Samples\\Yaml\\SampleFxMapping.yml");
+            // var doc = deserializer.Deserialize<MappingDocumentDto>(fileContents);
+            
+            using var fileContents = new StreamReader("Samples/SampleFxMapping.txt");
+            var doc = MappingDocumentParser.ParseMappingDocument(fileContents);
+            
+            
+            var json1 = JsonSerializer.Serialize(doc,  new JsonSerializerOptions()
+            {
+                WriteIndented = true,
+                PropertyNamingPolicy = null
+            });
+            File.WriteAllText("SampleFxMapping.json", json1);
+            
             Assert.Single(doc.MappingInputs);
             Assert.Equal("ExamStat", doc.MappingOutputType.OutputType);
             
@@ -81,9 +94,16 @@ namespace PuppyMapper.PowerFX.Tests
             var yaml = serializer.Serialize(childDoc);
             File.WriteAllText("childDoc.yml", yaml);
 
+            var json2 = JsonSerializer.Serialize(childDoc,  new JsonSerializerOptions()
+            {
+                WriteIndented = true,
+                PropertyNamingPolicy = null
+            });
+            File.WriteAllText("ChildFxMapping.json", json2);
+
             var row1 = FormulaValueJSON.FromJson(File.ReadAllText("Samples/SampleRecord1.json"));
             var row2 = FormulaValueJSON.FromJson(File.ReadAllText("Samples/SampleRecord2.json"));
-            var childMappers = new Dictionary<string, MappingDocument> { { "ChildFxMapping", childDoc } } ;
+            var childMappers = new Dictionary<string, IMappingDocument> { { "ChildFxMapping", childDoc } } ;
             var mapper = new MapperInterpreter(doc, childMappers.ToImmutableDictionary());
             var result = mapper.MapRecords([
                 [("input", row1)]
@@ -91,6 +111,41 @@ namespace PuppyMapper.PowerFX.Tests
             Assert.Single(result);
             Assert.NotNull(result[0]["MyMapping"]);
             _testOutputHelper.WriteLine(result[0]["MyMapping"].ToString());
+        }
+        
+        [Fact]
+        public async Task TestMapMultipleRecords_WithChildMappers_FromJson()
+        {
+            
+            using var fileContents = new StreamReader("Samples/Json/SampleFxMapping.json");
+            var doc = await JsonSerializer.DeserializeAsync<MappingDocumentDto>(fileContents.BaseStream);
+            
+            
+            Assert.NotNull(doc);
+            Assert.Single(doc.MappingInputs);
+            Assert.Equal("ExamStat", doc.MappingOutputType.OutputType);
+
+            using var fileContentsChild = new StreamReader("Samples/Json/ChildFxMapping.json");
+            var childDoc = await JsonSerializer.DeserializeAsync<MappingDocumentDto>(fileContentsChild.BaseStream);
+            Assert.NotNull(childDoc);
+
+            var row1 = FormulaValueJSON.FromJson(await File.ReadAllTextAsync("Samples/SampleRecord1.json"));
+            var row2 = FormulaValueJSON.FromJson(await File.ReadAllTextAsync("Samples/SampleRecord2.json"));
+            var childMappers = new Dictionary<string, IMappingDocument> { { "ChildFxMapping", childDoc } } ;
+            var mapper = new MapperInterpreter(doc, childMappers.ToImmutableDictionary());
+            var result = mapper.MapRecords([
+                [("input", row1)]
+                ]).ToList();
+            Assert.Single(result);
+            Assert.NotNull(result[0]["MyMapping"]);
+            _testOutputHelper.WriteLine(result[0]["MyMapping"].ToString());
+            
+            var resultJson = JsonSerializer.Serialize(result,  new JsonSerializerOptions()
+            {
+                WriteIndented = true,
+                PropertyNamingPolicy = null
+            });
+            await File.WriteAllTextAsync("result.json", resultJson);
         }
     }
 }

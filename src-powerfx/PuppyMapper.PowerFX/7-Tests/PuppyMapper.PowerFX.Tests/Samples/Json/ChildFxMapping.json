@@ -1,0 +1,25 @@
+{
+  "MappingRules": {
+    "Name": "Mapping",
+    "Rules": [
+      {
+        "Name": "NewScore",
+        "Formula": "2 * input.Score",
+        "Comments": ""
+      }
+    ]
+  },
+  "InternalVars": {
+    "Name": "VARIABLES",
+    "Rules": []
+  },
+  "MappingInputs": [
+    {
+      "InputName": "input",
+      "InputType": "Exam"
+    }
+  ],
+  "MappingOutputType": {
+    "OutputType": "ChildScore"
+  }
+}

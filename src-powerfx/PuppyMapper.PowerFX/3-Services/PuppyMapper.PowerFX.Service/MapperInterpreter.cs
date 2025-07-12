@@ -17,7 +17,7 @@ namespace PuppyMapper.PowerFX.Service;
 public class MapperInterpreter
 {
     private readonly IMappingDocument _doc;
-    private readonly ImmutableDictionary<string, MappingDocument> _childMappers;
+    private readonly ImmutableDictionary<string, IMappingDocument> _childMappers;
     private readonly RecalcEngine _engine;
 
     static void OnUpdate(string name, FormulaValue newValue)
@@ -85,7 +85,7 @@ public class MapperInterpreter
     }
 
     public static RecordValue MapRecordAsFormulaValue(
-        MappingDocument doc, FormulaValue input, ImmutableDictionary<string, MappingDocument> childMappers)
+        IMappingDocument doc, FormulaValue input, ImmutableDictionary<string, IMappingDocument> childMappers)
     {
         RecalcEngine engine = new RecalcEngine();
         engine.UpdateVariable("input", input);
@@ -113,7 +113,7 @@ public class MapperInterpreter
         return RecordValue.NewRecordFromFields(fields);
     }
 
-    public MapperInterpreter(IMappingDocument doc, ImmutableDictionary<string, MappingDocument> childMappers)
+    public MapperInterpreter(IMappingDocument doc, ImmutableDictionary<string, IMappingDocument> childMappers)
     {
         _doc = doc;
         _childMappers = childMappers;

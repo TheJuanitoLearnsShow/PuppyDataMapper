@@ -1,0 +1,51 @@
+{
+  "MappingRules": {
+    "Name": "Mapping",
+    "Rules": [
+      {
+        "Name": "Diff",
+        "Formula": "input.Score2 - baseSalary",
+        "Comments": ""
+      },
+      {
+        "Name": "Name2",
+        "Formula": "input.Name \u0026 \u0022-suffix\u0022",
+        "Comments": " here is amultiline comments\r\n I can put as many comments in here, next mapping line is the one that has the \u0022:=\u0022 symbol"
+      },
+      {
+        "Name": "Total",
+        "Formula": "input.Score2 \u002B input.Score",
+        "Comments": ""
+      },
+      {
+        "Name": "RowDiff",
+        "Formula": "input.Score2 - input.Score",
+        "Comments": " here acomments"
+      },
+      {
+        "Name": "MyMapping",
+        "Formula": "Map input ChildFxMapping",
+        "Comments": ""
+      }
+    ]
+  },
+  "InternalVars": {
+    "Name": "VARIABLES",
+    "Rules": [
+      {
+        "Name": "baseSalary",
+        "Formula": "561 * input.Score",
+        "Comments": "\r\n"
+      }
+    ]
+  },
+  "MappingInputs": [
+    {
+      "InputName": "input",
+      "InputType": "Exam"
+    }
+  ],
+  "MappingOutputType": {
+    "OutputType": "ExamStat"
+  }
+}
