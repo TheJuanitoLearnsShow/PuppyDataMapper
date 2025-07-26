@@ -7,6 +7,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using PuppyMapper.PowerFX.Service;
 using PuppyMapper.PowerFX.Service.JsonParser;
+using PuppyMapper.Viewmodels;
 using PuppyMapper.WinUI3.App.Views;
 using System;
 using System.Collections.Generic;
@@ -29,8 +30,10 @@ namespace PuppyMapper.WinUI3.App
         public MainWindow()
         {
             InitializeComponent();
+            _mappingDocumentView.ViewModel = new MappingDocumentViewModel();
 
-            _mappingDocumentView.ViewModel.LoadDocumentCommand.Execute("Samples/SampleFxMapping.json").Subscribe();
+            var mappingPath = Path.Combine(AppContext.BaseDirectory, "Samples", "Json", "SampleFxMapping.json");
+            _mappingDocumentView.ViewModel.LoadDocumentCommand.Execute(mappingPath).Subscribe();
         }
 
     }

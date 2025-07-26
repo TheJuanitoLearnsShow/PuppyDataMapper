@@ -2,6 +2,7 @@
 using ReactiveUI;
 using ReactiveUI.SourceGenerators;
 using System.Collections.ObjectModel;
+using System.Data;
 
 namespace PuppyMapper.Viewmodels;
 
@@ -14,8 +15,12 @@ public partial class MappingSectionViewModel : ReactiveObject
     public MappingSectionViewModel(MappingSection mappingRules)
     {
         Name = mappingRules.Name;
-        Rules = new ObservableCollection<MappingRuleViewModel>(
-            mappingRules.Rules.Select(rule => new MappingRuleViewModel(rule)));
+        Rules = new ObservableCollection<MappingRuleViewModel>();
+
+        foreach (var rule in mappingRules.Rules)
+        {
+            Rules.Add(new MappingRuleViewModel(rule));
+        }
     }
 
     [Reactive] public string Name { get; set; } = string.Empty;

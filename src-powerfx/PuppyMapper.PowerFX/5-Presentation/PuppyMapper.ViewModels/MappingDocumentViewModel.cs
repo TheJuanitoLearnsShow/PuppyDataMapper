@@ -38,7 +38,11 @@ public partial class MappingDocumentViewModel : ReactiveObject
     {
         MappingRules = new MappingSectionViewModel(doc.MappingRules);
         InternalVars = new MappingSectionViewModel(doc.InternalVars);
-        MappingInputs = new ObservableCollection<MappingInputViewModel>(
-            doc.MappingInputs.Select(input => new MappingInputViewModel(input)));
+        MappingInputs = new ObservableCollection<MappingInputViewModel>();
+
+        foreach (var input in doc.MappingInputs)
+        {
+            MappingInputs.Add(new MappingInputViewModel(input));
+        }
     }
 }

@@ -18,7 +18,7 @@ public sealed partial class MappingSectionView
         {
             this.Bind(ViewModel, vm => vm.Name, v => v.SectionNameBox.Text)
                 .DisposeWith(disposables);
-            this.OneWayBind(ViewModel, vm => vm.Rules, v => v.RulesList.ItemsSource)
+            this.Bind(ViewModel, vm => vm.Rules, v => v.RulesList.ItemsSource)
                 .DisposeWith(disposables);
         });
     }
