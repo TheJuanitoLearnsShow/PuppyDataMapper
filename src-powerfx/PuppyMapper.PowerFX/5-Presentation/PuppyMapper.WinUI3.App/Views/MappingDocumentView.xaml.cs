@@ -1,11 +1,16 @@
 ﻿using Microsoft.UI.Xaml.Controls;
+using PuppyMapper.PowerFX.Service.JsonParser;
 using PuppyMapper.Viewmodels;
 using ReactiveUI;
 using System.Reactive.Disposables;
 
 namespace PuppyMapper.WinUI3.App.Views;
 
-public sealed partial class MappingDocumentView : UserControl, IViewFor<MappingDocumentViewModel>
+public class MappingDocumentViewBase : ReactiveUserControl<MappingDocumentViewModel> 
+{
+
+}
+public sealed partial class MappingDocumentView 
 {
     public MappingDocumentView()
     {
@@ -21,18 +26,5 @@ public sealed partial class MappingDocumentView : UserControl, IViewFor<MappingD
         });
     }
 
-    public MappingDocumentViewModel ViewModel
-    {
-        get => (MappingDocumentViewModel)GetValue(ViewModelProperty);
-        set => SetValue(ViewModelProperty, value);
-    }
 
-    public static readonly DependencyProperty ViewModelProperty =
-        DependencyProperty.Register(nameof(ViewModel), typeof(MappingDocumentViewModel), typeof(MappingDocumentView), new PropertyMetadata(null));
-
-    object IViewFor.ViewModel
-    {
-        get => ViewModel;
-        set => ViewModel = (MappingDocumentViewModel)value;
-    }
 }

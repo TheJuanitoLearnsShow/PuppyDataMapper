@@ -5,6 +5,9 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using PuppyMapper.PowerFX.Service;
+using PuppyMapper.PowerFX.Service.JsonParser;
+using PuppyMapper.WinUI3.App.Views;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,6 +29,9 @@ namespace PuppyMapper.WinUI3.App
         public MainWindow()
         {
             InitializeComponent();
+
+            _mappingDocumentView.ViewModel.LoadDocumentCommand.Execute("Samples/SampleFxMapping.json").Subscribe();
         }
+
     }
 }

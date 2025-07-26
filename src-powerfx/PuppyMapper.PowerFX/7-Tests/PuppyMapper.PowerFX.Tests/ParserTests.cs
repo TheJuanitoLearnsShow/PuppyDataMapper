@@ -75,7 +75,7 @@ namespace PuppyMapper.PowerFX.Tests
             var doc = MappingDocumentParser.ParseMappingDocument(fileContents);
             
             
-            var json1 = JsonSerializer.Serialize(doc,  new JsonSerializerOptions()
+            var json1 = JsonSerializer.Serialize(doc, new JsonSerializerOptions()
             {
                 WriteIndented = true,
                 PropertyNamingPolicy = null

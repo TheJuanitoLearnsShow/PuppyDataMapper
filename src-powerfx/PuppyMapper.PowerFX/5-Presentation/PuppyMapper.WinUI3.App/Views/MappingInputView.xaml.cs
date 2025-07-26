@@ -5,7 +5,12 @@ using System.Reactive.Disposables;
 
 namespace PuppyMapper.WinUI3.App.Views;
 
-public sealed partial class MappingInputView : UserControl, IViewFor<MappingInputViewModel>
+public class MappingInputViewBase : ReactiveUserControl<MappingInputViewModel>
+{
+
+}
+
+public sealed partial class MappingInputView
 {
     public MappingInputView()
     {
@@ -23,14 +28,5 @@ public sealed partial class MappingInputView : UserControl, IViewFor<MappingInpu
     {
         get => (MappingInputViewModel)GetValue(ViewModelProperty);
         set => SetValue(ViewModelProperty, value);
-    }
-
-    public static readonly DependencyProperty ViewModelProperty =
-        DependencyProperty.Register(nameof(ViewModel), typeof(MappingInputViewModel), typeof(MappingInputView), new PropertyMetadata(null));
-
-    object IViewFor.ViewModel
-    {
-        get => ViewModel;
-        set => ViewModel = (MappingInputViewModel)value;
     }
 }

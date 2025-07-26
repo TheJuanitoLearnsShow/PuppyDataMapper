@@ -5,7 +5,11 @@ using System.Reactive.Disposables;
 
 namespace PuppyMapper.WinUI3.App.Views;
 
-public sealed partial class MappingSectionView : UserControl, IViewFor<MappingSectionViewModel>
+public class MappingSectionViewBase : ReactiveUserControl<MappingSectionViewModel>
+{
+
+}
+public sealed partial class MappingSectionView 
 {
     public MappingSectionView()
     {
@@ -17,20 +21,5 @@ public sealed partial class MappingSectionView : UserControl, IViewFor<MappingSe
             this.OneWayBind(ViewModel, vm => vm.Rules, v => v.RulesList.ItemsSource)
                 .DisposeWith(disposables);
         });
-    }
-
-    public MappingSectionViewModel ViewModel
-    {
-        get => (MappingSectionViewModel)GetValue(ViewModelProperty);
-        set => SetValue(ViewModelProperty, value);
-    }
-
-    public static readonly DependencyProperty ViewModelProperty =
-        DependencyProperty.Register(nameof(ViewModel), typeof(MappingSectionViewModel), typeof(MappingSectionView), new PropertyMetadata(null));
-
-    object IViewFor.ViewModel
-    {
-        get => ViewModel;
-        set => ViewModel = (MappingSectionViewModel)value;
     }
 }

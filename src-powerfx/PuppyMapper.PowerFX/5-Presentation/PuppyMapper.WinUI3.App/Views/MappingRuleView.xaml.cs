@@ -5,7 +5,11 @@ using System.Reactive.Disposables;
 
 namespace PuppyMapper.WinUI3.App.Views;
 
-public sealed partial class MappingRuleView : UserControl, IViewFor<MappingRuleViewModel>
+public class MappingRuleViewBase : ReactiveUserControl<MappingRuleViewModel>
+{
+
+}
+public sealed partial class MappingRuleView
 {
     public MappingRuleView()
     {
@@ -21,18 +25,4 @@ public sealed partial class MappingRuleView : UserControl, IViewFor<MappingRuleV
         });
     }
 
-    public MappingRuleViewModel ViewModel
-    {
-        get => (MappingRuleViewModel)GetValue(ViewModelProperty);
-        set => SetValue(ViewModelProperty, value);
-    }
-
-    public static readonly DependencyProperty ViewModelProperty =
-        DependencyProperty.Register(nameof(ViewModel), typeof(MappingRuleViewModel), typeof(MappingRuleView), new PropertyMetadata(null));
-
-    object IViewFor.ViewModel
-    {
-        get => ViewModel;
-        set => ViewModel = (MappingRuleViewModel)value;
-    }
 }
