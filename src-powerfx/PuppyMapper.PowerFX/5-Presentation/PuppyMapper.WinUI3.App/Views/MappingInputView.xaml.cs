@@ -24,9 +24,4 @@ public sealed partial class MappingInputView
         });
     }
 
-    public MappingInputViewModel ViewModel
-    {
-        get => (MappingInputViewModel)GetValue(ViewModelProperty);
-        set => SetValue(ViewModelProperty, value);
-    }
 }

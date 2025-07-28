@@ -8,15 +8,22 @@
     mc:Ignorable="d">
     <StackPanel>
         <TextBlock Text="Mapping Document" FontWeight="Bold" FontSize="20" Margin="0,0,0,10"/>
-        <local:MappingSectionView x:Name="MappingRulesView" Margin="0,0,0,10"/>
-        <local:MappingSectionView x:Name="InternalVarsView" Margin="0,0,0,10"/>
+        <TextBlock Text="Inputs" FontWeight="Bold" FontSize="20" Margin="0,0,0,10"/>
         <ItemsControl x:Name="MappingInputsList" Margin="0,0,0,10">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <local:MappingInputView />
+                    <local:MappingInputView ViewModel="{Binding}" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+
+        <TextBlock Text="Variables" FontWeight="Bold" FontSize="20" Margin="0,0,0,10"/>
+        <local:MappingSectionView x:Name="InternalVarsView" Margin="0,0,0,10"/>
+
+        <TextBlock Text="Mapping Rules" FontWeight="Bold" FontSize="20" Margin="0,0,0,10"/>
+        <local:MappingSectionView x:Name="MappingRulesView" Margin="0,0,0,10"/>
+        
+        
     </StackPanel>
 </local:MappingDocumentViewBase>
 

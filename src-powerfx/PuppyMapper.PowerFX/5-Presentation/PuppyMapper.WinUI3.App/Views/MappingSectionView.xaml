@@ -7,11 +7,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <StackPanel>
-        <TextBox x:Name="SectionNameBox" Header="Section Name" Margin="0,0,0,10"/>
+        <!--<TextBox x:Name="SectionNameBox" Header="Section Name" Margin="0,0,0,10"/>-->
         <ItemsControl x:Name="RulesList">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <local:MappingRuleView />
+                    <local:MappingRuleView ViewModel="{Binding}" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
