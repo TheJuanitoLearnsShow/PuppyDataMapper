@@ -6,9 +6,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-        <TextBox x:Name="InputNameBox" Header="Input Name" Width="150" Margin="0,0,10,0"/>
-        <TextBox x:Name="InputTypeBox" Header="Input Type" Width="150"/>
-    </StackPanel>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox Grid.Column="0" x:Name="InputNameBox" Header="Input Name" Margin="0,0,8,0"/>
+        <TextBox Grid.Column="1" x:Name="InputTypeBox" Header="Input Type" Margin="8,0,0,0"/>
+    </Grid>
 </local:MappingInputViewBase>
 

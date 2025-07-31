@@ -6,24 +6,38 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <StackPanel>
-        <TextBlock Text="Mapping Document" FontWeight="Bold" FontSize="20" Margin="0,0,0,10"/>
-        <TextBlock Text="Inputs" FontWeight="Bold" FontSize="20" Margin="0,0,0,10"/>
-        <ItemsControl x:Name="MappingInputsList" Margin="0,0,0,10">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <local:MappingInputView ViewModel="{Binding}" />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Margin="0,0,0,12" Text="Mapping Document" Style="{StaticResource TitleTextBlockStyle}"/>
 
-        <TextBlock Text="Variables" FontWeight="Bold" FontSize="20" Margin="0,0,0,10"/>
-        <local:MappingSectionView x:Name="InternalVarsView" Margin="0,0,0,10"/>
+        <TextBlock Grid.Row="1" Margin="0,0,0,12" Text="Inputs" Style="{StaticResource SubtitleTextBlockStyle}"/>
+        <ItemsControl Grid.Row="2" x:Name="MappingInputsList" Margin="0,0,0,16">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:MappingInputView ViewModel="{Binding}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
 
-        <TextBlock Text="Mapping Rules" FontWeight="Bold" FontSize="20" Margin="0,0,0,10"/>
-        <local:MappingSectionView x:Name="MappingRulesView" Margin="0,0,0,10"/>
-        
-        
-    </StackPanel>
+        <TextBlock Grid.Row="3" Margin="0,0,0,12" Text="Variables" Style="{StaticResource SubtitleTextBlockStyle}"/>
+        <ScrollViewer MaxHeight="400" Grid.Row="4" HorizontalScrollBarVisibility="Auto" HorizontalScrollMode="Auto" VerticalScrollBarVisibility="Hidden">
+
+            <local:MappingSectionView x:Name="InternalVarsView" Margin="0,0,0,16"/>
+        </ScrollViewer>
+
+        <TextBlock Grid.Row="5" Margin="0,0,0,12" Text="Mapping Rules" Style="{StaticResource SubtitleTextBlockStyle}"/>
+
+        <ScrollViewer  MaxHeight="400" Grid.Row="6" HorizontalScrollBarVisibility="Auto" HorizontalScrollMode="Auto" VerticalScrollBarVisibility="Auto">
+            <local:MappingSectionView x:Name="MappingRulesView" Margin="0,0,0,16"/>
+        </ScrollViewer>
+    </Grid>
 </local:MappingDocumentViewBase>
 
