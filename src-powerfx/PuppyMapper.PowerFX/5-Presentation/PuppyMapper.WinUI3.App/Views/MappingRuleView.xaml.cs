@@ -1,6 +1,7 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using PuppyMapper.Viewmodels;
 using ReactiveUI;
+using System;
 using System.Reactive.Disposables;
 
 namespace PuppyMapper.WinUI3.App.Views;
@@ -22,6 +23,8 @@ public sealed partial class MappingRuleView
                 .DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.Comments, v => v.CommentsBox.Text)
                 .DisposeWith(disposables);
+
+
         });
     }
 

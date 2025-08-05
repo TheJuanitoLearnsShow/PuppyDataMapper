@@ -15,6 +15,6 @@
     </Window.SystemBackdrop>
 
     <StackPanel>
-        <local2:MappingDocumentView x:Name="_mappingDocumentView" Margin="10"/>
+        <local2:MappingEditorView x:Name="MappingEditorView" Margin="4"/>
     </StackPanel>
 </Window>

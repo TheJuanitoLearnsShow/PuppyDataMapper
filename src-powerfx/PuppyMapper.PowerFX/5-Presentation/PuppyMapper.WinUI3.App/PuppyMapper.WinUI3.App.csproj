@@ -12,6 +12,9 @@
     <EnableMsixTooling>true</EnableMsixTooling>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Views\MappingEditorView.xaml" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="..\..\7-Tests\PuppyMapper.PowerFX.Tests\Samples\Json\ChildFxMapping.json" Link="Samples\Json\ChildFxMapping.json">
@@ -42,6 +45,7 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.WinUI.Extensions" Version="8.2.250402" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.4654" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250606001" />
     <PackageReference Include="ReactiveUI.WinUI" Version="20.4.1" />
@@ -51,6 +55,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Samples\Json\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\MappingEditorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <!--

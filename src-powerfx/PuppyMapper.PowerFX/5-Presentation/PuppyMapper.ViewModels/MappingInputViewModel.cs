@@ -18,4 +18,9 @@ public partial class MappingInputViewModel : ReactiveObject
 
     [Reactive] public string InputName { get; set; }
     [Reactive] public string InputType { get; set; }
+
+    public MappingInput GetMappingInput()
+    {
+        return new MappingInput(InputName, InputType);
+    }
 }

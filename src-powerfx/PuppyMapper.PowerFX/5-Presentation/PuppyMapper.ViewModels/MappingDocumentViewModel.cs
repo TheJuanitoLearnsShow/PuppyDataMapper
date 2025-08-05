@@ -5,6 +5,7 @@ using ReactiveUI.SourceGenerators;
 using System.Collections.ObjectModel;
 
 namespace PuppyMapper.Viewmodels;
+
 /*
  * In "PuppyMapper.WinUI.App\Views", add XAML user controls for the ReactiveUI views of the ViewModels in the PuppyManager.ViewModels project. In each of the View's code behind, add the ncessary ReactiveUI initialization code for each of the ViewModel properties.
  */
@@ -20,6 +21,17 @@ public partial class MappingDocumentViewModel : ReactiveObject
         InternalVars = new MappingSectionViewModel(doc.InternalVars);
         MappingInputs = new ObservableCollection<MappingInputViewModel>(
             doc.MappingInputs.Select(input => new MappingInputViewModel(input)));
+    }
+
+    public IMappingDocument GetMappingDocument()
+    {
+        return new MappingDocumentDto()
+        {
+            InternalVars = InternalVars.GetMappingSection(),
+            MappingInputs = MappingInputs.Select(input => input.GetMappingInput()).ToArray(),
+            MappingRules = MappingRules.GetMappingSection(),
+            MappingOutputType = new MappingOutputType()
+        };
     }
 
     [Reactive] public MappingSectionViewModel MappingRules { get; set; } = new();

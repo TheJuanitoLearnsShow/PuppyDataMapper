@@ -30,10 +30,10 @@ namespace PuppyMapper.WinUI3.App
         public MainWindow()
         {
             InitializeComponent();
-            _mappingDocumentView.ViewModel = new MappingDocumentViewModel();
 
-            var mappingPath = Path.Combine(AppContext.BaseDirectory, "Samples", "Json", "SampleFxMapping.json");
-            _mappingDocumentView.ViewModel.LoadDocumentCommand.Execute(mappingPath).Subscribe();
+            var filePath = Path.Combine(AppContext.BaseDirectory, "Samples", "Json", "SampleFxMapping.json");
+            MappingEditorView.ViewModel = new MappingEditorViewModel();
+            MappingEditorView.ViewModel.LoadDocumentCommand.Execute(filePath).Subscribe();
         }
 
     }

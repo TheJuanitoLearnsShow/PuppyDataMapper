@@ -25,4 +25,12 @@ public partial class MappingSectionViewModel : ReactiveObject
 
     [Reactive] public string Name { get; set; } = string.Empty;
     [Reactive] public ObservableCollection<MappingRuleViewModel> Rules { get; set; } = new();
+
+    public MappingSection GetMappingSection()
+    {
+        return new MappingSection(
+            Name,
+            Rules.Select(rule => rule.GetMappingRule()).ToArray()
+        );
+    }
 }
