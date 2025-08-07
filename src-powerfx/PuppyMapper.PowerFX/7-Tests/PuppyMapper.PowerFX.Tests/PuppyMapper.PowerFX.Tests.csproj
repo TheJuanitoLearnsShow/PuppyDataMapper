@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\3-Services\PuppyMapper.PowerFX.Service\PuppyMapper.PowerFX.Service.csproj" />
+    <ProjectReference Include="..\..\5-Presentation\PuppyMapper.ViewModels\PuppyMapper.ViewModels.csproj" />
   </ItemGroup>
 
   <ItemGroup>

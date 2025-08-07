@@ -5,7 +5,7 @@ namespace PuppyMapper.PowerFX.Service.CustomLangParser;
 // This can produce a flat (non-nested) record where each field is defined by a Fx formula.
 public class MappingDocumentParser
 {
-    public static MappingDocument ParseMappingDocument(StreamReader fileContents)
+    public static MappingDocument ParseMappingDocument(TextReader fileContents)
     {
         List<MappingSection> sections = [];
         List<MappingInput> inputs = [];
@@ -35,7 +35,7 @@ public class MappingDocumentParser
         return new MappingDocument("test", sections, inputs, outputType);
     }
 
-    public static IEnumerable<MappingInput> ParseInputs(StreamReader lines)
+    public static IEnumerable<MappingInput> ParseInputs(TextReader lines)
     {
         var line = lines.ReadLine();
         while (!string.IsNullOrWhiteSpace(line)) // force blank line between sections
@@ -48,7 +48,7 @@ public class MappingDocumentParser
             line = lines.ReadLine();
         }
     }
-    public static MappingOutputType ParseOutput(StreamReader lines)
+    public static MappingOutputType ParseOutput(TextReader lines)
     {
         var line = lines.ReadLine();
         return new(line.Trim());
@@ -56,7 +56,7 @@ public class MappingDocumentParser
     // TODO - share this with Yaml parser in https://github.com/microsoft/PowerApps-Language-Tooling 
     // File is "Name: =formula"
     // Should make this a .fx.yaml
-    public static IEnumerable<MappingSection> ParseSections(StreamReader lines)
+    public static IEnumerable<MappingSection> ParseSections(TextReader lines)
     {
         var line = lines.ReadLine();
         while (line != null)
@@ -74,7 +74,7 @@ public class MappingDocumentParser
         }
     }
 
-    public static (MappingSection section, string lastLine) ParseSection(string sectionLine, StreamReader lines)
+    public static (MappingSection section, string lastLine) ParseSection(string sectionLine, TextReader lines)
     {
         (MappingRule newRule, string lastLine) ParseRule(string firstLine)
         {

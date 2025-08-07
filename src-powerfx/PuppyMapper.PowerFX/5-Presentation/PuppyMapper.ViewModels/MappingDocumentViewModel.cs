@@ -6,6 +6,8 @@ using System.Collections.ObjectModel;
 
 namespace PuppyMapper.Viewmodels;
 
+
+
 /*
  * In "PuppyMapper.WinUI.App\Views", add XAML user controls for the ReactiveUI views of the ViewModels in the PuppyManager.ViewModels project. In each of the View's code behind, add the ncessary ReactiveUI initialization code for each of the ViewModel properties.
  */
