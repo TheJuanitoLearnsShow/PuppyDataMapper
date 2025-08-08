@@ -15,7 +15,7 @@ public class ViewModelTests
     [Fact]
     public void TestParseSections()
     {
-        var fileContents = File.ReadAllText("Samples/SampleFxMapping.txt");
+        var fileContents = File.ReadAllText("Samples/SampleFxMappingViewModel.txt");
 
         var ide = new MappingDocumentIdeEditorViewModel
         {

@@ -28,4 +28,8 @@
     <PackageReference Include="AvaloniaEdit.TextMate" Version="11.3.0" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PuppyMapper.ViewModels\PuppyMapper.ViewModels.csproj" />
+  </ItemGroup>
 </Project>

@@ -49,6 +49,9 @@
     <None Update="Samples\Json\SampleFxMapping.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Samples\SampleFxMappingViewModel.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
