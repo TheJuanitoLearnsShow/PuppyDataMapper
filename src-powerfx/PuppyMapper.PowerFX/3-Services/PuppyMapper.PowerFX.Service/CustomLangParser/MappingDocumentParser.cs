@@ -56,6 +56,7 @@ public class MappingDocumentParser
     // TODO - share this with Yaml parser in https://github.com/microsoft/PowerApps-Language-Tooling 
     // File is "Name: =formula"
     // Should make this a .fx.yaml
+    // TODO get the text mate from the link above (if there si one, then use this method from the editdto class
     public static IEnumerable<MappingSection> ParseSections(TextReader lines)
     {
         var line = lines.ReadLine();
@@ -76,7 +77,14 @@ public class MappingDocumentParser
 
     public static (MappingSection section, string lastLine) ParseSection(string sectionLine, TextReader lines)
     {
-        (MappingRule newRule, string lastLine) ParseRule(string firstLine)
+        var sectionName = sectionLine[11..];
+        var (mappingRules, lastLine) = ParseMappingRules(sectionName, lines);
+        return (new MappingSection(sectionName.Trim(), mappingRules.ToImmutableList()), lastLine)!;
+    }
+
+    public static (List<MappingRule> mappingRules, string? line) ParseMappingRules(string sectionName, TextReader lines)
+    {
+        (MappingRule, string? nextLine) ParseRule(string firstLine)
         {
             var lineParts = firstLine.Split(":=");
             var name = (lineParts.FirstOrDefault() ?? "_").Trim();
@@ -91,9 +99,8 @@ public class MappingDocumentParser
             }
             return (new MappingRule(name, formula.Trim(), comments), nextLine);
         }
-        var sectionName = sectionLine[11..];
         var line = lines.ReadLine();
-        if (line == null) return (MappingSection.Blank(sectionName.Trim()), line);
+        if (line == null) return ([], line);
         var mappingRules = new List<MappingRule>();
         while (line != null && !IsStartSection(line))
         {
@@ -108,8 +115,10 @@ public class MappingDocumentParser
                 line = lines.ReadLine();
             }
         }
-        return (new MappingSection(sectionName.Trim(), mappingRules.ToImmutableList()), line);
+        return (mappingRules, line);
     }
+
+    private string Split
 
     private static bool IsStartSection(ReadOnlySpan<char> nextLine)
     {
