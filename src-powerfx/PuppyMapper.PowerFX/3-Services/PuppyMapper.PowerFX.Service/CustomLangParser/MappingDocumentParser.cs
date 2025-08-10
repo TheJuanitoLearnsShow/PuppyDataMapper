@@ -78,11 +78,11 @@ public class MappingDocumentParser
     public static (MappingSection section, string lastLine) ParseSection(string sectionLine, TextReader lines)
     {
         var sectionName = sectionLine[11..];
-        var (mappingRules, lastLine) = ParseMappingRules(sectionName, lines);
+        var (mappingRules, lastLine) = ParseMappingRules(lines);
         return (new MappingSection(sectionName.Trim(), mappingRules.ToImmutableList()), lastLine)!;
     }
 
-    public static (List<MappingRule> mappingRules, string? line) ParseMappingRules(string sectionName, TextReader lines)
+    public static (List<MappingRule> mappingRules, string? line) ParseMappingRules(TextReader lines)
     {
         (MappingRule, string? nextLine) ParseRule(string firstLine)
         {
@@ -118,7 +118,73 @@ public class MappingDocumentParser
         return (mappingRules, line);
     }
 
-    private string Split
+    public static (List<MappingRule> mappingRules, string? line) ParseMappingRules(ReadOnlySpan<char> span)
+    {
+        var mappingRules = new List<MappingRule>();
+        var lineIterator = span.Split('\n');
+        while (lineIterator.MoveNext())
+        {
+            var chunk = lineIterator.Current;
+            var line = span[chunk];
+
+            if (IsStartRule(line))
+            {
+                var lineParts = line.Split(":=");
+                ReadOnlySpan<char> name = "_";
+                if (lineParts.MoveNext())
+                {
+                    name = line[lineParts.Current];
+                    if (lineParts.MoveNext())
+                    {
+                        var restLine = line[lineParts.Current];
+                        var restParts = restLine.Split("//");
+                        if (restParts.MoveNext())
+                        {
+                            var formula = restLine[restParts.Current];
+                            if (restParts.MoveNext())
+                            {
+                                // comments
+                                
+                                var comments = restParts.Length > 1 ? restParts.Last() : string.Empty;
+                                var nextLine = lines.ReadLine();
+                                while (nextLine != null && !IsStartSection(nextLine) && !IsStartRule(nextLine))
+                                {
+                                    comments += Environment.NewLine + nextLine.Trim().TrimStart('/');
+                                    nextLine = lines.ReadLine();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        
+    }
+    
+    public IReadOnlyList<T> MapLines<T>(ReadOnlySpan<char> span, Func<ReadOnlySpan<char>, T> lineMapper)
+    {
+        var list = new List<T>();
+        while (!span.IsEmpty)
+        {
+            int lineEnd = span.IndexOf('\n');
+            ReadOnlySpan<char> line;
+
+            if (lineEnd == -1) // No more newlines, take the rest of the string
+            {
+                line = span;
+                span = ReadOnlySpan<char>.Empty;
+            }
+            else
+            {
+                line = span.Slice(0, lineEnd);
+                span = span.Slice(lineEnd + 1); // Move past the newline
+            }
+
+            list.Add(lineMapper(line));
+        }
+        return list;
+    }
 
     private static bool IsStartSection(ReadOnlySpan<char> nextLine)
     {
@@ -137,4 +203,16 @@ public class MappingDocumentParser
     {
         return nextLine.Split("//").First().Contains(" := ");
     }
+    private static bool IsStartRule(ReadOnlySpan<char> nextLine)
+    {
+        var firstAssignment = nextLine.IndexOf(" := ", StringComparison.Ordinal);
+        var firstCommentSeparator = nextLine.IndexOf("//", StringComparison.Ordinal);
+        
+        return firstAssignment >= 0 && firstAssignment < firstCommentSeparator ;
+    }
+    // private static bool IsStartRule(ReadOnlySpan<char> nextLine)
+    // {
+    //     var parts = nextLine.Split("//");
+    //         return parts..Contains(" := ");
+    // }
 }
