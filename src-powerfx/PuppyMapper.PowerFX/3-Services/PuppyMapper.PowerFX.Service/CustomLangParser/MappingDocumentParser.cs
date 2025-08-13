@@ -1,6 +1,16 @@
 ﻿using System.Collections.Immutable;
+using System.Text;
 
 namespace PuppyMapper.PowerFX.Service.CustomLangParser;
+
+public enum LastLineType
+{
+    Rule,
+    Comments,
+    Empty,
+    Unparsable
+}
+
 // Read a .fx.yaml file and return a group of formulas. 
 // This can produce a flat (non-nested) record where each field is defined by a Fx formula.
 public class MappingDocumentParser
@@ -118,10 +128,12 @@ public class MappingDocumentParser
         return (mappingRules, line);
     }
 
-    public static (List<MappingRule> mappingRules, string? line) ParseMappingRules(ReadOnlySpan<char> span)
+    public static List<MappingRule> ParseMappingRules(ReadOnlySpan<char> span)
     {
-        var mappingRules = new List<MappingRule>();
+        var mappingRules = new List<MappingRuleDraft>();
         var lineIterator = span.Split('\n');
+        LastLineType lastLineType = LastLineType.Empty;
+        MappingRuleDraft? lastRuleParsed = null;
         while (lineIterator.MoveNext())
         {
             var chunk = lineIterator.Current;
@@ -129,39 +141,54 @@ public class MappingDocumentParser
 
             if (IsStartRule(line))
             {
+                if (lastRuleParsed != null)
+                {
+                    mappingRules.Add(lastRuleParsed);
+                }
                 var lineParts = line.Split(":=");
                 ReadOnlySpan<char> name = "_";
+                var formula = new StringBuilder();
+                var comments = new StringBuilder();
                 if (lineParts.MoveNext())
                 {
                     name = line[lineParts.Current];
                     if (lineParts.MoveNext())
                     {
                         var restLine = line[lineParts.Current];
-                        var restParts = restLine.Split("//");
-                        if (restParts.MoveNext())
-                        {
-                            var formula = restLine[restParts.Current];
-                            if (restParts.MoveNext())
-                            {
-                                // comments
-                                
-                                var comments = restParts.Length > 1 ? restParts.Last() : string.Empty;
-                                var nextLine = lines.ReadLine();
-                                while (nextLine != null && !IsStartSection(nextLine) && !IsStartRule(nextLine))
-                                {
-                                    comments += Environment.NewLine + nextLine.Trim().TrimStart('/');
-                                    nextLine = lines.ReadLine();
-                                }
-                            }
-                        }
+                        ParseFormulaAndComments(restLine, formula, comments);
                     }
                 }
+                lastRuleParsed = new MappingRuleDraft(name.ToString(), formula, comments);
+            } 
+            else if (lastRuleParsed != null)
+            {
+                ParseFormulaAndComments(line, lastRuleParsed.Formula, lastRuleParsed.Comments);
+                
+            }
+            
+        }
+        if (lastRuleParsed != null)
+        {
+            mappingRules.Add(lastRuleParsed);
+        }
+
+        return mappingRules.Select(r => r.MapToMappingRule()).ToList();
+    }
+
+    private static void ParseFormulaAndComments(ReadOnlySpan<char> restLine, StringBuilder formula, StringBuilder comments)
+    {
+        var restParts = restLine.Split("//");
+        if (restParts.MoveNext())
+        { 
+            formula.Append( restLine[restParts.Current] );
+            if (restParts.MoveNext())
+            {
+                // comments
+                comments.Append(restLine[restParts.Current]);
             }
         }
-        
-        
     }
-    
+
     public IReadOnlyList<T> MapLines<T>(ReadOnlySpan<char> span, Func<ReadOnlySpan<char>, T> lineMapper)
     {
         var list = new List<T>();

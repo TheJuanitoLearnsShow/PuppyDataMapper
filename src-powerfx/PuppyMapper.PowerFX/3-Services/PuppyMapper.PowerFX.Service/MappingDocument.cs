@@ -10,7 +10,7 @@ public class MappingDocument(string documentName, IEnumerable<MappingSection> se
     public const string VariablesSectionName = "VARIABLES";
     private const string MappingSectionName = "Mapping";
 
-    public MappingSection MappingRules { get; } = MappingRules == null ?
+    public List<MappingRule> MappingRules { get; } = MappingRules == null ?
         sections.FirstOrDefault(s => s.Name == MappingSectionName) ?? MappingSection.Blank(MappingSectionName)
         : new MappingSection(VariablesSectionName, MappingRules.ToArray());
 
