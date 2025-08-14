@@ -4,7 +4,7 @@ namespace PuppyMapper.PowerFX.Service;
 
 public interface IMappingDocument
 {
-    List<MappingRule> MappingRules { get; }
+    MappingSection MappingRules { get; }
     MappingSection InternalVars { get; }
     MappingInput[] MappingInputs { get; }
     MappingOutputType MappingOutputType { get; }

@@ -163,7 +163,7 @@ namespace PuppyMapper.PowerFX.Tests
                 RowDiff := input.Score2 - input.Score // here acomments
                 MyMapping := Map input ChildFxMapping
                 """;
-            Assert.Equal(5, doc.MappingRules.Count);
+            Assert.Equal(5, doc.MappingRules.Rules.Length);
         }
     }
 }

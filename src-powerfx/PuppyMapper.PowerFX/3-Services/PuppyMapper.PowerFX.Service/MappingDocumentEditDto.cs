@@ -12,14 +12,15 @@ public class MappingDocumentEditDto : IMappingDocument
         set
         {
             _mappigRulesCode = value;
-            MappingRules = MappingDocumentParser.ParseMappingRules(_mappigRulesCode);
+            MappingRules = new MappingSection(MappingSectionName, 
+                MappingDocumentParser.ParseMappingRules(_mappigRulesCode).ToArray());
             
         }
     }
 
     private const string MappingSectionName = "Mapping";
 
-    public List<MappingRule> MappingRules { get; private set; }= new();
+    public MappingSection MappingRules { get; private set; }= new();
     public MappingSection InternalVars { get; private set;}= new();
     public MappingInput[] MappingInputs { get; set; } = [];
     public MappingOutputType MappingOutputType { get; set; } = new();
