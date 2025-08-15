@@ -181,10 +181,12 @@ public class MappingDocumentParser
         if (restParts.MoveNext())
         { 
             formula.Append( restLine[restParts.Current] );
+            formula.AppendLine();
             if (restParts.MoveNext())
             {
                 // comments
                 comments.Append(restLine[restParts.Current]);
+                comments.AppendLine();
             }
         }
     }
@@ -235,7 +237,7 @@ public class MappingDocumentParser
         var firstAssignment = nextLine.IndexOf(" := ", StringComparison.Ordinal);
         var firstCommentSeparator = nextLine.IndexOf("//", StringComparison.Ordinal);
         
-        return firstAssignment >= 0 && firstAssignment < firstCommentSeparator ;
+        return (firstAssignment >= 0 && firstCommentSeparator < 0) || ( firstAssignment >= 0 && firstAssignment < firstCommentSeparator ) ;
     }
     // private static bool IsStartRule(ReadOnlySpan<char> nextLine)
     // {
