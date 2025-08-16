@@ -4,17 +4,17 @@ namespace PuppyMapper.PowerFX.Service;
 
 public class MappingDocumentEditDto : IMappingDocument
 {
-    private string _mappigRulesCode = string.Empty;
+    private string _mappingRulesCode = string.Empty;
     private string _internalVarsCode  = string.Empty;
 
     public string MappingRulesCode
     {
-        get => _mappigRulesCode;
+        get => _mappingRulesCode;
         set
         {
-            _mappigRulesCode = value;
+            _mappingRulesCode = value;
             MappingRules = new MappingSection(MappingSectionName, 
-                MappingDocumentParser.ParseMappingRules(_mappigRulesCode).ToArray());
+                MappingDocumentParser.ParseMappingRules(_mappingRulesCode).ToArray());
             
         }
     }
@@ -24,8 +24,8 @@ public class MappingDocumentEditDto : IMappingDocument
         get => _internalVarsCode;
         set
         {
-            _mappigRulesCode = value;
-            MappingRules = new MappingSection(VariablesSectionName, 
+            _internalVarsCode = value;
+            InternalVars = new MappingSection(VariablesSectionName, 
                 MappingDocumentParser.ParseMappingRules(_internalVarsCode).ToArray());
             
         }

@@ -151,7 +151,7 @@ public class MappingDocumentParser
                 var comments = new StringBuilder();
                 if (lineParts.MoveNext())
                 {
-                    name = line[lineParts.Current];
+                    name = line[lineParts.Current].Trim();
                     if (lineParts.MoveNext())
                     {
                         var restLine = line[lineParts.Current];

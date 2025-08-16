@@ -3,7 +3,14 @@
 // Describe each rule in the file. 
 public class MappingRule
 {
-    public string Name { get; init; } = string.Empty;
+    private readonly string _name = string.Empty;
+
+    public string Name
+    {
+        get => _name;
+        init => _name = value.Trim();
+    }
+
     public string Formula { get; init; } = string.Empty;
     public string Comments { get; init; } = string.Empty;
 

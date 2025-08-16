@@ -13,7 +13,7 @@ public class ViewModelTests
     }
 
     [Fact]
-    public void TestParseSections()
+    public void TestMappingViaViewModel()
     {
         var ide = new MappingDocumentIdeEditorViewModel
         {

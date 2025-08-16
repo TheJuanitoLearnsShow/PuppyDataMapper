@@ -24,8 +24,9 @@ public class MappingSection
     }
     public static MappingSection Blank(string sectionName) => 
         new MappingSection(sectionName, (MappingRule[])[]);
-    public string Name { get; set; }
-    public MappingRule[] Rules { get; set; }
+
+    public string Name { get; set; } = string.Empty;
+    public MappingRule[] Rules { get; set; } = [];
 
     public void Deconstruct(out string name, out MappingRule[] rules)
     {

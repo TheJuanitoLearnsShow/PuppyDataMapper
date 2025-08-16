@@ -9,6 +9,6 @@ public record MappingRuleDraft(
 {
     public MappingRule MapToMappingRule()
     {
-        return new MappingRule(Name, Formula.ToString(), Comments.ToString());
+        return new MappingRule(Name.Trim(), Formula.ToString().Trim(), Comments.ToString().Trim());
     }
 }
