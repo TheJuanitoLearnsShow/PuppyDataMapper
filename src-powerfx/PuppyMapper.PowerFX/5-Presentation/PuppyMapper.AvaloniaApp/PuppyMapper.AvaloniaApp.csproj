@@ -32,4 +32,10 @@
   <ItemGroup>
     <ProjectReference Include="..\PuppyMapper.ViewModels\PuppyMapper.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\..\7-Tests\PuppyMapper.PowerFX.Tests\Samples\Xml\SampleFxMapping.xml">
+      <Link>Samples\Xml\SampleFxMapping.xml</Link>
+    </Content>
+  </ItemGroup>
 </Project>

@@ -16,6 +16,7 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject
     [Reactive] public MappingDocumentEditDto MappingDocument { get; set; } = new();
     [Reactive] public string InputData { get; set; } = string.Empty;
     [Reactive] public string OutputData { get; set; } = string.Empty;
+    [Reactive] public string MappingFilePath { get; set; } = string.Empty;
 
     [Reactive]
     public string VarsCode

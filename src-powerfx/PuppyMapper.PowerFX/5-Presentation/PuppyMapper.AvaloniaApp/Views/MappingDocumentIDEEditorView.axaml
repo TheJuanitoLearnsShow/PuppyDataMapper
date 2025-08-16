@@ -12,22 +12,31 @@
             
             <avaloniaEdit:TextEditor Name="VarsCode" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                      ShowLineNumbers="True"
-                                     FontFamily="Cascadia Code,Consolas,Menlo,Monospace"/>
+                                     FontFamily="Cascadia Code,Consolas,Menlo,Monospace"
+                                     Margin="8"
+                                     MinHeight="200"
+                                     />
             <avaloniaEdit:TextEditor Grid.Row="1" Name="RulesCode" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                      ShowLineNumbers="True"
+                                     Margin="8"
+                                     MinHeight="200"
                                      FontFamily="Cascadia Code,Consolas,Menlo,Monospace"/>
         </Grid>
                                  
+        <Button x:Name="LoadMappingBtn" Content="Load Mapping" Grid.Column="0" Grid.Row="0" 
+                Margin="4"  HorizontalAlignment="Left" Width="100"/>
          <Button x:Name="RunMappingBtn" Content="Run Mapping" Grid.Column="1" Grid.Row="0" 
                  Margin="4"  HorizontalAlignment="Left" Width="100"/>
          
         <avaloniaEdit:TextEditor Grid.Column="1" Grid.Row="1"  Name="InputTxt"
                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                  ShowLineNumbers="True"
+                                 Margin="8"
                                  FontFamily="Cascadia Code,Consolas,Menlo,Monospace"/>
         <avaloniaEdit:TextEditor Grid.Column="1" Grid.Row="2" Name="OutputTxt"
                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                  ShowLineNumbers="True"
+                                 Margin="8"
                                  FontFamily="Cascadia Code,Consolas,Menlo,Monospace"/>
         <!-- <TextBox Grid.Column="1" Grid.Row="2" Name="OutputTxt" -->
         <!--                         Margin="4" /> -->

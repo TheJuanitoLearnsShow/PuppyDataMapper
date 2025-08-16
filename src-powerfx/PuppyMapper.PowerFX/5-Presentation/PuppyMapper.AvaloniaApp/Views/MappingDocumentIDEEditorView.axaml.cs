@@ -18,22 +18,26 @@ public partial class MappingDocumentIDEEditorView : MappingDocumentIDEEditorView
         
         this.WhenActivated(disposables =>
         {
-            this.OneWayBind(ViewModel, vm => vm.VarsCode, 
-                    v => v.VarsCode)
+            this.Bind(ViewModel, vm => vm.VarsCode, 
+                    v => v.VarsCode.Text)
                 ;
-            this.OneWayBind(ViewModel, vm => vm.RulesCode, 
-                    v => v.RulesCode)
+            this.Bind(ViewModel, vm => vm.RulesCode, 
+                    v => v.RulesCode.Text)
                 ;
-            this.OneWayBind(ViewModel, vm => vm.InputData, 
-                    v => v.InputTxt)
+            this.Bind(ViewModel, vm => vm.InputData, 
+                    v => v.InputTxt.Text)
                 ;
             this.OneWayBind(ViewModel, vm => vm.OutputData, 
-                    v => v.OutputTxt)
+                    v => v.OutputTxt.Text)
                 ;
             this.BindCommand(ViewModel, vm => vm.ExecuteMappingCommand, 
                 v => v.RunMappingBtn);
+            this.BindCommand(ViewModel, vm => vm.LoadMappingCommand, 
+                v => v.LoadMappingBtn, 
+                vm => vm.MappingFilePath);
 
             
+            ViewModel!.MappingFilePath = "Samples/Xml/SampleFxMapping.xml";
 
         });
     }
