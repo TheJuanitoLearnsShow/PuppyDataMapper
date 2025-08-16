@@ -15,13 +15,11 @@ public class ViewModelTests
     [Fact]
     public void TestParseSections()
     {
-        var fileContents = File.ReadAllText("Samples/SampleFxMappingViewModel.txt");
-
         var ide = new MappingDocumentIdeEditorViewModel
         {
-            MappingDocument = fileContents,
             InputData = File.ReadAllText("Samples/SampleRecord1.json")
         };
+        ide.LoadMappingCommand.Execute("Samples/Xml/SampleFxMapping.xml").Subscribe();
         ide.ExecuteMappingCommand.Execute().Subscribe();
         _testOutputHelper.WriteLine(ide.OutputData);
         Assert.NotEmpty(ide.OutputData);

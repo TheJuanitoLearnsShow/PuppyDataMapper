@@ -18,8 +18,11 @@ public partial class MappingDocumentIDEEditorView : MappingDocumentIDEEditorView
         
         this.WhenActivated(disposables =>
         {
-            this.OneWayBind(ViewModel, vm => vm.MappingDocument, 
-                    v => v.MappingDocument)
+            this.OneWayBind(ViewModel, vm => vm.VarsCode, 
+                    v => v.VarsCode)
+                ;
+            this.OneWayBind(ViewModel, vm => vm.RulesCode, 
+                    v => v.RulesCode)
                 ;
             this.OneWayBind(ViewModel, vm => vm.InputData, 
                     v => v.InputTxt)

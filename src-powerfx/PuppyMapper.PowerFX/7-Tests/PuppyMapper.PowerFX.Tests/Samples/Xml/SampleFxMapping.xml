@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-16"?>
+<MappingDocumentEditDto xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <MappingRulesCode>Diff := input.Score2 - baseSalary
+Name2 := input.Name &amp; "-suffix" // here is amultiline comments
+                 // I can put as many comments in here, next mapping line is the one that has the ":=" symbol 
+Total := input.Score2 + input.Score
+RowDiff := input.Score2 - input.Score // here acomments
+MyMapping := Map input ChildFxMapping</MappingRulesCode>
+  <InternalVarsCode />
+  <MappingRules>
+    <Name>Mapping</Name>
+    <Rules>
+      <MappingRule>
+        <Name>Diff </Name>
+        <Formula> input.Score2 - baseSalary
+</Formula>
+        <Comments />
+      </MappingRule>
+      <MappingRule>
+        <Name>Name2 </Name>
+        <Formula> input.Name &amp; "-suffix" 
+                 
+</Formula>
+        <Comments> here is amultiline comments
+ I can put as many comments in here, next mapping line is the one that has the ":=" symbol 
+</Comments>
+      </MappingRule>
+      <MappingRule>
+        <Name>Total </Name>
+        <Formula> input.Score2 + input.Score
+</Formula>
+        <Comments />
+      </MappingRule>
+      <MappingRule>
+        <Name>RowDiff </Name>
+        <Formula> input.Score2 - input.Score 
+</Formula>
+        <Comments> here acomments
+</Comments>
+      </MappingRule>
+      <MappingRule>
+        <Name>MyMapping </Name>
+        <Formula> Map input ChildFxMapping
+</Formula>
+        <Comments />
+      </MappingRule>
+    </Rules>
+  </MappingRules>
+  <InternalVars />
+  <MappingInputs />
+  <MappingOutputType />
+</MappingDocumentEditDto>

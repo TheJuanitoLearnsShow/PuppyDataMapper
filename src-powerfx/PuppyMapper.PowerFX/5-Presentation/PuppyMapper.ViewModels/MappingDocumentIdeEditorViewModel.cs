@@ -42,7 +42,7 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject
     [ReactiveCommand]
     private async Task LoadMapping(string filePath)
     {
-        var xml = File.ReadAllTextAsync(filePath);
+        var xml = await File.ReadAllTextAsync(filePath);
         var deserializedDoc = MappingDocumentXml.DeserializeFromXml(xml);
         MappingDocument = deserializedDoc;
     }
@@ -54,10 +54,8 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject
         {
             OutputData = "Input data is empty.";
         }
-        using var mappingDocumentReader = new StringReader(MappingDocument);
-        var doc = MappingDocumentParser.ParseMappingDocument(mappingDocumentReader);
         var dataRow = FormulaValueJSON.FromJson(InputData);
-        var mapper = new MapperInterpreter(doc, ImmutableDictionary<string, IMappingDocument>.Empty);
+        var mapper = new MapperInterpreter(MappingDocument, ImmutableDictionary<string, IMappingDocument>.Empty);
         var result = mapper.MapRecords([
             [("input", dataRow)]
         ]).ToList();

@@ -33,8 +33,8 @@ public class MappingDocumentEditDto : IMappingDocument
     private const string MappingSectionName = "Mapping";
     private const string VariablesSectionName = "VARIABLES";
 
-    public MappingSection MappingRules { get; private set; }= new();
-    public MappingSection InternalVars { get; private set;}= new();
+    public MappingSection MappingRules { get; set; }= new();
+    public MappingSection InternalVars { get; set;}= new();
     public MappingInput[] MappingInputs { get; set; } = [];
     public MappingOutputType MappingOutputType { get; set; } = new();
 }
