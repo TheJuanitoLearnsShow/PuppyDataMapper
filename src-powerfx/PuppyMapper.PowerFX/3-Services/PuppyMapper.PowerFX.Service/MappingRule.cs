@@ -1,20 +1,29 @@
-﻿using System.Text;
-
-namespace PuppyMapper.PowerFX.Service;
+﻿namespace PuppyMapper.PowerFX.Service;
 
 // Describe each rule in the file. 
-public record MappingRule(
-    string Name,
-    string Formula,
-    string Comments);
-
-public record MappingRuleDraft(
-    string Name,
-    StringBuilder Formula,
-    StringBuilder Comments)
+public class MappingRule
 {
-    public MappingRule MapToMappingRule()
+    public string Name { get; init; } = string.Empty;
+    public string Formula { get; init; } = string.Empty;
+    public string Comments { get; init; } = string.Empty;
+
+    public MappingRule(
+        string name,
+        string formula,
+        string comments)
     {
-        return new MappingRule(Name, Formula.ToString(), Comments.ToString());
+        Name = name;
+        Formula = formula;
+        Comments = comments;
+    }
+    public MappingRule()
+    {
+        
+    }
+    public void Deconstruct(out string name, out string formula, out string comments)
+    {
+        name = this.Name;
+        formula = this.Formula;
+        comments = this.Comments;
     }
 }

@@ -182,12 +182,17 @@ public class MappingDocumentParser
         { 
             formula.Append( restLine[restParts.Current] );
             formula.AppendLine();
-            if (restParts.MoveNext())
-            {
-                // comments
-                comments.Append(restLine[restParts.Current]);
-                comments.AppendLine();
-            }
+            ParseComments(restLine, comments, restParts);
+        }
+    }
+
+    private static void ParseComments(ReadOnlySpan<char> restLine, StringBuilder comments, MemoryExtensions.SpanSplitEnumerator<char> restParts)
+    {
+        if (restParts.MoveNext())
+        {
+            // comments
+            comments.Append(restLine[restParts.Current]);
+            comments.AppendLine();
         }
     }
 

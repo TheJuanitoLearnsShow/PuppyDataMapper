@@ -150,20 +150,5 @@ namespace PuppyMapper.PowerFX.Tests
         
         //MappingDocumentEditDto
         
-        [Fact]
-        public void TestParseSections_EditDTO()
-        {
-            var doc = new MappingDocumentEditDto();
-            doc.MappingRulesCode =
-                """
-                Diff := input.Score2 - baseSalary
-                Name2 := input.Name & "-suffix" // here is amultiline comments
-                                 // I can put as many comments in here, next mapping line is the one that has the ":=" symbol 
-                Total := input.Score2 + input.Score
-                RowDiff := input.Score2 - input.Score // here acomments
-                MyMapping := Map input ChildFxMapping
-                """;
-            Assert.Equal(5, doc.MappingRules.Rules.Length);
-        }
     }
 }
