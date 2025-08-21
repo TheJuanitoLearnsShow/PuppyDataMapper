@@ -34,8 +34,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\..\7-Tests\PuppyMapper.PowerFX.Tests\Samples\Xml\SampleFxMapping.xml">
-      <Link>Samples\Xml\SampleFxMapping.xml</Link>
-    </Content>
+    <None Include="..\..\7-Tests\PuppyMapper.PowerFX.Tests\Samples\Xml\SampleFxMapping.xml">
+      <Link>Samples/Xml/SampleFxMapping.xml</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

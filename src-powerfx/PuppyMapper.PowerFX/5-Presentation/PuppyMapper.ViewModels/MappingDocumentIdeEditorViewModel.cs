@@ -11,43 +11,45 @@ namespace PuppyMapper.Viewmodels;
 
 public partial class MappingDocumentIdeEditorViewModel : ReactiveObject
 {
-    private string _varsCode = string.Empty;
-    private string _rulesCode = string.Empty;
-    [Reactive] public MappingDocumentEditDto MappingDocument { get; set; } = new();
+    private MappingDocumentEditDto _mappingDocument = new();
     [Reactive] public string InputData { get; set; } = string.Empty;
     [Reactive] public string OutputData { get; set; } = string.Empty;
     [Reactive] public string MappingFilePath { get; set; } = string.Empty;
 
     [Reactive]
-    public string VarsCode
-    {
-        get => _varsCode;
-        set
-        {
-            _varsCode = value;
-            MappingDocument.InternalVarsCode = _varsCode;
-        }
-    }
+    public string VarsCode { get; set; } = string.Empty;
 
     [Reactive]
-    public string RulesCode
+    public string RulesCode { get; set; } = string.Empty;
+
+    [ReactiveCommand]
+    private async Task LoadMapping()
     {
-        get => _rulesCode;
-        set
+        var filePath = MappingFilePath;
+        try
         {
-            _rulesCode = value;
-            MappingDocument.MappingRulesCode = _rulesCode;
+            var xml = await File.ReadAllTextAsync(filePath);
+            var deserializedDoc = MappingDocumentXml.DeserializeFromXml(xml);
+            _mappingDocument = deserializedDoc;
+            SyncFromMappingDocument();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
         }
     }
-    
-    [ReactiveCommand]
-    private async Task LoadMapping(string filePath)
+
+    private void SyncFromMappingDocument()
     {
-        var xml = await File.ReadAllTextAsync(filePath);
-        var deserializedDoc = MappingDocumentXml.DeserializeFromXml(xml);
-        MappingDocument = deserializedDoc;
+        VarsCode = _mappingDocument.InternalVarsCode;
+        RulesCode = _mappingDocument.MappingRulesCode;
     }
 
+    private void SyncToMappingDocument()
+    {
+        _mappingDocument.InternalVarsCode = VarsCode;
+        _mappingDocument.MappingRulesCode = RulesCode;
+    }
     [ReactiveCommand]
     private void ExecuteMapping()
     {
@@ -56,7 +58,8 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject
             OutputData = "Input data is empty.";
         }
         var dataRow = FormulaValueJSON.FromJson(InputData);
-        var mapper = new MapperInterpreter(MappingDocument, ImmutableDictionary<string, IMappingDocument>.Empty);
+        SyncToMappingDocument();
+        var mapper = new MapperInterpreter(_mappingDocument, ImmutableDictionary<string, IMappingDocument>.Empty);
         var result = mapper.MapRecords([
             [("input", dataRow)]
         ]).ToList();

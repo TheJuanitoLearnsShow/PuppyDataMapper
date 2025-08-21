@@ -17,9 +17,10 @@ public class ViewModelTests
     {
         var ide = new MappingDocumentIdeEditorViewModel
         {
-            InputData = File.ReadAllText("Samples/SampleRecord1.json")
+            InputData = File.ReadAllText("Samples/SampleRecord1.json"),
+            MappingFilePath = "Samples/Xml/SampleFxMapping.xml"
         };
-        ide.LoadMappingCommand.Execute("Samples/Xml/SampleFxMapping.xml").Subscribe();
+        ide.LoadMappingCommand.Execute().Subscribe();
         ide.ExecuteMappingCommand.Execute().Subscribe();
         _testOutputHelper.WriteLine(ide.OutputData);
         Assert.NotEmpty(ide.OutputData);
