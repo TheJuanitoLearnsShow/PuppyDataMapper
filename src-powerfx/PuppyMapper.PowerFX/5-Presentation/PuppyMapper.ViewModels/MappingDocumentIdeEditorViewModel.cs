@@ -12,15 +12,15 @@ namespace PuppyMapper.Viewmodels;
 public partial class MappingDocumentIdeEditorViewModel : ReactiveObject
 {
     private MappingDocumentEditDto _mappingDocument = new();
-    [Reactive] public string InputData { get; set; } = string.Empty;
-    [Reactive] public string OutputData { get; set; } = string.Empty;
-    [Reactive] public string MappingFilePath { get; set; } = string.Empty;
+    [Reactive] private string _inputData = string.Empty;
+    [Reactive] private string _outputData = string.Empty;
+    [Reactive] private string _mappingFilePath = string.Empty;
 
     [Reactive]
-    public string VarsCode { get; set; } = string.Empty;
+    private string _varsCode = string.Empty;
 
     [Reactive]
-    public string RulesCode { get; set; } = string.Empty;
+    private string _rulesCode = string.Empty;
 
     [ReactiveCommand]
     private async Task LoadMapping()

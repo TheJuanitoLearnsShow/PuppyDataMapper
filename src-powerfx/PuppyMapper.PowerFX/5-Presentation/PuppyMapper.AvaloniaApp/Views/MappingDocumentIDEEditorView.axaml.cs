@@ -28,12 +28,16 @@ public partial class MappingDocumentIDEEditorView : MappingDocumentIDEEditorView
             };
 
             // Update editor when ViewModel changes
-            this.WhenAnyValue(x => x.ViewModel.VarsCode)
-                .Subscribe((string text) =>
-                {
-                    if (VarsCode.Text != text)
-                        VarsCode.Text = text ?? string.Empty;
-                })
+            // this.WhenAnyValue(x => x.ViewModel.VarsCode)
+            //     .Subscribe((string text) =>
+            //     {
+            //         if (VarsCode.Text != text)
+            //             VarsCode.Text = text ?? string.Empty;
+            //     })
+            //     .DisposeWith(disposables);
+            
+            this.OneWayBind(ViewModel, vm => vm.VarsCode, 
+                    v => v.VarsCode.Text)
                 .DisposeWith(disposables);
             
             // Update ViewModel when editor text changes
