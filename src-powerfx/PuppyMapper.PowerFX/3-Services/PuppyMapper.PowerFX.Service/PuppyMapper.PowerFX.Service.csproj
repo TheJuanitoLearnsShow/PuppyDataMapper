@@ -7,12 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-<!--    <ProjectReference Include="..\..\..\..\..\Power-Fx\src\libraries\Microsoft.PowerFx.Core\Microsoft.PowerFx.Core.csproj" />-->
-<!--    <ProjectReference Include="..\..\..\..\..\Power-Fx\src\libraries\Microsoft.PowerFx.Interpreter\Microsoft.PowerFx.Interpreter.csproj" />-->
-<!--    <ProjectReference Include="..\..\..\..\..\Power-Fx\src\libraries\Microsoft.PowerFx.Json\Microsoft.PowerFx.Json.csproj" />-->
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="YamlDotNet" Version="16.3.0" />
       <PackageReference Include="Microsoft.PowerFx.Interpreter" Version="1.3.1" />
       <PackageReference Include="Microsoft.PowerFx.Json" Version="1.3.1" />

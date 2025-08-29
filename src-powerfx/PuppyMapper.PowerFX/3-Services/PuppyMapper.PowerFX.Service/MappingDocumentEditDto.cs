@@ -1,4 +1,5 @@
 using PuppyMapper.PowerFX.Service.CustomLangParser;
+using PuppyMapper.PowerFX.Service.Integration;
 
 namespace PuppyMapper.PowerFX.Service;
 
@@ -37,4 +38,6 @@ public class MappingDocumentEditDto : IMappingDocument
     public MappingSection InternalVars { get; set;}= new();
     public MappingInput[] MappingInputs { get; set; } = [];
     public MappingOutputType MappingOutputType { get; set; } = new();
+    
+    public IHaveInputOptions[] Inputs { get; set; } = [];
 }

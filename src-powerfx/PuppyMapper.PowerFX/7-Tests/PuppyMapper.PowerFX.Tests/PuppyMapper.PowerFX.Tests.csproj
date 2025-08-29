@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\3-Services\PuppyMapper.IntegrationProviders\PuppyMapper.IntegrationProviders.csproj" />
     <ProjectReference Include="..\..\3-Services\PuppyMapper.PowerFX.Service\PuppyMapper.PowerFX.Service.csproj" />
     <ProjectReference Include="..\..\5-Presentation\PuppyMapper.ViewModels\PuppyMapper.ViewModels.csproj" />
   </ItemGroup>
@@ -53,6 +54,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Samples\Xml\SampleFxMapping.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Samples\CSV\SampleInput.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
