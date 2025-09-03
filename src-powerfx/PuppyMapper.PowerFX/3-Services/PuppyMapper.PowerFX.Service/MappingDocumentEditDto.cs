@@ -39,5 +39,4 @@ public class MappingDocumentEditDto : IMappingDocument
     public MappingInput[] MappingInputs { get; set; } = [];
     public MappingOutputType MappingOutputType { get; set; } = new();
     
-    public IHaveInputOptions[] Inputs { get; set; } = [];
 }

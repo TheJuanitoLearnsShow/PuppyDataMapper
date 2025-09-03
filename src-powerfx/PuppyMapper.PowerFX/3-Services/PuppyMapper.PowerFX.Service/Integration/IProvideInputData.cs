@@ -9,3 +9,9 @@ public interface IHaveInputOptions
 {
     IProvideInputData BuildProvider();
 }
+
+public class InputReference
+{
+    public string InputId { get; set; } = string.Empty;
+    public IHaveInputOptions InputOptions { get; set; }
+}

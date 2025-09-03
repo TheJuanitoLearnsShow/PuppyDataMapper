@@ -46,9 +46,6 @@ public class IDEParserTests
                                """,
             MappingInputs = [
                 new MappingInput("input", "Exam")
-            ],
-            Inputs = [
-                new FromCSVFileOptions() { FilePath = "Samples/CSV/SampleInput.csv" },
             ]
         };
         Assert.Equal(4, doc.MappingRules.Rules.Length);

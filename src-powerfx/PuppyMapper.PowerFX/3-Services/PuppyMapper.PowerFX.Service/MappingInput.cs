@@ -5,18 +5,18 @@ public class MappingInput
     public MappingInput()
     {
     }
-    public MappingInput(string inputName, string inputType)
+    public MappingInput(string inputName, string inputId)
     {
         InputName = inputName;
-        InputType = inputType;
+        InputId = inputId;
     }
 
     public string InputName { get; init; } = string.Empty;
-    public string InputType { get; init; } = string.Empty;
+    public string InputId { get; init; } = string.Empty;
 
-    public void Deconstruct(out string InputName, out string InputType)
+    public void Deconstruct(out string InputName, out string InputId)
     {
         InputName = this.InputName;
-        InputType = this.InputType;
+        InputId = this.InputId;
     }
 }

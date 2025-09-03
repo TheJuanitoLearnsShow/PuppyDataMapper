@@ -13,7 +13,7 @@ public partial class MappingInputViewModel : ReactiveObject
     public MappingInputViewModel(MappingInput input)
     {
         InputName = input.InputName;
-        InputType = input.InputType;
+        InputType = input.InputId;
     }
 
     [Reactive] public string InputName { get; set; }

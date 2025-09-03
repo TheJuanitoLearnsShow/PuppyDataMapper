@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 using System.Text.Json;
 using Microsoft.PowerFx.Types;
 using PuppyMapper.PowerFX.Service;
@@ -24,6 +25,8 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject
 
     [Reactive] private string _rulesCode = string.Empty;
 
+    public ObservableCollection<InputReference> Inputs { get; set; } = [];
+    
     [ReactiveCommand]
     private async Task LoadMapping()
     {
@@ -31,8 +34,13 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject
         try
         {
             var xml = await File.ReadAllTextAsync(filePath);
-            var deserializedDoc = MappingDocumentXml.DeserializeFromXml(xml);
-            _mappingDocument = deserializedDoc;
+            var deserializedDoc = MappingPersistenceModel.DeserializeFromXml(xml);
+            _mappingDocument = deserializedDoc.Document;
+            Inputs.Clear();
+            foreach (var input in deserializedDoc.CSVInputs)
+            {
+                Inputs.Add(input);
+            }
             SyncFromMappingDocument();
         }
         catch (Exception e)
@@ -129,7 +137,9 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject
 
     private IProvideInputData? GetInputProvider()
     {
-        var firstInput = _mappingDocument.Inputs.FirstOrDefault();
+        var inputsUsed = Inputs.Where(i => 
+            _mappingDocument.MappingInputs.Any(mi => mi.InputId == i.InputId)).ToList();
+        var firstInput = inputsUsed.FirstOrDefault()?.InputOptions;
         var inputProvider = firstInput?.BuildProvider();
         return inputProvider;
     }
