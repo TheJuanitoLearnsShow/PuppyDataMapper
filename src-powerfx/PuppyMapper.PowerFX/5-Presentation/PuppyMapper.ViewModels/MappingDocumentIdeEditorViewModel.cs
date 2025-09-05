@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Text.Json;
 using Microsoft.PowerFx.Types;
+using PuppyMapper.IntegrationProviders;
 using PuppyMapper.PowerFX.Service;
 using PuppyMapper.PowerFX.Service.CustomLangParser;
 using PuppyMapper.PowerFX.Service.Integration;
@@ -25,7 +26,30 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject
 
     [Reactive] private string _rulesCode = string.Empty;
 
-    public ObservableCollection<InputReference> Inputs { get; set; } = [];
+    public ObservableCollection<IHaveInputOptions> Inputs { get; set; } = [];
+    
+    
+    [ReactiveCommand]
+    private async Task SaveMapping()
+    {
+        var filePath = MappingFilePath;
+        try
+        {
+            SyncToMappingDocument();
+            
+            var persistenceModel = new MappingPersistenceModel()
+            {
+                Document = _mappingDocument,
+                CSVInputs = Inputs.OfType<FromCSVFileOptions>().ToArray()
+            };
+            var xml = MappingPersistenceModel.SerializeToXml(persistenceModel);
+            await File.WriteAllTextAsync(filePath, xml);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+    }
     
     [ReactiveCommand]
     private async Task LoadMapping()
@@ -139,7 +163,7 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject
     {
         var inputsUsed = Inputs.Where(i => 
             _mappingDocument.MappingInputs.Any(mi => mi.InputId == i.InputId)).ToList();
-        var firstInput = inputsUsed.FirstOrDefault()?.InputOptions;
+        var firstInput = inputsUsed.FirstOrDefault();
         var inputProvider = firstInput?.BuildProvider();
         return inputProvider;
     }

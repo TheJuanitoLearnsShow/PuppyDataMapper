@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.Interfaces;
+using PuppyMapper.IntegrationProviders;
 using PuppyMapper.PowerFX.Service;
+using PuppyMapper.PowerFX.Service.Integration;
 using PuppyMapper.PowerFX.Service.XmlParser;
 using PuppyMapper.Viewmodels;
 using ReactiveUI;
@@ -58,7 +60,7 @@ public class ViewModelTests
     
     
     [Fact]
-    public void TestSerialization()
+    public void TestSerializationLow()
     {
         var doc = new MappingDocumentEditDto
         {
@@ -73,15 +75,42 @@ public class ViewModelTests
                                baseSalary := 561 * input.Score
                                """,
             MappingInputs = [
-                new MappingInput("input", "Exam")
+                new MappingInput("input", "ExamData")
+            ]
+        };
+        var persistenceModel = new MappingPersistenceModel
+        {
+            Document = doc,
+            CSVInputs = [
+                new FromCSVFileOptions() { FilePath = "Samples/CSV/SampleInput.csv", InputId = "ExamData"}
             ]
         };
         Assert.Equal(4, doc.MappingRules.Rules.Length);
-        var xml = MappingDocumentXml.SerializeToXml(doc);
+        var xml = MappingPersistenceModel.SerializeToXml(persistenceModel);
         File.WriteAllText("IDESavedMap.xml", xml);
-        var deserializedDoc = MappingDocumentXml.DeserializeFromXml(xml);
-        Assert.Equal(4, deserializedDoc.MappingRules.Rules.Length);
-        Assert.Equal(1, deserializedDoc.InternalVars.Rules.Length);
+        var deserializedDoc = MappingPersistenceModel.DeserializeFromXml(xml);
+        Assert.Equal(4, deserializedDoc.Document.MappingRules.Rules.Length);
+        Assert.Equal(1, deserializedDoc.Document.InternalVars.Rules.Length);
         
+        
+        
+    }
+    
+    
+    [Fact]
+    public void TestSerializationViewModel()
+    {
+        
+        var ide = new MappingDocumentIdeEditorViewModel
+        {
+            InputData = File.ReadAllText("Samples/SampleRecord1.json"),
+            MappingFilePath = "Samples/Xml/SampleFxMapping.xml"
+        };
+        ide.LoadMappingCommand.Execute().Subscribe(_ =>
+        {
+            ide.MappingFilePath = "SavedFromVM.xml";
+            ide.SaveMappingCommand.Execute().Subscribe();
+        });
+
     }
 }

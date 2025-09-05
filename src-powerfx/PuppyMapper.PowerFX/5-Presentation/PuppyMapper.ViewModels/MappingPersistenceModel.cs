@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+using PuppyMapper.IntegrationProviders;
 using PuppyMapper.PowerFX.Service;
 using PuppyMapper.PowerFX.Service.Integration;
 
@@ -7,7 +8,7 @@ namespace PuppyMapper.Viewmodels;
 public class MappingPersistenceModel
 {
     public MappingDocumentEditDto Document { get; set; } = new();
-    public InputReference[] CSVInputs { get; set; } = [];
+    public FromCSVFileOptions[] CSVInputs { get; set; } = [];
     
     public static MappingPersistenceModel DeserializeFromXml(string xml)
     {

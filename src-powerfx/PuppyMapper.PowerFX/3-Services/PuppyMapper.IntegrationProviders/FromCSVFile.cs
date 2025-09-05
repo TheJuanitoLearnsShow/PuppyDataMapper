@@ -1,8 +1,9 @@
-﻿using CsvHelper;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Text.Json;
-using System.IO;
+using CsvHelper;
 using PuppyMapper.PowerFX.Service.Integration;
+
+namespace PuppyMapper.IntegrationProviders;
 
 public class FromCSVFile : IProvideInputData, IDisposable
 {
