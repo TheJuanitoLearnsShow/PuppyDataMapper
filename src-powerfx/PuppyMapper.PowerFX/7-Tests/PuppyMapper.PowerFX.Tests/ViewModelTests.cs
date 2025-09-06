@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.Interfaces;
+﻿using System.Reactive.Threading.Tasks;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.Interfaces;
 using PuppyMapper.IntegrationProviders;
 using PuppyMapper.PowerFX.Service;
 using PuppyMapper.PowerFX.Service.Integration;
@@ -113,4 +114,44 @@ public class ViewModelTests
         });
 
     }
+    
+    [Fact]
+    public async Task TestFullMapping()
+    {
+        
+        var ide = new MappingDocumentIdeEditorViewModel
+        {
+            // InputData = File.ReadAllText("Samples/SampleRecord1.json"),
+            MappingFilePath = "Samples/Xml/SampleFxMapping.xml"
+        };
+        await ide.LoadMappingCommand.Execute().ToTask();
+        await ide.ExecuteFullMappingCommand.Execute().ToTask();
+    }
+    
+    private void OutputDictionary(ITestOutputHelper testOutputHelper, Dictionary<string, object> dict, string indent = "")
+    {
+        foreach (var kvp in dict)
+        {
+            if (kvp.Value is Dictionary<string, object> nestedDict)
+            {
+                testOutputHelper.WriteLine($"{indent}{kvp.Key}:");
+                OutputDictionary(testOutputHelper, nestedDict, indent + "  ");
+            }
+            else if (kvp.Value is List<Dictionary<string, object>> listDicts)
+            {
+                testOutputHelper.WriteLine($"{indent}{kvp.Key}: [");
+                foreach (var item in listDicts)
+                {
+                    OutputDictionary(testOutputHelper, item, indent + "  ");
+                    testOutputHelper.WriteLine($"{indent}  ---");
+                }
+                testOutputHelper.WriteLine($"{indent}]");
+            }
+            else
+            {
+                testOutputHelper.WriteLine($"{indent}{kvp.Key}: {kvp.Value}");
+            }
+        }
+    }
+
 }

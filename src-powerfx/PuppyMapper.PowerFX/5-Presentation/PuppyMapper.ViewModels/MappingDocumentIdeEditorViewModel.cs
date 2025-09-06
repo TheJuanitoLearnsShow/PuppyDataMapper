@@ -152,8 +152,9 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject
         var recordRaw = await inputProvider.GetRecordAsJson();
         while (!string.IsNullOrEmpty(recordRaw))
         {
-            var dataRow = FormulaValueJSON.FromJson(InputData);
+            var dataRow = FormulaValueJSON.FromJson(recordRaw);
             rows.Add([("input", dataRow)]);
+            recordRaw = await inputProvider.GetRecordAsJson();
         }
 
         return rows;
