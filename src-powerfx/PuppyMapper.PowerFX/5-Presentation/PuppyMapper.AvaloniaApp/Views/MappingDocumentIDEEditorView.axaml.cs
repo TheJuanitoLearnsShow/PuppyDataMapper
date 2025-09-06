@@ -1,9 +1,9 @@
-﻿using System.Reactive.Disposables;
+﻿using System;
+using System.Reactive.Disposables;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
-using AvaloniaEdit.Utils;
 using PuppyMapper.Viewmodels;
 using ReactiveUI;
 
@@ -21,39 +21,34 @@ public partial class MappingDocumentIDEEditorView : MappingDocumentIDEEditorView
         this.WhenActivated(disposables =>
         {
             // Update ViewModel when editor text changes
-            VarsCode.TextChanged += (s, e) =>
-            {
-                if (ViewModel != null && VarsCode.Text != ViewModel.VarsCode)
-                    ViewModel.VarsCode = VarsCode.Text;
-            };
-
-            // Update editor when ViewModel changes
-            // this.WhenAnyValue(x => x.ViewModel.VarsCode)
-            //     .Subscribe((string text) =>
-            //     {
-            //         if (VarsCode.Text != text)
-            //             VarsCode.Text = text ?? string.Empty;
-            //     })
-            //     .DisposeWith(disposables);
+            // Inside WhenActivated
+            this.WhenAnyValue(x => x.VarsCode.Text)
+                .AddThrottleListener()
+                .Subscribe<string>(text =>
+                {
+                    if (ViewModel != null && text != ViewModel.VarsCode)
+                        ViewModel.VarsCode = text;
+                })
+                .DisposeWith(disposables);
             
             this.OneWayBind(ViewModel, vm => vm.VarsCode, 
                     v => v.VarsCode.Text)
                 .DisposeWith(disposables);
             
             // Update ViewModel when editor text changes
-            RulesCode.TextChanged += (s, e) =>
-            {
-                if (ViewModel != null && RulesCode.Text != ViewModel.RulesCode)
-                    ViewModel.RulesCode = RulesCode.Text;
-            };
-
-            // Update editor when ViewModel changes
-            this.WhenAnyValue(x => x.ViewModel!.RulesCode)
-                .Subscribe((string text) =>
+            
+            this.WhenAnyValue(x => x.RulesCode.Text)
+                .AddThrottleListener()
+                .Subscribe<string>(text =>
                 {
-                    if (RulesCode.Text != text)
-                        RulesCode.Text = text ?? string.Empty;
+                    if (ViewModel != null && text != ViewModel.RulesCode)
+                        ViewModel.RulesCode = text;
                 })
+                .DisposeWith(disposables);
+            
+
+            this.OneWayBind(ViewModel, vm => vm.RulesCode, 
+                    v => v.RulesCode.Text)
                 .DisposeWith(disposables);
             
             // Update ViewModel when editor text changes
@@ -62,50 +57,42 @@ public partial class MappingDocumentIDEEditorView : MappingDocumentIDEEditorView
                 if (ViewModel != null && InputTxt.Text != ViewModel.InputData)
                     ViewModel.InputData = InputTxt.Text;
             };
-
             
-            // Update editor when ViewModel changes
-            this.WhenAnyValue(x => x.ViewModel!.InputData)
-                .Subscribe((string text) =>
+            this.WhenAnyValue(x => x.InputTxt.Text)
+                .AddThrottleListener()
+                .Subscribe<string>(text =>
                 {
-                    if (InputTxt.Text != text)
-                        InputTxt.Text = text ?? string.Empty;
+                    if (ViewModel != null && text != ViewModel.InputData)
+                        ViewModel.InputData = text;
                 })
                 .DisposeWith(disposables);
-            
+
+            this.OneWayBind(ViewModel, vm => vm.InputData, 
+                    v => v.InputTxt.Text)
+                .DisposeWith(disposables);
             
             // Update ViewModel when editor text changes
-            OutputTxt.TextChanged += (s, e) =>
-            {
-                if (ViewModel != null && OutputTxt.Text != ViewModel.OutputData)
-                    ViewModel.OutputData = OutputTxt.Text;
-            };
-
-            // Update editor when ViewModel changes
-            this.WhenAnyValue(x => x.ViewModel!.OutputData)
-                .Subscribe((string text) =>
+            
+            this.WhenAnyValue(x => x.OutputTxt.Text)
+                .AddThrottleListener()
+                .Subscribe<string>(text =>
                 {
-                    if (OutputTxt.Text != text)
-                        OutputTxt.Text = text ?? string.Empty;
+                    if (ViewModel != null && text != ViewModel.OutputData)
+                        ViewModel.OutputData = text;
                 })
                 .DisposeWith(disposables);
-            // this.Bind(ViewModel, vm => vm.VarsCode, 
-            //         v => v.VarsCode.Text)
-            //     ;
-            // this.Bind(ViewModel, vm => vm.RulesCode, 
-            //         v => v.RulesCode.Text)
-            //     ;
-            // this.Bind(ViewModel, vm => vm.InputData, 
-            //         v => v.InputTxt.Text)
-            //     ;
-            // this.OneWayBind(ViewModel, vm => vm.OutputData, 
-            //         v => v.OutputTxt.Text)
-                ;
+
+            this.OneWayBind(ViewModel, vm => vm.OutputData, 
+                    v => v.OutputTxt.Text)
+                .DisposeWith(disposables);
+            
             this.BindCommand(ViewModel, vm => vm.ExecuteMappingCommand, 
                 v => v.RunMappingBtn);
             this.BindCommand(ViewModel, vm => vm.LoadMappingCommand, 
                 v => v.LoadMappingBtn);
 
+            this.BindCommand(ViewModel, vm => vm.ExecuteFullMappingCommand, 
+                v => v.RunFullMappingBtn);
             
             ViewModel!.MappingFilePath = "Samples/Xml/SampleFxMapping.xml";
 

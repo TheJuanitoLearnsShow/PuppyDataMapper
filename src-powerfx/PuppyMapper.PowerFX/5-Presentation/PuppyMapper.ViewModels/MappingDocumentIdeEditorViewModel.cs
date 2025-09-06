@@ -136,7 +136,7 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject
             WriteIndented = true,
             PropertyNamingPolicy = null
         });
-        await File.WriteAllTextAsync("output.josn", resultJson);
+        await File.WriteAllTextAsync("output.json", resultJson);
         return resultForRows;
     }
 
