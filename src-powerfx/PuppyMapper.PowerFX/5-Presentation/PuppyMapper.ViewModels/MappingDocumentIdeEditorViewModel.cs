@@ -28,6 +28,7 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject
 
     public ObservableCollection<IHaveInputOptions> Inputs { get; set; } = [];
     
+    public ObservableCollection<IHaveOutputOptions> Outputs { get; set; } = [];
     
     [ReactiveCommand]
     private async Task SaveMapping()
@@ -108,12 +109,13 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject
         var result = mapper.MapRecords([
             [("input", dataRow)]
         ]).ToList();
-        var resultJson = JsonSerializer.Serialize(result, new JsonSerializerOptions()
+
+        foreach (var outputOptions in Outputs)
         {
-            WriteIndented = true,
-            PropertyNamingPolicy = null
-        });
-        OutputData = resultJson;
+            var outputProvider = outputOptions.BuildProvider();
+            await outputProvider.OutputData(result);
+            OutputData = outputProvider.GetDisplayData();
+        }
     }
 
     [ReactiveCommand]

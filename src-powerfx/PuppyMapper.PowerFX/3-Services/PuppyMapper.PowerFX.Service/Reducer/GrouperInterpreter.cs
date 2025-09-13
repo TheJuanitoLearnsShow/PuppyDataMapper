@@ -37,21 +37,21 @@ public class GrouperInterpreter
             var newField = kv.Name;
             engine.SetFormula(kv.Name, kv.Formula, OnUpdate);
         }
-        foreach (var kv in doc.MappingRules.Rules)
-        {
-            var currFormula = kv.Formula;
-            if (currFormula.StartsWith("Map "))
-            {
-                var mapCommandParts = currFormula.Split(" ");
-                var paramToPass = engine.Eval(mapCommandParts[1]);
-                var nameOfMapperToUse = mapCommandParts[3];
-                var mapperToUse = childMappers[nameOfMapperToUse];
-                var resultOfMap = MapRecordAsFormulaValue(mapperToUse, paramToPass, childMappers);
-            }
-            var value = engine.Eval(kv.Formula);
-
-            fields.Add(new NamedValue(kv.Name, value));
-        }
+        // foreach (var kv in doc.MappingRules.Rules)
+        // {
+        //     var currFormula = kv.Formula;
+        //     if (currFormula.StartsWith("Map "))
+        //     {
+        //         var mapCommandParts = currFormula.Split(" ");
+        //         var paramToPass = engine.Eval(mapCommandParts[1]);
+        //         var nameOfMapperToUse = mapCommandParts[3];
+        //         var mapperToUse = childMappers[nameOfMapperToUse];
+        //         var resultOfMap = MapRecordAsFormulaValue(mapperToUse, paramToPass, childMappers);
+        //     }
+        //     var value = engine.Eval(kv.Formula);
+        //
+        //     fields.Add(new NamedValue(kv.Name, value));
+        // }
         return RecordValue.NewRecordFromFields(fields);
     }
 
@@ -112,7 +112,7 @@ public class GrouperInterpreter
                 var groupingRule = doc.GroupByRules[grpKeyIdx];
 
                 var value = _engine.Eval(groupingRule.Formula);
-                var keyValue = value?.ToString() ?? string.Empty
+                var keyValue = value?.ToString() ?? string.Empty;
                 groupKeys[grpKeyIdx] = keyValue;
             }
 
