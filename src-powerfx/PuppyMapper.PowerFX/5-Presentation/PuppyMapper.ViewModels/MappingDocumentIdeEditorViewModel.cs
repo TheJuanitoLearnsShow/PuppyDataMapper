@@ -66,6 +66,11 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject
             {
                 Inputs.Add(input);
             }
+            Outputs.Clear();
+            foreach (var output in deserializedDoc.MemoryOutputs)
+            {
+                Outputs.Add(output);
+            }
             SyncFromMappingDocument();
         }
         catch (Exception e)
@@ -113,7 +118,7 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject
         foreach (var outputOptions in Outputs)
         {
             var outputProvider = outputOptions.BuildProvider();
-            await outputProvider.OutputData(result);
+            await outputProvider.OutputData(result, simulateOnly: true);
             OutputData = outputProvider.GetDisplayData();
         }
     }
@@ -133,12 +138,13 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject
         var resultForRows = mapper.MapRecords(
             inputRows
         ).ToList();
-        var resultJson = JsonSerializer.Serialize(resultForRows, new JsonSerializerOptions()
+        
+        foreach (var outputOptions in Outputs)
         {
-            WriteIndented = true,
-            PropertyNamingPolicy = null
-        });
-        await File.WriteAllTextAsync("output.json", resultJson);
+            var outputProvider = outputOptions.BuildProvider();
+            await outputProvider.OutputData(resultForRows);
+            OutputData = outputProvider.GetDisplayData();
+        }
         return resultForRows;
     }
 

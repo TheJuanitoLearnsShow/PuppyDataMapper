@@ -5,24 +5,30 @@ namespace PuppyMapper.IntegrationProviders;
 public class ToMemoryState : IProvideOutputData
 {
     private readonly ToMemoryStateOptions _settings;
-    private readonly Dictionary<string, object> _data = new();
+    private Dictionary<string, object> _data = new();
 
     public ToMemoryState(ToMemoryStateOptions settings)
     {
         _settings = settings;
     }
 
-    public Task<OutputStatus> OutputData(List<Dictionary<string, object>> rows)
+    public Task<OutputStatus> OutputData(List<Dictionary<string, object>> rows, bool simulateOnly = false)
     {
         var pathParts = ParseOutputPath();
+        _data = new Dictionary<string, object>();
         for (var rowIdx = 0; rowIdx < rows.Count; rowIdx++)
         {
-            var row = rows[rowIdx];
-            Dictionary<string, object> currentLevel = _data;
+            var row = rows[rowIdx].ToDictionary();
+            var currentLevel = _data;
             for (int pathPartIdx = 0; pathPartIdx < pathParts.Length; pathPartIdx++)
             {
                 var pathPart = pathParts[pathPartIdx];
-                if (pathPart == "RowIndex")
+                var isArray = pathPart.StartsWith('[');
+                if (isArray)
+                {
+                    pathPart = pathPart.Trim('[', ']');
+                }
+                if (pathPart == "RowIndex") 
                 {
                     pathPart = rowIdx.ToString();
                 }
@@ -31,7 +37,14 @@ public class ToMemoryState : IProvideOutputData
                 }
                 if (pathPartIdx == pathParts.Length - 1)
                 {
-                    currentLevel[pathPart] = row;
+                    if (isArray)
+                    {
+                        currentLevel[pathPart] = new CollectionItemWrapper(row);
+                    }
+                    else
+                    {
+                        currentLevel[pathPart] = row;
+                    }
                 }
                 else
                 {
@@ -46,7 +59,8 @@ public class ToMemoryState : IProvideOutputData
                 }
             }
         }
-
+        ConvertCollectionWrappers(_data);
+        
         return Task.FromResult(new OutputStatus()
         {
             StatusMessage = "Data written to in-memory state"
@@ -65,5 +79,51 @@ public class ToMemoryState : IProvideOutputData
             WriteIndented = true,
             PropertyNamingPolicy = null
         });
+    }
+    
+    // Recursively walk the dictionary and convert CollectionItemWrapper to arrays
+    private void ConvertCollectionWrappers(object node)
+    {
+        if (node is Dictionary<string, object> dict)
+        {
+            var isArray = dict.Values.Any(v => v is CollectionItemWrapper);
+            if (isArray)
+            {
+                var newItems = new List<Dictionary<string, object>>();
+                foreach (var item in dict)
+                {
+                    int.TryParse(item.Key, out var idx);
+                    var wrapper = item.Value as CollectionItemWrapper;
+                    if (wrapper != null)
+                    {
+                        newItems.Insert(idx, wrapper.Row);
+                    }
+                }
+
+                var exitingKeys = dict.Keys;
+                foreach (var key in exitingKeys)
+                {
+                    dict.Remove(key);
+                }
+                dict["Items"] = newItems.ToArray();
+            }
+            else
+            {
+                foreach (var item in dict)
+                {
+                    ConvertCollectionWrappers(item.Value);
+                }
+            }
+        }
+    }
+}
+
+public class CollectionItemWrapper
+{
+    public Dictionary<string, object> Row { get; }
+
+    public CollectionItemWrapper(Dictionary<string, object> row)
+    {
+       Row = row;
     }
 }

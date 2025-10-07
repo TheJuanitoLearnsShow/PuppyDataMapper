@@ -61,7 +61,7 @@ public class ViewModelTests
     
     
     [Fact]
-    public void TestSerializationLow()
+    public void TestSerializationXml()
     {
         var doc = new MappingDocumentEditDto
         {
@@ -84,6 +84,9 @@ public class ViewModelTests
             Document = doc,
             CSVInputs = [
                 new FromCSVFileOptions() { FilePath = "Samples/CSV/SampleInput.csv", InputId = "ExamData"}
+            ],
+            MemoryOutputs = [
+                new ToMemoryStateOptions() { PropertyPath = "Output.ExamResults.[RowIndex]" }
             ]
         };
         Assert.Equal(4, doc.MappingRules.Rules.Length);
@@ -101,7 +104,6 @@ public class ViewModelTests
     [Fact]
     public void TestSerializationViewModel()
     {
-        
         var ide = new MappingDocumentIdeEditorViewModel
         {
             InputData = File.ReadAllText("Samples/SampleRecord1.json"),
@@ -126,6 +128,8 @@ public class ViewModelTests
         };
         await ide.LoadMappingCommand.Execute().ToTask();
         await ide.ExecuteFullMappingCommand.Execute().ToTask();
+        
+        await File.WriteAllTextAsync("output-full-mapping.json", ide.OutputData);
     }
     
     private void OutputDictionary(ITestOutputHelper testOutputHelper, Dictionary<string, object> dict, string indent = "")

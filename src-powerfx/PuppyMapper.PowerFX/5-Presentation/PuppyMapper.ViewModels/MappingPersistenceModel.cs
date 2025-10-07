@@ -9,6 +9,7 @@ public class MappingPersistenceModel
 {
     public MappingDocumentEditDto Document { get; set; } = new();
     public FromCSVFileOptions[] CSVInputs { get; set; } = [];
+    public ToMemoryStateOptions[] MemoryOutputs { get; set; } = [];
     
     public static MappingPersistenceModel DeserializeFromXml(string xml)
     {
