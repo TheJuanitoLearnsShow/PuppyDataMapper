@@ -94,6 +94,10 @@ public partial class MappingDocumentIDEEditorView : MappingDocumentIDEEditorView
             this.BindCommand(ViewModel, vm => vm.ExecuteFullMappingCommand, 
                 v => v.RunFullMappingBtn);
             
+            this.OneWayBind(ViewModel, vm => vm.Inputs, 
+                    v => v.Inputs)
+                .DisposeWith(disposables);
+            
             ViewModel!.MappingFilePath = "Samples/Xml/SampleFxMapping.xml";
 
         });

@@ -34,12 +34,22 @@
             
         </StackPanel>
          
-         
-        <avaloniaEdit:TextEditor Grid.Column="1" Grid.Row="1"  Name="InputTxt"
-                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                 ShowLineNumbers="True"
-                                 Margin="8"
-                                 FontFamily="Cascadia Code,Consolas,Menlo,Monospace"/>
+         <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
+             <ListBox Name="Inputs" >
+                 <ListBox.ItemTemplate>
+                     <DataTemplate>
+                         <TextBlock Text="{Binding InputId}" />
+                     </DataTemplate>
+                 </ListBox.ItemTemplate>
+             </ListBox>
+             <Button Name="AddInputBtn">Add Input</Button>
+             <avaloniaEdit:TextEditor   Name="InputTxt"
+                                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                        ShowLineNumbers="True"
+                                        Margin="8"
+                                        FontFamily="Cascadia Code,Consolas,Menlo,Monospace"/>
+         </StackPanel>
+        
         <avaloniaEdit:TextEditor Grid.Column="1" Grid.Row="2" Name="OutputTxt"
                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                  ShowLineNumbers="True"
