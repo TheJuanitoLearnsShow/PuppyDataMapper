@@ -37,6 +37,10 @@ public partial class MappingDocumentIDEEditorView : MappingDocumentIDEEditorView
                     v => v.VarsCode.Text)
                 .DisposeWith(disposables);
             
+            this.Bind(ViewModel, vm => vm.VarsCode, 
+                    v => v.VarsCodeTxt.Text)
+                .DisposeWith(disposables);
+            
             // Update ViewModel when editor text changes
             
             this.WhenAnyValue(x => x.RulesCode.Text)
