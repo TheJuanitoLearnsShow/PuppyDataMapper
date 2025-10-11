@@ -4,27 +4,36 @@
                                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                                   xmlns:avaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
                                   xmlns:views="clr-namespace:PuppyMapper.AvaloniaApp.Views"
+                                  xmlns:viewmodels="clr-namespace:PuppyMapper.Viewmodels;assembly=PuppyMapper.ViewModels"
                                   mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
                                   x:Class="PuppyMapper.AvaloniaApp.Views.MappingDocumentIDEEditorView">
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <viewmodels:MappingDocumentIdeEditorViewModel/>
+    </Design.DataContext>
     <Grid RowDefinitions="40,1*,1*" ColumnDefinitions="3*,2*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <Grid Grid.Row="1" RowDefinitions="1*,3*" ColumnDefinitions="1*" 
+              
+        <Button x:Name="LoadMappingBtn" Content="Load Mapping" Grid.Column="0" Grid.Row="0" 
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                Margin="4"   />
+        
+        <Grid Grid.Row="1" Grid.Column="0" RowDefinitions="1*,3*" ColumnDefinitions="1*" 
               HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             
-            <avaloniaEdit:TextEditor Name="VarsCode" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+            <avaloniaEdit:TextEditor Grid.Column="0" Name="VarsCode" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                      ShowLineNumbers="True"
                                      FontFamily="Cascadia Code,Consolas,Menlo,Monospace"
                                      Margin="8"
                                      MinHeight="200"
-                                     />
-            <avaloniaEdit:TextEditor Grid.Row="1" Name="RulesCode" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+            />
+            <avaloniaEdit:TextEditor Grid.Row="1"  Grid.Column="0" Name="RulesCode" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                      ShowLineNumbers="True"
                                      Margin="8"
                                      MinHeight="200"
                                      FontFamily="Cascadia Code,Consolas,Menlo,Monospace"/>
         </Grid>
-                                 
-        <Button x:Name="LoadMappingBtn" Content="Load Mapping" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                Margin="4"   />
+                           
         <StackPanel  Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Center"
                     Grid.Column="1" Grid.Row="0">
             <Button x:Name="RunMappingBtn" Content="Run Mapping" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
@@ -35,12 +44,12 @@
         </StackPanel>
          
          <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
-             <ListBox Name="Inputs" >
-                 <ListBox.ItemTemplate>
-                     <DataTemplate>
-                         <TextBlock Text="{Binding InputId}" />
-                     </DataTemplate>
-                 </ListBox.ItemTemplate>
+             <ListBox Name="Inputs">
+                 <!-- <ListBox.ItemTemplate> -->
+                 <!--     <DataTemplate> -->
+                 <!--         <TextBlock Text="{Binding InputId}" FontSize="16" /> -->
+                 <!--     </DataTemplate> -->
+                 <!-- </ListBox.ItemTemplate> -->
              </ListBox>
              <Button Name="AddInputBtn">Add Input</Button>
              <avaloniaEdit:TextEditor   Name="InputTxt"

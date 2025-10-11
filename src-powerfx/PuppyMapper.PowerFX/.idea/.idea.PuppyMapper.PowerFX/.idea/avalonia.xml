@@ -4,6 +4,7 @@
     <option name="projectPerEditor">
       <map>
         <entry key="5-Presentation/PuppyMapper.AvaloniaApp/App.axaml" value="5-Presentation/PuppyMapper.AvaloniaApp/PuppyMapper.AvaloniaApp.csproj" />
+        <entry key="5-Presentation/PuppyMapper.AvaloniaApp/Views/InputEditorView.axaml" value="5-Presentation/PuppyMapper.AvaloniaApp/PuppyMapper.AvaloniaApp.csproj" />
         <entry key="5-Presentation/PuppyMapper.AvaloniaApp/Views/MainWindow.axaml" value="5-Presentation/PuppyMapper.AvaloniaApp/PuppyMapper.AvaloniaApp.csproj" />
         <entry key="5-Presentation/PuppyMapper.AvaloniaApp/Views/MappingDocumentIDEEditorView.axaml" value="5-Presentation/PuppyMapper.AvaloniaApp/PuppyMapper.AvaloniaApp.csproj" />
       </map>

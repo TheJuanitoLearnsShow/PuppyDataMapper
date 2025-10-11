@@ -7,6 +7,6 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        MappingDocumentView.ViewModel = new ();
+        // MappingDocumentView.ViewModel = new ();
     }
 }

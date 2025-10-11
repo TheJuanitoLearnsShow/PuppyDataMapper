@@ -15,7 +15,7 @@ using LisOfInputs =
 
 namespace PuppyMapper.Viewmodels;
 
-public partial class MappingDocumentIdeEditorViewModel : ReactiveObject
+public partial class MappingDocumentIdeEditorViewModel : ReactiveObject, IRoutableViewModel
 {
     private MappingDocumentEditDto _mappingDocument = new();
     [Reactive] private string _inputData = string.Empty;
@@ -30,11 +30,23 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject
     public ObservableCollection<IHaveInputOptions> Inputs { get; set; } = [];
     
     public ObservableCollection<IHaveOutputOptions> Outputs { get; set; } = [];
-
+    
     public MappingDocumentIdeEditorViewModel()
     {
-        _inputEditor = new(this);
     }
+    
+    public MappingDocumentIdeEditorViewModel(IScreen hostScreen)
+    {
+        HostScreen = hostScreen;
+        _inputEditor = new InputEditorViewModel(this, hostScreen);
+    }
+
+    [ReactiveCommand]
+    private void AddInput()
+    {
+        HostScreen.Router.Navigate.Execute(_inputEditor);
+    }
+
     
     [ReactiveCommand]
     private async Task SaveMapping()
@@ -182,4 +194,7 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject
         var inputProvider = firstInput?.BuildProvider();
         return inputProvider;
     }
+    
+    public string? UrlPathSegment { get; } = "mappingDocumentEditor";
+    public IScreen HostScreen { get; }
 }

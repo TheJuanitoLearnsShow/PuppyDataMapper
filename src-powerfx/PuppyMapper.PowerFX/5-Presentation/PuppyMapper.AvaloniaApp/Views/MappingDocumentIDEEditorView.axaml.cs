@@ -3,7 +3,9 @@ using System.Reactive.Disposables;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Avalonia.Markup.Xaml.Templates;
 using Avalonia.ReactiveUI;
+using PuppyMapper.PowerFX.Service.Integration;
 using PuppyMapper.Viewmodels;
 using ReactiveUI;
 
@@ -94,10 +96,14 @@ public partial class MappingDocumentIDEEditorView : MappingDocumentIDEEditorView
             this.BindCommand(ViewModel, vm => vm.ExecuteFullMappingCommand, 
                 v => v.RunFullMappingBtn);
             
+            this.BindCommand(ViewModel, vm => vm.AddInputCommand, 
+                v => v.AddInputBtn);
+            
             this.OneWayBind(ViewModel, vm => vm.Inputs, 
-                    v => v.Inputs)
+                    v => v.Inputs.ItemsSource)
                 .DisposeWith(disposables);
             
+
             ViewModel!.MappingFilePath = "Samples/Xml/SampleFxMapping.xml";
 
         });
