@@ -25,10 +25,16 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject
     [Reactive] private string _varsCode = string.Empty;
 
     [Reactive] private string _rulesCode = string.Empty;
+    [Reactive] private InputEditorViewModel _inputEditor;
 
     public ObservableCollection<IHaveInputOptions> Inputs { get; set; } = [];
     
     public ObservableCollection<IHaveOutputOptions> Outputs { get; set; } = [];
+
+    public MappingDocumentIdeEditorViewModel()
+    {
+        _inputEditor = new(this);
+    }
     
     [ReactiveCommand]
     private async Task SaveMapping()
