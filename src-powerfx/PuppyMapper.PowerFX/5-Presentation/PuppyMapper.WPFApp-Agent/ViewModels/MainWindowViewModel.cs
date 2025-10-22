@@ -1,8 +1,8 @@
-﻿using System.Reactive;
+using System.Reactive;
 using PuppyMapper.Viewmodels;
 using ReactiveUI;
 
-namespace PuppyMapper.AvaloniaApp.ViewModels;
+namespace PuppyMapper.WPFApp.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase, IScreen
 {
@@ -10,7 +10,7 @@ public partial class MainWindowViewModel : ViewModelBase, IScreen
 
     // The Router associated with this Screen.
     // Required by the IScreen interface.
-    public RoutingState Router { get; } = new ();
+    public RoutingState Router { get; } = new();
 
     // The command that navigates a user to first view model.
     public ReactiveCommand<Unit, IRoutableViewModel> GoMappingDocument { get; }
@@ -21,7 +21,6 @@ public partial class MainWindowViewModel : ViewModelBase, IScreen
     public MainWindowViewModel()
     {
         _mappingDocEditor = new MappingDocumentIdeEditorViewModel(this);
-        _mappingDocEditor.OutputData = "Test";
         // Manage the routing state. Use the Router.Navigate.Execute
         // command to navigate to different view models. 
         //

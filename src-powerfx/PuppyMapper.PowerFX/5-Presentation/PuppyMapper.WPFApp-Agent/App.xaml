@@ -1,0 +1,14 @@
+&lt;Application x:Class="PuppyMapper.WPFApp.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PuppyMapper.WPFApp"
+             StartupUri="Views/MainWindow.xaml">
+    &lt;Application.Resources>
+        &lt;ResourceDictionary>
+            &lt;ResourceDictionary.MergedDictionaries>
+                &lt;ResourceDictionary Source="pack://application:,,,/Microsoft.Xaml.Behaviors.Wpf;component/Themes/Generic.xaml"/>
+            &lt;/ResourceDictionary.MergedDictionaries>
+            &lt;local:ViewLocator x:Key="ViewLocator"/>
+        &lt;/ResourceDictionary>
+    &lt;/Application.Resources>
+&lt;/Application>

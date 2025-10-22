@@ -1,0 +1,16 @@
+&lt;UserControl x:Class="PuppyMapper.WPFApp.Views.InputEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewmodels="clr-namespace:PuppyMapper.Viewmodels;assembly=PuppyMapper.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450">
+    
+    &lt;UserControl.DataContext>
+        &lt;viewmodels:InputEditorViewModel/>
+    &lt;/UserControl.DataContext>
+    
+    &lt;StackPanel>
+        &lt;TextBox x:Name="SelectedInputType" />
+    &lt;/StackPanel>
+&lt;/UserControl>

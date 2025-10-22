@@ -1,0 +1,39 @@
+&lt;Project Sdk="Microsoft.NET.Sdk">
+  &lt;PropertyGroup>
+    &lt;OutputType>WinExe&lt;/OutputType>
+    &lt;TargetFramework>net9.0-windows&lt;/TargetFramework>
+    &lt;Nullable>enable&lt;/Nullable>
+    &lt;UseWPF>true&lt;/UseWPF>
+    &lt;ApplicationManifest>app.manifest&lt;/ApplicationManifest>
+  &lt;/PropertyGroup>
+
+  &lt;ItemGroup>
+    &lt;Folder Include="Models\" />
+    &lt;Resource Include="Assets\**" />
+  &lt;/ItemGroup>
+
+  &lt;ItemGroup>
+    &lt;PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+    &lt;PackageReference Include="ICSharpCode.AvalonEdit" Version="6.3.1" />
+    &lt;PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
+    &lt;PackageReference Include="ReactiveUI.WPF" Version="19.5.1" />
+  &lt;/ItemGroup>
+
+  &lt;ItemGroup>
+    &lt;ProjectReference Include="..\PuppyMapper.ViewModels\PuppyMapper.ViewModels.csproj" />
+  &lt;/ItemGroup>
+
+  &lt;ItemGroup>
+    &lt;None Include="..\..\7-Tests\PuppyMapper.PowerFX.Tests\Samples\Xml\SampleFxMapping.xml">
+      &lt;Link>Samples/Xml/SampleFxMapping.xml&lt;/Link>
+      &lt;CopyToOutputDirectory>Always&lt;/CopyToOutputDirectory>
+    &lt;/None>
+  &lt;/ItemGroup>
+
+  &lt;ItemGroup>
+    &lt;None Include="..\..\7-Tests\PuppyMapper.PowerFX.Tests\Samples\CSV\SampleInput.csv">
+      &lt;Link>Samples/CSV/SampleInput.csv&lt;/Link>
+      &lt;CopyToOutputDirectory>Always&lt;/CopyToOutputDirectory>
+    &lt;/None>
+  &lt;/ItemGroup>
+&lt;/Project>
