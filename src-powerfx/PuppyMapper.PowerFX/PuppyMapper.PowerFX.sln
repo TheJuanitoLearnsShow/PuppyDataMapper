@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.8.34408.163
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11116.177 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Services", "3-Services", "{AF0D3E82-9211-4073-B9E4-F9A85B13D0D9}"
 EndProject
@@ -22,6 +22,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuppyMapper.AvaloniaApp", "5-Presentation\PuppyMapper.AvaloniaApp\PuppyMapper.AvaloniaApp.csproj", "{FD989696-1C27-A2F7-A14D-E209B2AE25BC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuppyMapper.IntegrationProviders", "3-Services\PuppyMapper.IntegrationProviders\PuppyMapper.IntegrationProviders.csproj", "{1961E0DB-0550-4A39-974B-F3A4DD247140}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuppyMapper.WpfApp", "5-Presentation\PuppyMapper.WpfApp\PuppyMapper.WpfApp.csproj", "{291E216B-E93A-1880-6526-C24B7A7AE230}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{1961E0DB-0550-4A39-974B-F3A4DD247140}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1961E0DB-0550-4A39-974B-F3A4DD247140}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1961E0DB-0550-4A39-974B-F3A4DD247140}.Release|Any CPU.Build.0 = Release|Any CPU
+		{291E216B-E93A-1880-6526-C24B7A7AE230}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{291E216B-E93A-1880-6526-C24B7A7AE230}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{291E216B-E93A-1880-6526-C24B7A7AE230}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{291E216B-E93A-1880-6526-C24B7A7AE230}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +72,7 @@ Global
 		{68D0DEC5-5C0B-4190-9479-7E8061C8C4F1} = {B23A432A-4ED2-4C7C-8FD7-FB8B8413C9A3}
 		{FD989696-1C27-A2F7-A14D-E209B2AE25BC} = {B23A432A-4ED2-4C7C-8FD7-FB8B8413C9A3}
 		{1961E0DB-0550-4A39-974B-F3A4DD247140} = {AF0D3E82-9211-4073-B9E4-F9A85B13D0D9}
+		{291E216B-E93A-1880-6526-C24B7A7AE230} = {B23A432A-4ED2-4C7C-8FD7-FB8B8413C9A3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D8EE198-9496-4342-A730-D71AF39D43A6}

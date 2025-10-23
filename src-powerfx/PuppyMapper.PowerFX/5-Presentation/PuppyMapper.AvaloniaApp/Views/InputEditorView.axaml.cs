@@ -15,9 +15,17 @@ public partial class InputEditorView : ReactiveUserControl<InputEditorViewModel>
         InitializeComponent();
         this.WhenActivated(disposables =>
         {
-            this.Bind(ViewModel, vm => vm.SelectedInputType, 
-                    v => v.SelectedInputType.Text)
+            
+            this.OneWayBind(ViewModel, vm => vm.InputTypes,
+                    v => v.InputTypes.ItemsSource)
                 .DisposeWith(disposables);
+            this.Bind(ViewModel, vm => vm.SelectedInputType,
+                    v => v.InputTypes.SelectedItem)
+                .DisposeWith(disposables);
+            
+            this.BindCommand(ViewModel, vm => vm.AddInputCommand,
+                v => v.CreateInputBtn);
+            
         });
     }
 }

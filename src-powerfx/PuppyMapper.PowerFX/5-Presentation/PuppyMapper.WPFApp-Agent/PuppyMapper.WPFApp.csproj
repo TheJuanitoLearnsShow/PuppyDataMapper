@@ -1,39 +1,39 @@
-&lt;Project Sdk="Microsoft.NET.Sdk">
-  &lt;PropertyGroup>
-    &lt;OutputType>WinExe&lt;/OutputType>
-    &lt;TargetFramework>net9.0-windows&lt;/TargetFramework>
-    &lt;Nullable>enable&lt;/Nullable>
-    &lt;UseWPF>true&lt;/UseWPF>
-    &lt;ApplicationManifest>app.manifest&lt;/ApplicationManifest>
-  &lt;/PropertyGroup>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
 
-  &lt;ItemGroup>
-    &lt;Folder Include="Models\" />
-    &lt;Resource Include="Assets\**" />
-  &lt;/ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Resource Include="Assets\**" />
+  </ItemGroup>
 
-  &lt;ItemGroup>
-    &lt;PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
-    &lt;PackageReference Include="ICSharpCode.AvalonEdit" Version="6.3.1" />
-    &lt;PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
-    &lt;PackageReference Include="ReactiveUI.WPF" Version="19.5.1" />
-  &lt;/ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+    <PackageReference Include="ICSharpCode.AvalonEdit" Version="6.3.1" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
+    <PackageReference Include="ReactiveUI.WPF" Version="19.5.1" />
+  </ItemGroup>
 
-  &lt;ItemGroup>
-    &lt;ProjectReference Include="..\PuppyMapper.ViewModels\PuppyMapper.ViewModels.csproj" />
-  &lt;/ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PuppyMapper.ViewModels\PuppyMapper.ViewModels.csproj" />
+  </ItemGroup>
 
-  &lt;ItemGroup>
-    &lt;None Include="..\..\7-Tests\PuppyMapper.PowerFX.Tests\Samples\Xml\SampleFxMapping.xml">
-      &lt;Link>Samples/Xml/SampleFxMapping.xml&lt;/Link>
-      &lt;CopyToOutputDirectory>Always&lt;/CopyToOutputDirectory>
-    &lt;/None>
-  &lt;/ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\7-Tests\PuppyMapper.PowerFX.Tests\Samples\Xml\SampleFxMapping.xml">
+      <Link>Samples/Xml/SampleFxMapping.xml</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
-  &lt;ItemGroup>
-    &lt;None Include="..\..\7-Tests\PuppyMapper.PowerFX.Tests\Samples\CSV\SampleInput.csv">
-      &lt;Link>Samples/CSV/SampleInput.csv&lt;/Link>
-      &lt;CopyToOutputDirectory>Always&lt;/CopyToOutputDirectory>
-    &lt;/None>
-  &lt;/ItemGroup>
-&lt;/Project>
+  <ItemGroup>
+    <None Include="..\..\7-Tests\PuppyMapper.PowerFX.Tests\Samples\CSV\SampleInput.csv">
+      <Link>Samples/CSV/SampleInput.csv</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

@@ -2,10 +2,35 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net10.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows10.0.26100.1</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+    <ItemGroup>
+        <PackageReference Include="AvalonEdit" Version="6.3.1.120" />
+        <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
+        <PackageReference Include="ReactiveUI.WPF" Version="22.1.1" />
+        <PackageReference Include="Splat" Version="17.1.1" />
+        <PackageReference Include="Splat.Logging" Version="17.1.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\PuppyMapper.ViewModels\PuppyMapper.ViewModels.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\..\7-Tests\PuppyMapper.PowerFX.Tests\Samples\Xml\SampleFxMapping.xml">
+            <Link>Samples/Xml/SampleFxMapping.xml</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\..\7-Tests\PuppyMapper.PowerFX.Tests\Samples\CSV\SampleInput.csv">
+            <Link>Samples/CSV/SampleInput.csv</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
 </Project>

@@ -1,9 +1,9 @@
 using System;
-using PuppyMapper.AvaloniaApp.Views;
+using PuppyMapper.WPFApp.Views;
 using PuppyMapper.Viewmodels;
 using ReactiveUI;
 
-namespace PuppyMapper.AvaloniaApp;
+namespace PuppyMapper.WPFApp;
 
 public class AppViewLocator : ReactiveUI.IViewLocator
 {
@@ -11,7 +11,6 @@ public class AppViewLocator : ReactiveUI.IViewLocator
     {
         MappingDocumentIdeEditorViewModel context => new MappingDocumentIDEEditorView { DataContext = context },
         InputEditorViewModel context => new InputEditorView { DataContext = context },
-        CsvInputEditorViewModel context => new CsvInputEditorView { DataContext = context },
         _ => throw new ArgumentOutOfRangeException(nameof(viewModel))
     };
 }

@@ -12,6 +12,14 @@
         <viewmodels:InputEditorViewModel/>
     </Design.DataContext>
     <StackPanel>
-        <TextBox Name="SelectedInputType"></TextBox>
+        <ListBox Name="InputTypes">
+            <!-- <ListBox.ItemTemplate> -->
+            <!--     <DataTemplate> -->
+            <!--         <TextBlock Text="{Binding InputId}" FontSize="16" /> -->
+            <!--     </DataTemplate> -->
+            <!-- </ListBox.ItemTemplate> -->
+        </ListBox>
+        
+        <Button Name="CreateInputBtn">Create Input</Button>
     </StackPanel>
 </UserControl>
