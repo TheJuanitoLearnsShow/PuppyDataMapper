@@ -4,10 +4,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewmodels="clr-namespace:PuppyMapper.Viewmodels;assembly=PuppyMapper.ViewModels"
+             xmlns:inputs="clr-namespace:PuppyMapper.ViewModels.Inputs;assembly=PuppyMapper.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450">
     
     <UserControl.DataContext>
-        <viewmodels:InputEditorViewModel/>
+        <inputs:InputEditorViewModel/>
     </UserControl.DataContext>
     
     <StackPanel>

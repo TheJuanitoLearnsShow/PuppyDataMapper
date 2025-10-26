@@ -5,6 +5,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using PuppyMapper.Viewmodels;
 using ReactiveUI;
+using CsvInputEditorViewModel = PuppyMapper.ViewModels.Inputs.CsvInputEditorViewModel;
 
 namespace PuppyMapper.AvaloniaApp.Views;
 

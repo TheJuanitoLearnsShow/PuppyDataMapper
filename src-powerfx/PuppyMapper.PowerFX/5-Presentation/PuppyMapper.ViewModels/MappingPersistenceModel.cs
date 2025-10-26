@@ -8,6 +8,7 @@ namespace PuppyMapper.Viewmodels;
 public class MappingPersistenceModel
 {
     public MappingDocumentEditDto Document { get; set; } = new();
+    public FromMemoryStateOptions[] MemoryInputs { get; set; } = [];
     public FromCSVFileOptions[] CSVInputs { get; set; } = [];
     public ToMemoryStateOptions[] MemoryOutputs { get; set; } = [];
     

@@ -5,6 +5,7 @@
                                   xmlns:avaloniaEdit="https://github.com/avaloniaui/avaloniaedit"
                                   xmlns:views="clr-namespace:PuppyMapper.AvaloniaApp.Views"
                                   xmlns:viewmodels="clr-namespace:PuppyMapper.Viewmodels;assembly=PuppyMapper.ViewModels"
+                                  xmlns:inputs="clr-namespace:PuppyMapper.AvaloniaApp.Views.Inputs"
                                   mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
                                   x:Class="PuppyMapper.AvaloniaApp.Views.MappingDocumentIDEEditorView">
     <Design.DataContext>
@@ -41,19 +42,22 @@
                     Margin="4"  />
             <Button x:Name="RunFullMappingBtn" Content="Run Full Mapping" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                     Margin="4"  />
-            
-            <TextBox Name="VarsCodeTxt"  ></TextBox>     
         </StackPanel>
          
          <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
              <ListBox Name="Inputs">
-                 <!-- <ListBox.ItemTemplate> -->
-                 <!--     <DataTemplate> -->
-                 <!--         <TextBlock Text="{Binding InputId}" FontSize="16" /> -->
-                 <!--     </DataTemplate> -->
-                 <!-- </ListBox.ItemTemplate> -->
+                 <ListBox.ItemTemplate>
+                     <DataTemplate>
+                         <inputs:InputOptionsItemView />
+                     </DataTemplate>
+                 </ListBox.ItemTemplate>
              </ListBox>
-             <Button Name="AddInputBtn">Add Input</Button>
+             <StackPanel Orientation="Horizontal">
+                 <Button Name="AddInputBtn" HorizontalAlignment="Left">Add Input</Button>
+                 <Button Name="ModifyInputBtn" HorizontalAlignment="Right">Modify Input</Button>
+             </StackPanel>
+             
+             
              <avaloniaEdit:TextEditor   Name="InputTxt"
                                         HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                         ShowLineNumbers="True"

@@ -27,10 +27,6 @@ public partial class MappingDocumentIDEEditorView : MappingDocumentIDEEditorView
                     v => v.VarsCode.Text)
                 .DisposeWith(disposables);
 
-            this.Bind(ViewModel, vm => vm.VarsCode,
-                    v => v.VarsCodeTxt.Text)
-                .DisposeWith(disposables);
-
             this.OneWayBind(ViewModel, vm => vm.RulesCode,
                     v => v.RulesCode.Text)
                 .DisposeWith(disposables);
@@ -58,6 +54,8 @@ public partial class MappingDocumentIDEEditorView : MappingDocumentIDEEditorView
 
             this.BindCommand(ViewModel, vm => vm.AddInputCommand,
                 v => v.AddInputBtn);
+            this.BindCommand(ViewModel, vm => vm.ModifyInputCommand,
+                v => v.ModifyInputBtn);
 
             this.OneWayBind(ViewModel, vm => vm.Inputs,
                     v => v.Inputs.ItemsSource)

@@ -2,10 +2,23 @@
 
 namespace PuppyMapper.IntegrationProviders;
 
+public class MemorySateManager
+{
+    private static Dictionary<string, object> State { get; set; } = new();
+
+    public static Dictionary<string, object>  GetState()
+    {
+        return State;
+    }
+    public static void ResetState()
+    {
+        State  = new();
+    }
+}
+
 public class ToMemoryState : IProvideOutputData
 {
     private readonly ToMemoryStateOptions _settings;
-    private Dictionary<string, object> _data = new();
 
     public ToMemoryState(ToMemoryStateOptions settings)
     {
@@ -15,11 +28,11 @@ public class ToMemoryState : IProvideOutputData
     public Task<OutputStatus> OutputData(List<Dictionary<string, object>> rows, bool simulateOnly = false)
     {
         var pathParts = ParseOutputPath();
-        _data = new Dictionary<string, object>();
+        var data = MemorySateManager.GetState();
         for (var rowIdx = 0; rowIdx < rows.Count; rowIdx++)
         {
             var row = rows[rowIdx].ToDictionary();
-            var currentLevel = _data;
+            var currentLevel = data;
             for (int pathPartIdx = 0; pathPartIdx < pathParts.Length; pathPartIdx++)
             {
                 var pathPart = pathParts[pathPartIdx];
@@ -59,7 +72,7 @@ public class ToMemoryState : IProvideOutputData
                 }
             }
         }
-        ConvertCollectionWrappers(_data);
+        ConvertCollectionWrappers(data);
         
         return Task.FromResult(new OutputStatus()
         {
@@ -74,7 +87,8 @@ public class ToMemoryState : IProvideOutputData
     
     public string GetDisplayData()
     {
-        return System.Text.Json.JsonSerializer.Serialize(_data, new System.Text.Json.JsonSerializerOptions()
+        var data = MemorySateManager.GetState();
+        return System.Text.Json.JsonSerializer.Serialize(data, new System.Text.Json.JsonSerializerOptions()
         {
             WriteIndented = true,
             PropertyNamingPolicy = null
@@ -93,8 +107,7 @@ public class ToMemoryState : IProvideOutputData
                 foreach (var item in dict)
                 {
                     int.TryParse(item.Key, out var idx);
-                    var wrapper = item.Value as CollectionItemWrapper;
-                    if (wrapper != null)
+                    if (item.Value is CollectionItemWrapper wrapper)
                     {
                         newItems.Insert(idx, wrapper.Row);
                     }
@@ -115,15 +128,5 @@ public class ToMemoryState : IProvideOutputData
                 }
             }
         }
-    }
-}
-
-public class CollectionItemWrapper
-{
-    public Dictionary<string, object> Row { get; }
-
-    public CollectionItemWrapper(Dictionary<string, object> row)
-    {
-       Row = row;
     }
 }

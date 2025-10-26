@@ -25,9 +25,10 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject, IRoutab
     [Reactive] private string _varsCode = string.Empty;
 
     [Reactive] private string _rulesCode = string.Empty;
-    [Reactive] private InputEditorViewModel _inputEditor;
+    [Reactive] private ViewModels.Inputs.InputEditorViewModel _inputEditor;
 
     public ObservableCollection<IHaveInputOptions> Inputs { get; set; } = [];
+    [Reactive] private IHaveInputOptions? _selectedInput = null;
     
     public ObservableCollection<IHaveOutputOptions> Outputs { get; set; } = [];
     
@@ -38,7 +39,7 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject, IRoutab
     public MappingDocumentIdeEditorViewModel(IScreen hostScreen)
     {
         HostScreen = hostScreen;
-        _inputEditor = new InputEditorViewModel(this, hostScreen);
+        _inputEditor = new ViewModels.Inputs.InputEditorViewModel(this, hostScreen);
     }
 
     [ReactiveCommand]
@@ -46,7 +47,15 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject, IRoutab
     {
         HostScreen.Router.Navigate.Execute(_inputEditor);
     }
-
+    [ReactiveCommand]
+    private void ModifyInput()
+    {
+        if (_selectedInput != null)
+        {
+            _inputEditor.ModifyInput(_selectedInput);
+        }
+    }
+    
     
     [ReactiveCommand]
     private async Task SaveMapping()
@@ -59,7 +68,8 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject, IRoutab
             var persistenceModel = new MappingPersistenceModel()
             {
                 Document = _mappingDocument,
-                CSVInputs = Inputs.OfType<FromCSVFileOptions>().ToArray()
+                CSVInputs = Inputs.OfType<FromCSVFileOptions>().ToArray(),
+                MemoryInputs = Inputs.OfType<FromMemoryStateOptions>().ToArray()
             };
             var xml = MappingPersistenceModel.SerializeToXml(persistenceModel);
             await File.WriteAllTextAsync(filePath, xml);
@@ -81,6 +91,10 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject, IRoutab
             _mappingDocument = deserializedDoc.Document;
             Inputs.Clear();
             foreach (var input in deserializedDoc.CSVInputs)
+            {
+                Inputs.Add(input);
+            }
+            foreach (var input in deserializedDoc.MemoryInputs)
             {
                 Inputs.Add(input);
             }
@@ -197,4 +211,14 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject, IRoutab
     
     public string? UrlPathSegment { get; } = "mappingDocumentEditor";
     public IScreen HostScreen { get; }
+
+    public void UpdateInput(IHaveInputOptions newOptions)
+    {
+        var foundItem = Inputs.FirstOrDefault(i => i.InputId == newOptions.InputId);
+        if (foundItem != null)
+        {
+            Inputs.Remove(foundItem);
+        }
+        Inputs.Add(newOptions);
+    }
 }

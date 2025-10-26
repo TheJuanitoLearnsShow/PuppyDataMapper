@@ -2,6 +2,7 @@ using System.Reactive.Disposables;
 using System.Windows.Controls;
 using PuppyMapper.Viewmodels;
 using ReactiveUI;
+using InputEditorViewModel = PuppyMapper.ViewModels.Inputs.InputEditorViewModel;
 
 namespace PuppyMapper.WPFApp.Views;
 

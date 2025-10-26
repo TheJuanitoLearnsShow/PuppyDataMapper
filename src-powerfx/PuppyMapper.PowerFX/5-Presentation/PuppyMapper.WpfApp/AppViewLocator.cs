@@ -2,6 +2,7 @@ using System;
 using PuppyMapper.WPFApp.Views;
 using PuppyMapper.Viewmodels;
 using ReactiveUI;
+using InputEditorViewModel = PuppyMapper.ViewModels.Inputs.InputEditorViewModel;
 
 namespace PuppyMapper.WPFApp;
 

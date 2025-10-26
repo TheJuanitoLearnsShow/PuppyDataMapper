@@ -5,6 +5,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using PuppyMapper.Viewmodels;
 using ReactiveUI;
+using InputEditorViewModel = PuppyMapper.ViewModels.Inputs.InputEditorViewModel;
 
 namespace PuppyMapper.AvaloniaApp.Views;
 

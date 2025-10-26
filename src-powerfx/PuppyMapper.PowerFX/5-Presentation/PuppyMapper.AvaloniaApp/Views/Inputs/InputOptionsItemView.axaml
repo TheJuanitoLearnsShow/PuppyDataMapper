@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:integration="clr-namespace:PuppyMapper.PowerFX.Service.Integration;assembly=PuppyMapper.PowerFX.Service"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="PuppyMapper.AvaloniaApp.Views.Inputs.InputOptionsItemView"
+             x:DataType="integration:IHaveInputOptions"
+             >
+    <StackPanel Orientation="Horizontal">
+        <TextBlock Text="{Binding InputId}" HorizontalAlignment="Left"></TextBlock>
+        <TextBlock Text="{Binding InputTypeName}" HorizontalAlignment="Right"></TextBlock>
+    </StackPanel>
+</UserControl>

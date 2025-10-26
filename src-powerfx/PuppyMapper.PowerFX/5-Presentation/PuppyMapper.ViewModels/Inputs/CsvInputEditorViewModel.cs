@@ -3,7 +3,7 @@ using PuppyMapper.PowerFX.Service.Integration;
 using ReactiveUI;
 using ReactiveUI.SourceGenerators;
 
-namespace PuppyMapper.Viewmodels;
+namespace PuppyMapper.ViewModels.Inputs;
 
 public partial class CsvInputEditorViewModel : ReactiveObject, IRoutableViewModel
 {
