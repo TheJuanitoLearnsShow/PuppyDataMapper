@@ -10,6 +10,31 @@ using Xunit.Abstractions;
 
 namespace PuppyMapper.PowerFX.Tests;
 
+public class MemoryIOTests
+{
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public MemoryIOTests(ITestOutputHelper testOutputHelper)
+    {
+        _testOutputHelper = testOutputHelper;
+    }
+    
+    [Fact]
+    public async Task TestFullMapping()
+    {
+        var ide = new MappingDocumentIdeEditorViewModel
+        {
+            MappingFilePath = "Samples/Xml/SampleMemoryMapping.xml"
+        };
+        var globalData = MemorySateManager.GetState();
+        globalData
+        await ide.LoadMappingCommand.Execute().ToTask();
+        await ide.ExecuteFullMappingCommand.Execute().ToTask();
+        
+        await File.WriteAllTextAsync("output-full-mapping.json", ide.OutputData);
+    }
+}
+
 public class ViewModelTests
 {
     private readonly ITestOutputHelper _testOutputHelper;
