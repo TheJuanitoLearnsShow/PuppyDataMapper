@@ -27,7 +27,23 @@ public class MemoryIOTests
             MappingFilePath = "Samples/Xml/SampleMemoryMapping.xml"
         };
         var globalData = MemorySateManager.GetState();
-        globalData
+        Dictionary<string, object>[] students = [
+        new Dictionary<string, object>(){
+            {"Score", 10},
+            {"Score2", 10},
+            {"Name", "Pepe"},
+        },
+        new Dictionary<string, object>(){
+            {"Score", 20},
+            {"Score2", 40},
+            {"Name", "Juan"},
+        },
+        ];
+        globalData.Add("Students", new Dictionary<string, Dictionary<string, object>[]>()
+        {
+            {"Scores": students}
+        }
+        );
         await ide.LoadMappingCommand.Execute().ToTask();
         await ide.ExecuteFullMappingCommand.Execute().ToTask();
         
