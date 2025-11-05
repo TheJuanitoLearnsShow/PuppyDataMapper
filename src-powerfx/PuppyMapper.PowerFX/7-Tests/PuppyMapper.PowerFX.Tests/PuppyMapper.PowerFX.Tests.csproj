@@ -62,6 +62,9 @@
     <None Update="Samples\Xml\SampleMemoryMapping.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Samples\Xml\SampleCsvMapping.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

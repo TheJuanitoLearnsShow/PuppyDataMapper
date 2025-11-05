@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using PuppyMapper.IntegrationProviders;
 using PuppyMapper.PowerFX.Service.Integration;
 using PuppyMapper.Viewmodels;
+using PuppyMapper.ViewModels.Inputs;
 using ReactiveUI;
 using ReactiveUI.SourceGenerators;
 

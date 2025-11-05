@@ -4,4 +4,5 @@ public interface IHaveOutputOptions
 {
     string OutputId { get; set; }
     IProvideOutputData BuildProvider();
+    string InputTypeName { get; }
 }

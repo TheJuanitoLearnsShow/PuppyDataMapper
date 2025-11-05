@@ -1,5 +1,6 @@
-Score,Score2,Name
-50,300,Williams
-20,100,Smith
-70,200,Johnson
-90,400,Jones
+Score,Score2,Name,Category
+50,300,Williams,North
+20,100,Smith,South
+70,200,Johnson,South
+34,20,Pep,North
+90,400,Jones,South

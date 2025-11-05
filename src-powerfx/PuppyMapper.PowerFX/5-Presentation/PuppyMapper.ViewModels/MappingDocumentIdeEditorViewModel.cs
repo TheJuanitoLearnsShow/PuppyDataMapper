@@ -69,7 +69,9 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject, IRoutab
             {
                 Document = _mappingDocument,
                 CSVInputs = Inputs.OfType<FromCSVFileOptions>().ToArray(),
-                MemoryInputs = Inputs.OfType<FromMemoryStateOptions>().ToArray()
+                MemoryInputs = Inputs.OfType<FromMemoryStateOptions>().ToArray(),
+                MemoryOutputs = Outputs.OfType<ToMemoryStateOptions>().ToArray(),
+                CsvOutputs = Outputs.OfType<ToCSVFileOptions>().ToArray(),
             };
             var xml = MappingPersistenceModel.SerializeToXml(persistenceModel);
             await File.WriteAllTextAsync(filePath, xml);
@@ -90,16 +92,12 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject, IRoutab
             var deserializedDoc = MappingPersistenceModel.DeserializeFromXml(xml);
             _mappingDocument = deserializedDoc.Document;
             Inputs.Clear();
-            foreach (var input in deserializedDoc.CSVInputs)
-            {
-                Inputs.Add(input);
-            }
-            foreach (var input in deserializedDoc.MemoryInputs)
+            foreach (var input in deserializedDoc.GetAllInputs())
             {
                 Inputs.Add(input);
             }
             Outputs.Clear();
-            foreach (var output in deserializedDoc.MemoryOutputs)
+            foreach (var output in deserializedDoc.GetAllOutputs())
             {
                 Outputs.Add(output);
             }
@@ -220,5 +218,15 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject, IRoutab
             Inputs.Remove(foundItem);
         }
         Inputs.Add(newOptions);
+    }
+
+    public void UpdateOutput(IHaveOutputOptions newOptions)
+    {
+        var foundItem = Outputs.FirstOrDefault(i => i.OutputId == newOptions.OutputId);
+        if (foundItem != null)
+        {
+            Outputs.Remove(foundItem);
+        }
+        Outputs.Add(newOptions);
     }
 }
