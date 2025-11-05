@@ -19,7 +19,8 @@ public class ToCSVFile : IProvideOutputData, IDisposable
     
     private bool NeedsNewWriter(Dictionary<string, object> row)
     {
-        var finalFilePath = row.Keys.Aggregate((currFilePath, key) => currFilePath
+        var finalFilePath = row.Keys.Aggregate(_settings.FilePath, (currFilePath, key) => 
+            currFilePath
             .Replace($"{{{key}}}", row[key].ToString()));
         var hasChanged = (_currFilePath != finalFilePath);
         _currFilePath = finalFilePath;
