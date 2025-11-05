@@ -4,7 +4,7 @@ using PuppyMapper.ViewModels.Outputs;
 using ReactiveUI;
 using ReactiveUI.SourceGenerators;
 
-namespace PuppyMapper.ViewModels.Inputs;
+namespace PuppyMapper.ViewModels.Outputs;
 
 public partial class CsvOutputEditorViewModel : ReactiveObject, IRoutableViewModel
 {

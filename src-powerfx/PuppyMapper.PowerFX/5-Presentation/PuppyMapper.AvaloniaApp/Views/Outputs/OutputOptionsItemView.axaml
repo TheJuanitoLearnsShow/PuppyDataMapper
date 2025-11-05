@@ -1,0 +1,15 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:integration="clr-namespace:PuppyMapper.PowerFX.Service.Integration;assembly=PuppyMapper.PowerFX.Service"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="80"
+             x:Class="PuppyMapper.AvaloniaApp.Views.Outputs.OutputOptionsItemView"
+             x:DataType="integration:IHaveOutputOptions"
+             >
+    <StackPanel Orientation="Horizontal">
+        <TextBlock Text="{Binding OutputId}" HorizontalAlignment="Left"></TextBlock>
+        <TextBlock Text="{Binding InputTypeName}" HorizontalAlignment="Right" Margin="6,0,0,0"></TextBlock>
+    </StackPanel>
+</UserControl>
+

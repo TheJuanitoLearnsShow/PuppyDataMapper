@@ -13,6 +13,11 @@
         <entry key="5-Presentation/PuppyMapper.AvaloniaApp/Views/Inputs/MemoryInputEditorView.axaml" value="5-Presentation/PuppyMapper.AvaloniaApp/PuppyMapper.AvaloniaApp.csproj" />
         <entry key="5-Presentation/PuppyMapper.AvaloniaApp/Views/MainWindow.axaml" value="5-Presentation/PuppyMapper.AvaloniaApp/PuppyMapper.AvaloniaApp.csproj" />
         <entry key="5-Presentation/PuppyMapper.AvaloniaApp/Views/MappingDocumentIDEEditorView.axaml" value="5-Presentation/PuppyMapper.AvaloniaApp/PuppyMapper.AvaloniaApp.csproj" />
+        <entry key="5-Presentation/PuppyMapper.AvaloniaApp/Views/Outputs/CsvOutputEditorView.axaml" value="5-Presentation/PuppyMapper.AvaloniaApp/PuppyMapper.AvaloniaApp.csproj" />
+        <entry key="5-Presentation/PuppyMapper.AvaloniaApp/Views/Outputs/MemoryOutputEditorView.axaml" value="5-Presentation/PuppyMapper.AvaloniaApp/PuppyMapper.AvaloniaApp.csproj" />
+        <entry key="5-Presentation/PuppyMapper.AvaloniaApp/Views/Outputs/OutputEditorView.axaml" value="5-Presentation/PuppyMapper.AvaloniaApp/PuppyMapper.AvaloniaApp.csproj" />
+        <entry key="5-Presentation/PuppyMapper.AvaloniaApp/Views/Outputs/OutputOptionsItemView.axaml" value="5-Presentation/PuppyMapper.AvaloniaApp/PuppyMapper.AvaloniaApp.csproj" />
+        <entry key="5-Presentation/PuppyMapper.AvaloniaApp/Views/Outputs/OutputTypeView.axaml" value="5-Presentation/PuppyMapper.AvaloniaApp/PuppyMapper.AvaloniaApp.csproj" />
       </map>
     </option>
   </component>

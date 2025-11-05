@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewmodels="clr-namespace:PuppyMapper.Viewmodels;assembly=PuppyMapper.ViewModels"
+             xmlns:outputs="clr-namespace:PuppyMapper.AvaloniaApp.Views.Outputs"
+             xmlns:outputs1="clr-namespace:PuppyMapper.ViewModels.Outputs;assembly=PuppyMapper.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="PuppyMapper.AvaloniaApp.Views.Outputs.OutputEditorView">
+    
+    <Design.DataContext>
+        <!-- Design-time VM for preview -->
+        <outputs1:OutputEditorViewModel/>
+    </Design.DataContext>
+    <StackPanel>
+        <ListBox Name="OutputTypes">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <outputs:OutputTypeView/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        
+        <Button Name="CreateOutputBtn">Create Output</Button>
+    </StackPanel>
+</UserControl>
+
