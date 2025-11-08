@@ -1,13 +1,11 @@
-﻿using System.Reactive.Disposables;
-using Avalonia;
+﻿using System.Reactive;
+using System.Reactive.Disposables;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
-using PuppyMapper.Viewmodels;
 using ReactiveUI;
 using CsvInputEditorViewModel = PuppyMapper.ViewModels.Inputs.CsvInputEditorViewModel;
 
-namespace PuppyMapper.AvaloniaApp.Views;
+namespace PuppyMapper.AvaloniaApp.Views.Inputs;
 
 public partial class CsvInputEditorView : ReactiveUserControl<CsvInputEditorViewModel>
 {
@@ -17,16 +15,16 @@ public partial class CsvInputEditorView : ReactiveUserControl<CsvInputEditorView
         this.WhenActivated(disposables =>
         {
             
-            this.Bind(ViewModel, vm => vm.InputId,
+            this.Bind<CsvInputEditorViewModel, CsvInputEditorView, string, string?>(ViewModel, vm => vm.InputId,
                     v => v.InputId.Text)
                 .DisposeWith(disposables);
             
             
-            this.Bind(ViewModel, vm => vm.FilePath,
+            this.Bind<CsvInputEditorViewModel, CsvInputEditorView, string, string?>(ViewModel, vm => vm.FilePath,
                     v => v.FilePath.Text)
                 .DisposeWith(disposables);
             
-            this.BindCommand(ViewModel, vm => vm.SaveInputCommand,
+            this.BindCommand<CsvInputEditorView, CsvInputEditorViewModel, ReactiveCommand<Unit, Unit>, Button>(ViewModel, vm => vm.SaveInputCommand,
                 v => v.SaveInputBtn);
             
         });

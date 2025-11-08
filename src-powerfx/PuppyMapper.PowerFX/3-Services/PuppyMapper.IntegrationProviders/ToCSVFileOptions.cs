@@ -7,7 +7,7 @@ public class ToCSVFileOptions : IHaveOutputOptions
     public string FilePath { get; set; } = string.Empty;
     public string OutputId { get; set; } = string.Empty;
 
-    public string InputTypeName { get; } = "CSV";
+    public string OutputTypeName { get; } = "CSV";
 
     public IProvideOutputData BuildProvider()
     {

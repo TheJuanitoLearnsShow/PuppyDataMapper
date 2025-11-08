@@ -15,6 +15,7 @@ public class FromMemoryState : IProvideInputData
     {
         _propertyPath = settings.PropertyPath;
         _pathParts = ParseOutputPath();
+        InputId = settings.InputId;
     }
     
     private void Initialize()
@@ -78,6 +79,8 @@ public class FromMemoryState : IProvideInputData
         _currRowIndex++;
         return Task.FromResult(JsonSerializer.Serialize(data))!;
     }
+
+    public string InputId { get; init; }
     
     private string[] ParseOutputPath()
     {

@@ -9,7 +9,9 @@ public class ToMemoryState : IProvideOutputData
     public ToMemoryState(ToMemoryStateOptions settings)
     {
         _settings = settings;
+        OutputId = settings.OutputId;
     }
+    public string OutputId { get; init; }
 
     public Task<OutputStatus> OutputData(List<Dictionary<string, object>> rows, bool simulateOnly = false)
     {

@@ -6,7 +6,7 @@ public class ToMemoryStateOptions : IHaveOutputOptions
 {
     public string PropertyPath { get; set; } = string.Empty;
     public string OutputId { get; set; } = string.Empty;
-    public string InputTypeName { get; } = "Memory State";
+    public string OutputTypeName { get; } = "Memory State";
 
     public IProvideOutputData BuildProvider()
     {

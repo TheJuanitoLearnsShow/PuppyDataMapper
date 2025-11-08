@@ -1,13 +1,17 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Reactive;
 using System.Reactive.Disposables;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using PuppyMapper.Viewmodels;
+using PuppyMapper.ViewModels.Outputs;
 using ReactiveUI;
-using OutputEditorViewModel = PuppyMapper.ViewModels.Outputs.OutputEditorViewModel;
 
-namespace PuppyMapper.AvaloniaApp.Views;
+namespace PuppyMapper.AvaloniaApp.Views.Outputs;
 
 public partial class OutputEditorView : ReactiveUserControl<OutputEditorViewModel>
 {
@@ -16,15 +20,17 @@ public partial class OutputEditorView : ReactiveUserControl<OutputEditorViewMode
         InitializeComponent();
         this.WhenActivated(disposables =>
         {
-            this.OneWayBind(ViewModel, vm => vm.OutputTypes,
+            
+            this.OneWayBind<OutputEditorViewModel, OutputEditorView, ObservableCollection<string>, IEnumerable>(ViewModel, vm => vm.OutputTypes,
                     v => v.OutputTypes.ItemsSource)
                 .DisposeWith(disposables);
-            this.Bind(ViewModel, vm => vm.SelectedOutputType,
+            this.Bind<OutputEditorViewModel, OutputEditorView, string, object>(ViewModel, vm => vm.SelectedOutputType,
                     v => v.OutputTypes.SelectedItem)
                 .DisposeWith(disposables);
             
-            this.BindCommand(ViewModel, vm => vm.AddOutputCommand,
+            this.BindCommand<OutputEditorView, OutputEditorViewModel, ReactiveCommand<Unit, Unit>, Button>(ViewModel, vm => vm.AddOutputCommand,
                 v => v.CreateOutputBtn);
+            
         });
     }
 }

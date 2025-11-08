@@ -7,6 +7,8 @@ using PuppyMapper.PowerFX.Service;
 using PuppyMapper.PowerFX.Service.CustomLangParser;
 using PuppyMapper.PowerFX.Service.Integration;
 using PuppyMapper.PowerFX.Service.XmlParser;
+using PuppyMapper.ViewModels.Inputs;
+using PuppyMapper.ViewModels.Outputs;
 using ReactiveUI;
 using ReactiveUI.SourceGenerators;
 using LisOfInputs =
@@ -25,12 +27,15 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject, IRoutab
     [Reactive] private string _varsCode = string.Empty;
 
     [Reactive] private string _rulesCode = string.Empty;
-    [Reactive] private ViewModels.Inputs.InputEditorViewModel _inputEditor;
+    [Reactive] private InputEditorViewModel _inputEditor;
+    [Reactive] private OutputEditorViewModel _outputEditor;
 
     public ObservableCollection<IHaveInputOptions> Inputs { get; set; } = [];
     [Reactive] private IHaveInputOptions? _selectedInput = null;
     
     public ObservableCollection<IHaveOutputOptions> Outputs { get; set; } = [];
+    
+    [Reactive] private IHaveInputOptions? _selectedOutput = null;
     
     public MappingDocumentIdeEditorViewModel()
     {
@@ -39,7 +44,8 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject, IRoutab
     public MappingDocumentIdeEditorViewModel(IScreen hostScreen)
     {
         HostScreen = hostScreen;
-        _inputEditor = new ViewModels.Inputs.InputEditorViewModel(this, hostScreen);
+        _inputEditor = new InputEditorViewModel(this, hostScreen);
+        _outputEditor = new OutputEditorViewModel(this, hostScreen);
     }
 
     [ReactiveCommand]
@@ -53,6 +59,19 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject, IRoutab
         if (_selectedInput != null)
         {
             _inputEditor.ModifyInput(_selectedInput);
+        }
+    }
+    [ReactiveCommand]
+    private void AddOutput()
+    {
+        HostScreen.Router.Navigate.Execute(_outputEditor);
+    }
+    [ReactiveCommand]
+    private void ModifyOutput()
+    {
+        if (_selectedOutput != null)
+        {
+            _inputEditor.ModifyInput(_selectedOutput);
         }
     }
     
@@ -130,7 +149,6 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject, IRoutab
             OutputData = "Input data is empty.";
             return;
         }
-
         InputData = await inputProvider.GetRecordAsJson() ?? string.Empty;
         if (string.IsNullOrWhiteSpace(InputData))
         {
@@ -191,7 +209,8 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject, IRoutab
         while (!string.IsNullOrEmpty(recordRaw))
         {
             var dataRow = FormulaValueJSON.FromJson(recordRaw);
-            rows.Add([("input", dataRow)]);
+            rows.Add([(inputProvider.InputId, dataRow)]);
+            // TODO add other inputs as rows
             recordRaw = await inputProvider.GetRecordAsJson();
         }
 

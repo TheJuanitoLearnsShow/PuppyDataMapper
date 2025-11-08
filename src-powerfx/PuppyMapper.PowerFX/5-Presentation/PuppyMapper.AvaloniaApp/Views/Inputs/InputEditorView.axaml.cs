@@ -1,13 +1,13 @@
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.Reactive;
 using System.Reactive.Disposables;
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
-using PuppyMapper.Viewmodels;
 using ReactiveUI;
 using InputEditorViewModel = PuppyMapper.ViewModels.Inputs.InputEditorViewModel;
 
-namespace PuppyMapper.AvaloniaApp.Views;
+namespace PuppyMapper.AvaloniaApp.Views.Inputs;
 
 public partial class InputEditorView : ReactiveUserControl<InputEditorViewModel>
 {
@@ -17,14 +17,14 @@ public partial class InputEditorView : ReactiveUserControl<InputEditorViewModel>
         this.WhenActivated(disposables =>
         {
             
-            this.OneWayBind(ViewModel, vm => vm.InputTypes,
+            this.OneWayBind<InputEditorViewModel, InputEditorView, ObservableCollection<string>, IEnumerable>(ViewModel, vm => vm.InputTypes,
                     v => v.InputTypes.ItemsSource)
                 .DisposeWith(disposables);
-            this.Bind(ViewModel, vm => vm.SelectedInputType,
+            this.Bind<InputEditorViewModel, InputEditorView, string, object>(ViewModel, vm => vm.SelectedInputType,
                     v => v.InputTypes.SelectedItem)
                 .DisposeWith(disposables);
             
-            this.BindCommand(ViewModel, vm => vm.AddInputCommand,
+            this.BindCommand<InputEditorView, InputEditorViewModel, ReactiveCommand<Unit, Unit>, Button>(ViewModel, vm => vm.AddInputCommand,
                 v => v.CreateInputBtn);
             
         });

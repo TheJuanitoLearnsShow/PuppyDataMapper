@@ -5,7 +5,7 @@
              xmlns:viewmodels="clr-namespace:PuppyMapper.Viewmodels;assembly=PuppyMapper.ViewModels"
              xmlns:inputs="clr-namespace:PuppyMapper.ViewModels.Inputs;assembly=PuppyMapper.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="PuppyMapper.AvaloniaApp.Views.CsvInputEditorView">
+             x:Class="PuppyMapper.AvaloniaApp.Views.Inputs.CsvInputEditorView">
     
     <Design.DataContext>
         <inputs:CsvInputEditorViewModel/>

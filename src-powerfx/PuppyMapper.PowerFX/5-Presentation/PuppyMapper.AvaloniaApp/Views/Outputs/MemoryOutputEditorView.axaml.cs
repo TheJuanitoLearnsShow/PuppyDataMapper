@@ -1,13 +1,33 @@
+using System.Reactive.Disposables;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
+using PuppyMapper.ViewModels.Outputs;
+using ReactiveUI;
 
 namespace PuppyMapper.AvaloniaApp.Views.Outputs;
 
-public partial class MemoryOutputEditorView : UserControl
+public partial class MemoryOutputEditorView : ReactiveUserControl<MemoryOutputEditorViewModel>
 {
     public MemoryOutputEditorView()
     {
         InitializeComponent();
+        this.WhenActivated(disposables =>
+        {
+            
+            this.Bind(ViewModel, vm => vm.OutputId,
+                    v => v.OutputId.Text)
+                .DisposeWith(disposables);
+            
+            
+            this.Bind(ViewModel, vm => vm.PropertyPath,
+                    v => v.PropertyPath.Text)
+                .DisposeWith(disposables);
+            
+            this.BindCommand(ViewModel, vm => vm.SaveOutputCommand,
+                v => v.SaveOutputBtn);
+            
+        });
     }
 }

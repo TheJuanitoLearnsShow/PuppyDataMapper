@@ -15,8 +15,11 @@ public class ToCSVFile : IProvideOutputData, IDisposable
     public ToCSVFile(ToCSVFileOptions settings)
     {
         _settings = settings;
+        OutputId = settings.OutputId;
     }
-    
+
+    public string OutputId { get; init; }
+
     private bool NeedsNewWriter(Dictionary<string, object> row)
     {
         var finalFilePath = row.Keys.Aggregate(_settings.FilePath, (currFilePath, key) => 

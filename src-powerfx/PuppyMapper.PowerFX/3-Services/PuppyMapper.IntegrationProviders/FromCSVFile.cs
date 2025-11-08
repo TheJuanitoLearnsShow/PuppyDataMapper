@@ -15,6 +15,7 @@ public class FromCSVFile : IProvideInputData, IDisposable
     {
         _reader = new StreamReader(settings.FilePath);
         _csv = new CsvReader(_reader, CultureInfo.InvariantCulture);
+        InputId = settings.InputId;
     }
 
     private async Task InitializeAsync()
@@ -38,6 +39,8 @@ public class FromCSVFile : IProvideInputData, IDisposable
         return null;
     }
 
+    public string InputId { get; init; }
+    
     public void Dispose()
     {
         _reader.Dispose();

@@ -9,7 +9,7 @@
              >
     <StackPanel Orientation="Horizontal">
         <TextBlock Text="{Binding OutputId}" HorizontalAlignment="Left"></TextBlock>
-        <TextBlock Text="{Binding InputTypeName}" HorizontalAlignment="Right" Margin="6,0,0,0"></TextBlock>
+        <TextBlock Text="{Binding OutputTypeName}" HorizontalAlignment="Right" Margin="6,0,0,0"></TextBlock>
     </StackPanel>
 </UserControl>
 

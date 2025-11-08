@@ -56,10 +56,18 @@ public partial class MappingDocumentIDEEditorView : MappingDocumentIDEEditorView
                 v => v.AddInputBtn);
             this.BindCommand(ViewModel, vm => vm.ModifyInputCommand,
                 v => v.ModifyInputBtn);
-
             this.OneWayBind(ViewModel, vm => vm.Inputs,
                     v => v.Inputs.ItemsSource)
                 .DisposeWith(disposables);
+            
+            this.BindCommand(ViewModel, vm => vm.AddOutputCommand,
+                v => v.AddOutputBtn);
+            this.BindCommand(ViewModel, vm => vm.ModifyOutputCommand,
+                v => v.ModifyOutputBtn);
+            this.OneWayBind(ViewModel, vm => vm.Outputs,
+                    v => v.Outputs.ItemsSource)
+                .DisposeWith(disposables);
+            
             SetupCodeEditorListeners(disposables);
 
             ViewModel!.MappingFilePath = "Samples/Xml/SampleFxMapping.xml";

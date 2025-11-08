@@ -2,14 +2,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:outputs1="clr-namespace:PuppyMapper.ViewModels.Outputs;assembly=PuppyMapper.ViewModels"
+             xmlns:viewmodels="clr-namespace:PuppyMapper.Viewmodels;assembly=PuppyMapper.ViewModels"
+             xmlns:outputs="clr-namespace:PuppyMapper.ViewModels.Outputs;assembly=PuppyMapper.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="PuppyMapper.AvaloniaApp.Views.Outputs.CsvOutputEditorView">
+    
     <Design.DataContext>
-        <outputs1:CsvOutputEditorViewModel/>
+        <outputs:CsvOutputEditorViewModel/>
     </Design.DataContext>
-
     <StackPanel>
-        <TextBlock Text="CSV Output Options"/>
+        <TextBlock>File Path</TextBlock>
+        <TextBox Name="FilePath"></TextBox>
+        <TextBlock>Output Id</TextBlock>
+        <TextBox Name="OutputId"></TextBox>
+        <Button Name="SaveOutputBtn">Save</Button>
     </StackPanel>
 </UserControl>

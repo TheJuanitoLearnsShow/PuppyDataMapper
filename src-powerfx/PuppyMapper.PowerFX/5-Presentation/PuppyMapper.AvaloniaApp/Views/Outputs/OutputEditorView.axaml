@@ -9,7 +9,8 @@
              x:Class="PuppyMapper.AvaloniaApp.Views.Outputs.OutputEditorView">
     
     <Design.DataContext>
-        <!-- Design-time VM for preview -->
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <outputs1:OutputEditorViewModel/>
     </Design.DataContext>
     <StackPanel>
@@ -24,4 +25,3 @@
         <Button Name="CreateOutputBtn">Create Output</Button>
     </StackPanel>
 </UserControl>
-

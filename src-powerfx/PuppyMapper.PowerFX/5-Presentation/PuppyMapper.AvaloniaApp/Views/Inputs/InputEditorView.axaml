@@ -6,7 +6,7 @@
              xmlns:inputs="clr-namespace:PuppyMapper.AvaloniaApp.Views.Inputs"
              xmlns:inputs1="clr-namespace:PuppyMapper.ViewModels.Inputs;assembly=PuppyMapper.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="PuppyMapper.AvaloniaApp.Views.InputEditorView">
+             x:Class="PuppyMapper.AvaloniaApp.Views.Inputs.InputEditorView">
     
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
