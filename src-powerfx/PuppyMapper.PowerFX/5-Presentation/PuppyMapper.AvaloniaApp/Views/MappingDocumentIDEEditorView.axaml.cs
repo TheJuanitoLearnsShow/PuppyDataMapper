@@ -5,6 +5,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Markup.Xaml.Templates;
 using Avalonia.ReactiveUI;
+using PuppyMapper.AvaloniaApp.CodeEditor;
 using PuppyMapper.PowerFX.Service.Integration;
 using PuppyMapper.Viewmodels;
 using ReactiveUI;
@@ -19,7 +20,9 @@ public partial class MappingDocumentIDEEditorView : MappingDocumentIDEEditorView
     public MappingDocumentIDEEditorView()
     {
         InitializeComponent();
-        
+        var rulesCodeSyntaxHighlighting = PowerFxHighlighting.Create();
+        VarsCode.SyntaxHighlighting = rulesCodeSyntaxHighlighting;
+        RulesCode.SyntaxHighlighting = rulesCodeSyntaxHighlighting;
         this.WhenActivated(disposables =>
         {
 
