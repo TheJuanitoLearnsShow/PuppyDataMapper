@@ -23,6 +23,14 @@ public partial class MappingDocumentIDEEditorView : MappingDocumentIDEEditorView
         var rulesCodeSyntaxHighlighting = PowerFxHighlighting.Create();
         VarsCode.SyntaxHighlighting = rulesCodeSyntaxHighlighting;
         RulesCode.SyntaxHighlighting = rulesCodeSyntaxHighlighting;
+
+        // Attach simple autocomplete suggestions to VarsCode
+        CompletionSupport.AttachCompletion(VarsCode, new[]
+        {
+            "If", "Switch", "With", "Let", "As", "ThisRecord", "Self", "Parent", "true", "false",
+            "Sum", "Filter", "LookUp", "Patch", "Collect", "Clear", "UpdateContext", "Navigate", "Rand", "Text", "Value"
+        });
+
         this.WhenActivated(disposables =>
         {
 

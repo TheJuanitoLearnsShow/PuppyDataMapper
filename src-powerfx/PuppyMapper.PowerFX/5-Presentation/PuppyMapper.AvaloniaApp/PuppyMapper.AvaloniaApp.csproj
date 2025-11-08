@@ -38,6 +38,9 @@
       <Link>Samples/Xml/SampleFxMapping.xml</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="CodeEditor\powerfx.tmLanguage.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

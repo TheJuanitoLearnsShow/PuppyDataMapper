@@ -17,6 +17,13 @@ public class CustomHighlightingDefinition : IHighlightingDefinition
         MainRuleSet = rules;
     }
 
-    public HighlightingColor GetNamedColor(string name) => null;
-    public HighlightingRuleSet GetNamedRuleSet(string name) => null;
+    public HighlightingColor GetNamedColor(string name)
+    {
+        return null;
+    }
+
+    public HighlightingRuleSet GetNamedRuleSet(string name)
+    {
+        return null;
+    }
 }
