@@ -139,12 +139,20 @@ public class MapperInterpreter
         LisOfInputs rows)
     {
         var firstRow = true;
+        Dictionary<string, object>? prevResult = null;
         foreach(var row in rows)
         {
             Dictionary<string, object> result = new();
             foreach (var input in row)
             {
                 _engine.UpdateVariable(input.Key, input.Value);
+            }
+
+            if (prevResult != null)
+            {
+                var fields = prevResult.Select(kv => new NamedValue(kv.Key, ConvertToFormulaValue(kv.Value)));
+                var prevResultRecord = FormulaValue.NewRecordFromFields(fields);
+                _engine.UpdateVariable("PREV_ROW", prevResultRecord);
             }
             if (firstRow)
             {
@@ -175,8 +183,78 @@ public class MapperInterpreter
                 }
             }
             yield return result;
+            prevResult = result;
         }
 
     }
+
+    public static FormulaValue ConvertToFormulaValue(object? value)
+    {
+        // preserve already-built FormulaValue
+        if (value is FormulaValue fv)
+            return fv;
+    
+        if (value is null)
+            return FormulaValue.NewBlank(FormulaType.UntypedObject);
+    
+        if (value is bool b)
+            return FormulaValue.New(b);
+    
+        if (value is string s)
+            return FormulaValue.New(s);
+    
+        if (value is int i)
+            return FormulaValue.New(i);
+    
+        if (value is long l)
+            return FormulaValue.New(l);
+    
+        if (value is double d)
+            return FormulaValue.New(d);
+    
+        if (value is float f)
+            return FormulaValue.New(f);
+    
+        if (value is decimal dec)
+            return FormulaValue.New(dec);
+    
+        if (value is Guid g)
+            return FormulaValue.New(g);
+    
+        if (value is DateTime dt)
+            return FormulaValue.New(dt);
+    
+        if (value is TimeSpan ts)
+            return FormulaValue.New(ts);
+    
+        // If the input is already a dictionary of string -> object, convert into a RecordValue
+        if (value is IDictionary<string, object?> dictObj)
+        {
+            var fields = dictObj.Select(kv => new NamedValue(kv.Key, ConvertToFormulaValue(kv.Value)));
+            return RecordValue.NewRecordFromFields(fields);
+        }
+    
+        // If the input is a dictionary of string -> FormulaValue, map directly
+        if (value is IDictionary<string, FormulaValue> dictFv)
+        {
+            var fields = dictFv.Select(kv => new NamedValue(kv.Key, kv.Value));
+            return RecordValue.NewRecordFromFields(fields);
+        }
+    
+        // If the input is a sequence of key/value pairs (e.g. IEnumerable<KeyValuePair<string, object>>)
+        if (value is IEnumerable<KeyValuePair<string, object?>> kvEnum)
+        {
+            var fields = kvEnum.Select(kv => new NamedValue(kv.Key, ConvertToFormulaValue(kv.Value)));
+            return RecordValue.NewRecordFromFields(fields);
+        }
+    
+        // Fallback: try enum as integer, else use string representation
+        var t = value.GetType();
+        if (t.IsEnum)
+            return FormulaValue.New(Convert.ToInt32(value));
+    
+        return FormulaValue.New(value.ToString() ?? string.Empty);
+    }
+    
 
 }
