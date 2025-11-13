@@ -143,49 +143,62 @@ public class MapperInterpreter
         foreach(var row in rows)
         {
             Dictionary<string, object> result = new();
-            foreach (var input in row)
-            {
-                _engine.UpdateVariable(input.Key, input.Value);
-            }
-
-            if (prevResult != null)
-            {
-                var fields = prevResult.Select(kv => new NamedValue(kv.Key, ConvertToFormulaValue(kv.Value)));
-                var prevResultRecord = FormulaValue.NewRecordFromFields(fields);
-                _engine.UpdateVariable("PREV_ROW", prevResultRecord);
-            }
+            PopulateInputsAsVariables(row, prevResult);
             if (firstRow)
             {
-                foreach (var kv in doc.InternalVars.Rules)
-                {
-                    var newField = kv.Name;
-                    _engine.SetFormula(kv.Name, kv.Formula, OnUpdate);
-                }
+                AddVariables(doc);
                 firstRow = false;
             }
-            foreach (var kv in doc.MappingRules.Rules)
-            {
-                var currFormula = kv.Formula.Trim();
-                if (currFormula.StartsWith("Map "))
-                {
-                    var mapCommandParts = currFormula.Split(" ");
-                    var paramToPass = _engine.Eval(mapCommandParts[1]);
-                    var nameOfMapperToUse = mapCommandParts[2];
-                    var mapperToUse = _childMappers[nameOfMapperToUse];
-                    var resultOfMap = MapRecordAsFormulaValue(mapperToUse, paramToPass, _childMappers);
-                    result[kv.Name] = resultOfMap.ToObject();
-                } 
-                else
-                {
-                    var value = _engine.Eval(kv.Formula);
-
-                    result[kv.Name] = value.ToObject();
-                }
-            }
+            PopulateResult(doc, result);
             yield return result;
             prevResult = result;
         }
 
+    }
+
+    private void PopulateInputsAsVariables(IEnumerable<(string Key, FormulaValue Value)> row, Dictionary<string, object>? prevResult)
+    {
+        foreach (var input in row)
+        {
+            _engine.UpdateVariable(input.Key, input.Value);
+        }
+
+        if (prevResult == null) return;
+        var fields = prevResult.Select(kv => new NamedValue(kv.Key, ConvertToFormulaValue(kv.Value)));
+        var prevResultRecord = FormulaValue.NewRecordFromFields(fields);
+        _engine.UpdateVariable("PREV_ROW", prevResultRecord);
+    }
+
+    private void AddVariables(IMappingDocument doc)
+    {
+        foreach (var kv in doc.InternalVars.Rules)
+        {
+            var newField = kv.Name;
+            _engine.SetFormula(kv.Name, kv.Formula, OnUpdate);
+        }
+    }
+
+    private void PopulateResult(IMappingDocument doc, Dictionary<string, object> result)
+    {
+        foreach (var kv in doc.MappingRules.Rules)
+        {
+            var currFormula = kv.Formula.Trim();
+            if (currFormula.StartsWith("Map "))
+            {
+                var mapCommandParts = currFormula.Split(" ");
+                var paramToPass = _engine.Eval(mapCommandParts[1]);
+                var nameOfMapperToUse = mapCommandParts[2];
+                var mapperToUse = _childMappers[nameOfMapperToUse];
+                var resultOfMap = MapRecordAsFormulaValue(mapperToUse, paramToPass, _childMappers);
+                result[kv.Name] = resultOfMap.ToObject();
+            } 
+            else
+            {
+                var value = _engine.Eval(kv.Formula);
+
+                result[kv.Name] = value.ToObject();
+            }
+        }
     }
 
     public static FormulaValue ConvertToFormulaValue(object? value)
