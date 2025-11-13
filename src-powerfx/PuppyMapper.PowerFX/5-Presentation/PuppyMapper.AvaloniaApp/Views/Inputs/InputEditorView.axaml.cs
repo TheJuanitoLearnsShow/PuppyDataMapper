@@ -3,9 +3,10 @@ using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Reactive.Disposables;
 using Avalonia.Controls;
-using Avalonia.ReactiveUI;
+using ReactiveUI.Avalonia;
 using ReactiveUI;
 using InputEditorViewModel = PuppyMapper.ViewModels.Inputs.InputEditorViewModel;
+using System.Reactive.Disposables.Fluent;
 
 namespace PuppyMapper.AvaloniaApp.Views.Inputs;
 

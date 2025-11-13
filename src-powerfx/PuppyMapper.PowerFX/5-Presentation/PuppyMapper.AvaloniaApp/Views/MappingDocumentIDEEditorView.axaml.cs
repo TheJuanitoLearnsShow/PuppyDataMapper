@@ -4,11 +4,12 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Markup.Xaml.Templates;
-using Avalonia.ReactiveUI;
+using ReactiveUI.Avalonia;
 using PuppyMapper.AvaloniaApp.CodeEditor;
 using PuppyMapper.PowerFX.Service.Integration;
 using PuppyMapper.Viewmodels;
 using ReactiveUI;
+using System.Reactive.Disposables.Fluent;
 
 namespace PuppyMapper.AvaloniaApp.Views;
 public class MappingDocumentIDEEditorViewBase : ReactiveUserControl<MappingDocumentIdeEditorViewModel>

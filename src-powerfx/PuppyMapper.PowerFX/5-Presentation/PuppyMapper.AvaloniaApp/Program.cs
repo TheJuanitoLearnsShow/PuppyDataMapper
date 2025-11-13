@@ -1,6 +1,6 @@
 ﻿using Avalonia;
 using System;
-using Avalonia.ReactiveUI;
+using ReactiveUI.Avalonia;
 
 namespace PuppyMapper.AvaloniaApp;
 

@@ -1,9 +1,10 @@
 ﻿using System.Reactive;
 using System.Reactive.Disposables;
 using Avalonia.Controls;
-using Avalonia.ReactiveUI;
+using ReactiveUI.Avalonia;
 using ReactiveUI;
 using CsvInputEditorViewModel = PuppyMapper.ViewModels.Inputs.CsvInputEditorViewModel;
+using System.Reactive.Disposables.Fluent;
 
 namespace PuppyMapper.AvaloniaApp.Views.Inputs;
 

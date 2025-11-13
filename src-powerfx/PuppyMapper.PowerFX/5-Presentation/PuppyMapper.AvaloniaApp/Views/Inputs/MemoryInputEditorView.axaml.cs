@@ -2,9 +2,10 @@ using System.Reactive.Disposables;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using Avalonia.ReactiveUI;
+using ReactiveUI.Avalonia;
 using PuppyMapper.ViewModels.Inputs;
 using ReactiveUI;
+using System.Reactive.Disposables.Fluent;
 
 namespace PuppyMapper.AvaloniaApp.Views.Inputs;
 
