@@ -5,7 +5,9 @@ using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
 using PuppyMapper.AvaloniaApp.ViewModels;
+using PuppyMapper.AvaloniaApp.ViewModels.Docking;
 using PuppyMapper.AvaloniaApp.Views;
+using PuppyMapper.AvaloniaApp.Views.Docking;
 using Splat;
 using ReactiveUI;
 
@@ -16,13 +18,15 @@ public partial class App : Application
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
+        ViewLocator.RegisterViews();
+        
+#if DEBUG
+        this.AttachDeveloperTools();
+#endif
     }
-
+    
     public override void OnFrameworkInitializationCompleted()
     {
-        // Register our view locator so ReactiveUI and Dock.Model can resolve views for viewmodels
-        Locator.CurrentMutable.RegisterConstant(new AppViewLocator(), typeof(IViewLocator));
-
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 

@@ -36,7 +36,8 @@ public class DockFactory : Factory
             Id = "Documents",
             VisibleDockables = CreateList<IDockable>(document1, document2),
             ActiveDockable = document1,
-            CanCreateDocument = false
+            CanCreateDocument = false,
+            
         };
 
         // var toolDock = new ToolDock
@@ -48,18 +49,18 @@ public class DockFactory : Factory
         //     Proportion = 0.25
         // };
 
-        var mainLayout = new ProportionalDock
-        {
-            Orientation = Orientation.Horizontal,
-            VisibleDockables = CreateList<IDockable>(new ProportionalDockSplitter(), documentDock),
-            ActiveDockable = documentDock
-        };
+        // var mainLayout = new ProportionalDock
+        // {
+        //     Orientation = Orientation.Horizontal,
+        //     VisibleDockables = CreateList<IDockable>(new ProportionalDockSplitter(), documentDock),
+        //     ActiveDockable = documentDock
+        // };
 
         var root = new RoutableRootDock(_host)
         {
-            VisibleDockables = CreateList<IDockable>(mainLayout),
-            DefaultDockable = mainLayout,
-            ActiveDockable = mainLayout,
+            VisibleDockables = CreateList<IDockable>(documentDock),
+            DefaultDockable = documentDock,
+            ActiveDockable = documentDock,
             LeftPinnedDockables = CreateList<IDockable>(),
             RightPinnedDockables = CreateList<IDockable>(),
             TopPinnedDockables = CreateList<IDockable>(),
@@ -76,7 +77,7 @@ public class DockFactory : Factory
         {
             [nameof(IDockWindow)] = () => new HostWindow()
         };
-
+        
         base.InitLayout(layout);
     }
 }

@@ -12,7 +12,7 @@ public class DocumentViewModel : RoutableDocument
 
     public DocumentViewModel(IScreen host) : base(host)
     {
-        // Router.Navigate.Execute(new DocumentHomeViewModel(this));
+        Router.Navigate.Execute(new DocumentEditorViewModel(this, "hi"));
         
         GoToEditor = ReactiveCommand.Create(() =>
             Router.Navigate.Execute(new DocumentEditorViewModel(this, "Document Editor")).Subscribe(_ => { }));

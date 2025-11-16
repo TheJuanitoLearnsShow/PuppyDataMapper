@@ -19,7 +19,11 @@ namespace PuppyMapper.AvaloniaApp;
 
 public class AppViewLocator : ReactiveUI.IViewLocator
 {
-    public IViewFor ResolveView<T>(T? viewModel, string? contract = null) => viewModel switch
+    public IViewFor ResolveView<T>(T? viewModel, string? contract = null)
+    {
+        return AppViewLocator.GetView(viewModel);
+    }
+    public static IViewFor GetView<T>(T? viewModel) => viewModel switch
     {
         MappingDocumentIdeEditorViewModel context => new MappingDocumentIDEEditorView { DataContext = context },
         
