@@ -1,4 +1,5 @@
 using Dock.Model.Controls;
+using Dock.Model.Core;
 using ReactiveUI;
 using ReactiveUI.SourceGenerators;
 
@@ -7,7 +8,7 @@ namespace PuppyMapper.AvaloniaApp.ViewModels.Docking;
 public partial class DockingHostViewModel : ReactiveObject, IRoutableViewModel
 {
     private readonly DockFactory _factory;
-    [Reactive] private IRootDock? _layout;
+    [Reactive] private IDock? _layout;
 
     public string UrlPathSegment { get; } = "dock";
     public IScreen HostScreen { get; }

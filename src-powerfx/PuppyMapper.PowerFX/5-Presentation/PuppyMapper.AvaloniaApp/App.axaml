@@ -11,6 +11,7 @@
   
     <Application.Styles>
         <FluentTheme />
+        <DockFluentTheme />
         <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
         <Style Selector="TextBlock">
             <Setter Property="Margin" Value="8"/>
