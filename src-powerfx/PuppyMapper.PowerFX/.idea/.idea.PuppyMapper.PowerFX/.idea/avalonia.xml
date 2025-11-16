@@ -5,6 +5,11 @@
       <map>
         <entry key="5-Presentation/PuppyMapper.AvaloniaApp/App.axaml" value="5-Presentation/PuppyMapper.AvaloniaApp/PuppyMapper.AvaloniaApp.csproj" />
         <entry key="5-Presentation/PuppyMapper.AvaloniaApp/Views/CsvInputEditorView.axaml" value="5-Presentation/PuppyMapper.AvaloniaApp/PuppyMapper.AvaloniaApp.csproj" />
+        <entry key="5-Presentation/PuppyMapper.AvaloniaApp/Views/Docking/DockingHostView.axaml" value="5-Presentation/PuppyMapper.AvaloniaApp/PuppyMapper.AvaloniaApp.csproj" />
+        <entry key="5-Presentation/PuppyMapper.AvaloniaApp/Views/Docking/DocumentDefinitionsView.axaml" value="5-Presentation/PuppyMapper.AvaloniaApp/PuppyMapper.AvaloniaApp.csproj" />
+        <entry key="5-Presentation/PuppyMapper.AvaloniaApp/Views/Docking/DocumentEditorView.axaml" value="5-Presentation/PuppyMapper.AvaloniaApp/PuppyMapper.AvaloniaApp.csproj" />
+        <entry key="5-Presentation/PuppyMapper.AvaloniaApp/Views/Docking/DocumentView.axaml" value="5-Presentation/PuppyMapper.AvaloniaApp/PuppyMapper.AvaloniaApp.csproj" />
+        <entry key="5-Presentation/PuppyMapper.AvaloniaApp/Views/DockingView.axaml" value="5-Presentation/PuppyMapper.AvaloniaApp/PuppyMapper.AvaloniaApp.csproj" />
         <entry key="5-Presentation/PuppyMapper.AvaloniaApp/Views/InputEditorView.axaml" value="5-Presentation/PuppyMapper.AvaloniaApp/PuppyMapper.AvaloniaApp.csproj" />
         <entry key="5-Presentation/PuppyMapper.AvaloniaApp/Views/Inputs/CsvInputEditorView.axaml" value="5-Presentation/PuppyMapper.AvaloniaApp/PuppyMapper.AvaloniaApp.csproj" />
         <entry key="5-Presentation/PuppyMapper.AvaloniaApp/Views/Inputs/InputEditorView.axaml" value="5-Presentation/PuppyMapper.AvaloniaApp/PuppyMapper.AvaloniaApp.csproj" />

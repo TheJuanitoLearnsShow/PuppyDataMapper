@@ -1,5 +1,7 @@
 using System;
+using PuppyMapper.AvaloniaApp.ViewModels.Docking;
 using PuppyMapper.AvaloniaApp.Views;
+using PuppyMapper.AvaloniaApp.Views.Docking;
 using PuppyMapper.AvaloniaApp.Views.Inputs;
 using PuppyMapper.AvaloniaApp.Views.Outputs;
 using PuppyMapper.Viewmodels;
@@ -10,6 +12,8 @@ using CsvInputEditorView = PuppyMapper.AvaloniaApp.Views.Inputs.CsvInputEditorVi
 using CsvInputEditorViewModel = PuppyMapper.ViewModels.Inputs.CsvInputEditorViewModel;
 using InputEditorView = PuppyMapper.AvaloniaApp.Views.Inputs.InputEditorView;
 using InputEditorViewModel = PuppyMapper.ViewModels.Inputs.InputEditorViewModel;
+using DockModel = Dock.Model.ReactiveUI.Controls;
+using DockControls = Dock.Model.Avalonia.Controls;
 
 namespace PuppyMapper.AvaloniaApp;
 
@@ -27,6 +31,9 @@ public class AppViewLocator : ReactiveUI.IViewLocator
         CsvOutputEditorViewModel context => new CsvOutputEditorView { DataContext = context },
         MemoryOutputEditorViewModel context => new MemoryOutputEditorView { DataContext = context },
         
+        DockingHostViewModel context => new DockingHostView { DataContext = context },
+        DocumentViewModel context => new DocumentView { DataContext = context },
+        DocumentEditorViewModel context => new DocumentEditorView { DataContext = context },
         _ => throw new ArgumentOutOfRangeException(nameof(viewModel))
     };
 }
