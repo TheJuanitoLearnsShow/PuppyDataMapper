@@ -25,7 +25,7 @@ public class ViewModelTests
         var ide = new MappingDocumentIdeEditorViewModel
         {
             InputData = File.ReadAllText("Samples/SampleRecord1.json"),
-            MappingFilePath = "Samples/Xml/SampleFxMapping.xml"
+            MappingBaseFolderPath = "Samples/Xml/SampleFxMapping.xml"
         };
         var observable = ide.WhenAnyValue(x => x.VarsCode)
             .Subscribe((string text) =>
@@ -45,7 +45,7 @@ public class ViewModelTests
         var ide = new MappingDocumentIdeEditorViewModel
         {
             InputData = File.ReadAllText("Samples/SampleRecord1.json"),
-            MappingFilePath = "Samples/Xml/SampleFxMapping.xml"
+            MappingBaseFolderPath = "Samples/Xml/SampleFxMapping.xml"
         };
         var observable = ide.WhenAnyValue(x => x.VarsCode)
             .Subscribe((string text) =>
@@ -107,11 +107,11 @@ public class ViewModelTests
         var ide = new MappingDocumentIdeEditorViewModel
         {
             InputData = File.ReadAllText("Samples/SampleRecord1.json"),
-            MappingFilePath = "Samples/Xml/SampleFxMapping.xml"
+            MappingBaseFolderPath = "Samples/Xml/SampleFxMapping.xml"
         };
         ide.LoadMappingCommand.Execute().Subscribe(_ =>
         {
-            ide.MappingFilePath = "SavedFromVM.xml";
+            ide.MappingBaseFolderPath = "SavedFromVM.xml";
             ide.SaveMappingCommand.Execute().Subscribe();
         });
 
@@ -124,7 +124,7 @@ public class ViewModelTests
         var ide = new MappingDocumentIdeEditorViewModel
         {
             // InputData = File.ReadAllText("Samples/SampleRecord1.json"),
-            MappingFilePath = "Samples/Xml/SampleFxMapping.xml"
+            MappingBaseFolderPath = "Samples/Xml/SampleFxMapping.xml"
         };
         await ide.LoadMappingCommand.Execute().ToTask();
         await ide.ExecuteFullMappingCommand.Execute().ToTask();

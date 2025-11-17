@@ -22,13 +22,15 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject, IRoutab
     private MappingDocumentEditDto _mappingDocument = new();
     [Reactive] private string _inputData = string.Empty;
     [Reactive] private string _outputData = string.Empty;
-    [Reactive] private string _mappingFilePath = string.Empty;
+    [Reactive] private string _mappingBaseFolderPath = string.Empty;
 
     [Reactive] private string _varsCode = string.Empty;
 
     [Reactive] private string _rulesCode = string.Empty;
     [Reactive] private InputEditorViewModel _inputEditor;
     [Reactive] private OutputEditorViewModel _outputEditor;
+    [Reactive] private string _name = $"New Mapping {Guid.NewGuid()}";
+    [Reactive] private string _id = $"{DateTime.Now:yyyy-MM-dd-HH-mm} - {Guid.NewGuid()}";
 
     public ObservableCollection<IHaveInputOptions> Inputs { get; set; } = [];
     [Reactive] private IHaveInputOptions? _selectedInput = null;
@@ -79,7 +81,7 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject, IRoutab
     [ReactiveCommand]
     private async Task SaveMapping()
     {
-        var filePath = MappingFilePath;
+        var filePath = Path.Combine( MappingBaseFolderPath, $"{Id}.xml");
         try
         {
             SyncToMappingDocument();
@@ -91,8 +93,11 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject, IRoutab
                 MemoryInputs = Inputs.OfType<FromMemoryStateOptions>().ToArray(),
                 MemoryOutputs = Outputs.OfType<ToMemoryStateOptions>().ToArray(),
                 CsvOutputs = Outputs.OfType<ToCSVFileOptions>().ToArray(),
+                Name = Name,
+                Id = Id
             };
             var xml = MappingPersistenceModel.SerializeToXml(persistenceModel);
+            // TODO have parent viewmodel pass the right path generated from the unique mapping name
             await File.WriteAllTextAsync(filePath, xml);
         }
         catch (Exception e)
@@ -104,12 +109,14 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject, IRoutab
     [ReactiveCommand]
     private async Task LoadMapping()
     {
-        var filePath = MappingFilePath;
+        var filePath = Path.Combine( MappingBaseFolderPath, $"{Id}.xml");
         try
         {
             var xml = await File.ReadAllTextAsync(filePath);
             var deserializedDoc = MappingPersistenceModel.DeserializeFromXml(xml);
             _mappingDocument = deserializedDoc.Document;
+            Name = deserializedDoc.Name;
+            Id = deserializedDoc.Id;
             Inputs.Clear();
             foreach (var input in deserializedDoc.GetAllInputs())
             {

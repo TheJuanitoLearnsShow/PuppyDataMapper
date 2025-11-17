@@ -19,7 +19,7 @@ public class CsvIOTests
     {
         var ide = new MappingDocumentIdeEditorViewModel
         {
-            MappingFilePath = "Samples/Xml/SampleCsvMapping.xml"
+            MappingBaseFolderPath = "Samples/Xml/SampleCsvMapping.xml"
         };
         await ide.LoadMappingCommand.Execute().ToTask();
         await ide.ExecuteFullMappingCommand.Execute().ToTask();

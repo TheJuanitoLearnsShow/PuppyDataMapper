@@ -70,7 +70,7 @@ public partial class MainWindowViewModel : ViewModelBase, IScreen
         {
             var doc = new MappingDocumentIdeEditorViewModel(this)
             {
-                MappingFilePath = "NewMapping"
+                MappingBaseFolderPath = "NewMapping"
             };
             Documents.Add(doc);
             // OpenDocument(doc);

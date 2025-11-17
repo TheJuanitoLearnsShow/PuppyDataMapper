@@ -58,8 +58,8 @@ public partial class MappingDocumentIDEEditorView : MappingDocumentIDEEditorView
 
             this.BindCommand(ViewModel, vm => vm.ExecuteMappingCommand,
                 v => v.RunMappingBtn);
-            this.BindCommand(ViewModel, vm => vm.LoadMappingCommand,
-                v => v.LoadMappingBtn);
+            this.BindCommand(ViewModel, vm => vm.SaveMappingCommand,
+                v => v.SaveMappingBtn);
 
             this.BindCommand(ViewModel, vm => vm.ExecuteFullMappingCommand,
                 v => v.RunFullMappingBtn);
@@ -80,9 +80,16 @@ public partial class MappingDocumentIDEEditorView : MappingDocumentIDEEditorView
                     v => v.Outputs.ItemsSource)
                 .DisposeWith(disposables);
             
+            this.Bind(ViewModel, vm => vm.Name,
+                    v => v.NameTxt.Text)
+                .DisposeWith(disposables);
+            this.Bind(ViewModel, vm => vm.Id,
+                    v => v.IdTxt.Text)
+                .DisposeWith(disposables);
+            
             SetupCodeEditorListeners(disposables);
 
-            ViewModel!.MappingFilePath = "Samples/Xml/SampleFxMapping.xml";
+            ViewModel!.MappingBaseFolderPath = "Samples/Xml/SampleFxMapping.xml";
 
         });
     }

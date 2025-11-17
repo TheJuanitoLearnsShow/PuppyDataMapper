@@ -34,7 +34,7 @@ public class DockFactory : Factory
     public override IRootDock CreateLayout()
     {
         var document1 = new DocumentViewModel(_host, new MappingDocumentIdeEditorViewModel(_host)) { Id = "Doca1", Title = "Document 1" };
-        var document2 = new DocumentViewModel(_host, new MappingDocumentIdeEditorViewModel(_host)) { Id = "Doca2", Title = "Document 2" };
+        // var document2 = new DocumentViewModel(_host, new MappingDocumentIdeEditorViewModel(_host)) { Id = "Doca2", Title = "Document 2" };
         // // var tool1 = new ToolViewModel(_host) { Id = "Tool1", Title = "Tool 1" };
         // // var tool2 = new ToolViewModel(_host) { Id = "Tool2", Title = "Tool 2" };
         //
@@ -46,7 +46,7 @@ public class DockFactory : Factory
         _documentDock = new DocumentDock
         {
             Id = "Documents",
-            VisibleDockables = CreateList<IDockable>(document1, document2),
+            VisibleDockables = CreateList<IDockable>(document1),
             ActiveDockable = null,
             CanCreateDocument = false,
             

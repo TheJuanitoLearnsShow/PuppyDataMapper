@@ -3,13 +3,22 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewmodels="clr-namespace:PuppyMapper.Viewmodels;assembly=PuppyMapper.ViewModels"
+             xmlns:docking="clr-namespace:PuppyMapper.AvaloniaApp.Views.Docking"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="PuppyMapper.AvaloniaApp.Views.Docking.DocumentDefinitionsView"
              x:DataType="viewmodels:DocumentDefinitionsViewModel">
     
     <!-- Left side list and add button , needs to go to its own control-->
     <StackPanel  Margin="8">
-      <ListBox x:Name="DocumentsList" ItemsSource="{Binding Documents}" SelectedItem="{Binding SelectedDocument}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+      <ListBox x:Name="DocumentsList" ItemsSource="{Binding Documents}" 
+               SelectedItem="{Binding SelectedDocument}" 
+               HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+          <ListBox.ItemTemplate>
+              <DataTemplate>
+                  <docking:MappingDocumentItemView/>
+              </DataTemplate>
+          </ListBox.ItemTemplate>
+      </ListBox>
       
       <Button x:Name="OpenMapping" Content="Open Mapping" Margin="8" HorizontalAlignment="Stretch"/>
       <Button x:Name="AddMapping" Content="Add Mapping" Margin="8,24,8,8" HorizontalAlignment="Stretch"/>

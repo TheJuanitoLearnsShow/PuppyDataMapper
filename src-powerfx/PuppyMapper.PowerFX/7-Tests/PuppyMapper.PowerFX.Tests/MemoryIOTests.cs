@@ -19,7 +19,7 @@ public class MemoryIOTests
     {
         var ide = new MappingDocumentIdeEditorViewModel
         {
-            MappingFilePath = "Samples/Xml/SampleMemoryMapping.xml"
+            MappingBaseFolderPath = "Samples/Xml/SampleMemoryMapping.xml"
         };
         var globalData = MemorySateManager.GetState();
         Dictionary<string, object>[] students = [

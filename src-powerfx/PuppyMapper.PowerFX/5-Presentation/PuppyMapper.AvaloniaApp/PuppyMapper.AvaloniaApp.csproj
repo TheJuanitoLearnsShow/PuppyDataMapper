@@ -78,5 +78,9 @@
       <DependentUpon>DockingHostView.axaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Docking\MappingDocumentItemView.axaml.cs">
+      <DependentUpon>InputOptionsItemView.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

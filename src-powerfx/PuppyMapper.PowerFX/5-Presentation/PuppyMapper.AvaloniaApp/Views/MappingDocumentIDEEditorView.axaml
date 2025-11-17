@@ -16,9 +16,16 @@
     </Design.DataContext>
     <Grid RowDefinitions="40,1*,1*" ColumnDefinitions="3*,2*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
               
-        <Button x:Name="LoadMappingBtn" Content="Load Mapping" Grid.Column="0" Grid.Row="0" 
-                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                Margin="4"   />
+        <StackPanel Orientation="Horizontal">
+            <TextBlock>Name:</TextBlock>
+            <TextBox x:Name="NameTxt"></TextBox>
+            <TextBlock>Id:</TextBlock>
+            <TextBox x:Name="IdTxt" IsReadOnly="True"></TextBox>
+            <Button x:Name="SaveMappingBtn" Content="Save Mapping" 
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                    Margin="8"   />
+        </StackPanel>
+       
         
         <!-- <Grid Grid.Row="1" Grid.Column="0" RowDefinitions="1*,1*,3*" ColumnDefinitions="1*"  -->
         <!--       HorizontalAlignment="Stretch" VerticalAlignment="Stretch"> -->
