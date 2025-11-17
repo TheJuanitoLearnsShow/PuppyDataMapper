@@ -18,12 +18,13 @@ public partial class DockingHostView : ReactiveUserControl<DockingHostViewModel>
         this.WhenActivated(disposables =>
         {
             
-            this.Bind(ViewModel, vm => vm.Help,
-                v => v.HelpTxt.Text)
-                .DisposeWith(disposables);;
+            // this.Bind(ViewModel, vm => vm.RegisteredMappings,
+            //     v => v.DocumentLst.ViewModel)
+            //     .DisposeWith(disposables);
+            
             this.Bind(ViewModel, vm => vm.Layout,
                 v => v.DockCtrl.Layout)
-                .DisposeWith(disposables);;
+                .DisposeWith(disposables);
             
         });
         // var list = this.FindControl<ListBox>("DocumentsList");

@@ -21,4 +21,10 @@ public partial class DocumentDefinitionsViewModel : ReactiveObject
     {
         Documents.Add(new MappingDocumentIdeEditorViewModel(_hostScreen));
     }
+    [ReactiveCommand]
+    private void EditDocument()
+    {
+        if (_selectedDocument != null)
+            _openDocumentAction(_selectedDocument);
+    }
 }

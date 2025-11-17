@@ -10,6 +10,8 @@
     <!-- Left side list and add button , needs to go to its own control-->
     <StackPanel  Margin="8">
       <ListBox x:Name="DocumentsList" ItemsSource="{Binding Documents}" SelectedItem="{Binding SelectedDocument}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-      <Button x:Name="AddMapping" Content="Add Mapping" Margin="0,8,0,0" HorizontalAlignment="Stretch"/>
+      
+      <Button x:Name="OpenMapping" Content="Open Mapping" Margin="8" HorizontalAlignment="Stretch"/>
+      <Button x:Name="AddMapping" Content="Add Mapping" Margin="8,24,8,8" HorizontalAlignment="Stretch"/>
     </StackPanel>
 </UserControl>

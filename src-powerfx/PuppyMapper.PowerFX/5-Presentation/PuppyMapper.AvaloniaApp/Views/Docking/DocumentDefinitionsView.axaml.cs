@@ -21,7 +21,10 @@ public partial class DocumentDefinitionsView : ReactiveUserControl<DocumentDefin
             
             this.BindCommand(ViewModel, vm => vm.AddDocumentCommand,
                 v => v.AddMapping)
-                .DisposeWith(disposables);;
+                .DisposeWith(disposables);
+            this.BindCommand(ViewModel, vm => vm.EditDocumentCommand,
+                    v => v.OpenMapping)
+                .DisposeWith(disposables);
             
         });
     }

@@ -13,10 +13,10 @@
         <TextBlock>This is a doc</TextBlock>
         <TextBlock Text="{Binding Title}" FontWeight="Bold" />
         <StackPanel Orientation="Horizontal" Spacing="5">
-            <Button Content="Next Doc" Command="{Binding GoDocument}"/>
+            <Button Content="Next Doc" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Spacing="5">
-            <Button Content="✏️ Editor" Command="{Binding GoToEditor}"/>
+            <Button Content="✏️ Editor" />
         </StackPanel>
         <avalonia:RoutedViewHost Router="{Binding Router}">
             <avalonia:RoutedViewHost.DefaultContent>

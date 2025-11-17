@@ -1,5 +1,8 @@
+using System.Collections.ObjectModel;
 using Dock.Model.Controls;
 using Dock.Model.Core;
+using PuppyMapper.AvaloniaApp.Views.Docking;
+using PuppyMapper.Viewmodels;
 using ReactiveUI;
 using ReactiveUI.SourceGenerators;
 
@@ -14,6 +17,8 @@ public partial class DockingHostViewModel : ReactiveObject, IRoutableViewModel
     public IScreen HostScreen { get; }
     
     [Reactive] private string _help;
+    [Reactive] private DocumentDefinitionsViewModel _registeredMappings;
+    private int _openedDocCnt = 0;
 
     public DockingHostViewModel(IScreen hostScreen)
     {
@@ -26,5 +31,12 @@ public partial class DockingHostViewModel : ReactiveObject, IRoutableViewModel
         }
         Layout = layout;
         Help = "This is help";
+        _registeredMappings = new DocumentDefinitionsViewModel(HostScreen, OnDocumentOpen);
+    }
+
+    private void OnDocumentOpen(MappingDocumentIdeEditorViewModel documentToOpen)
+    {
+        var newDoc = new DocumentViewModel(HostScreen, documentToOpen) { Id = $"Doc{_openedDocCnt++}", Title = $"Document {_openedDocCnt++}" };
+        _factory.ShowDocument(newDoc);
     }
 }
