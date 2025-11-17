@@ -1,0 +1,20 @@
+﻿<views:InputEditorViewBase x:Class="PuppyMapper.WpfApp.Views.Inputs.InputEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:PuppyMapper.WpfApp.Views.Inputs"
+             mc:Ignorable="d"
+             d:DesignHeight="200" d:DesignWidth="400">
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ComboBox x:Name="InputTypes" Grid.Row="0" Width="200"/>
+        <TextBox x:Name="SelectedInputTypeText" Grid.Row="1" Width="300" Margin="0,8,0,0"/>
+        <Button x:Name="CreateInputBtn" Grid.Row="2" Content="Create" Width="100" Margin="0,8,0,0"/>
+    </Grid>
+</views:InputEditorViewBase>

@@ -1,22 +1,27 @@
-using System.Reactive.Disposables;
-using System.Reactive.Disposables.Fluent;
 using System.Windows.Controls;
-using PuppyMapper.Viewmodels;
 using ReactiveUI;
-using InputEditorViewModel = PuppyMapper.ViewModels.Inputs.InputEditorViewModel;
+using PuppyMapper.ViewModels.Inputs;
 
-namespace PuppyMapper.WPFApp.Views;
-
-public partial class InputEditorView : ReactiveUserControl<InputEditorViewModel>
+namespace PuppyMapper.WpfApp.Views
 {
-    public InputEditorView()
+    public partial class InputEditorView : UserControl, IViewFor<InputEditorViewModel>
     {
-        InitializeComponent();
-        this.WhenActivated(disposables =>
+        public InputEditorView()
         {
-            this.Bind(ViewModel, vm => vm.SelectedInputType,
-                    v => v.SelectedInputType.Text)
-                .DisposeWith(disposables);
-        });
+            InitializeComponent();
+        }
+
+        public InputEditorViewModel ViewModel
+        {
+            get => (InputEditorViewModel)DataContext;
+            set => DataContext = value;
+        }
+
+        object IViewFor.ViewModel
+        {
+            get => ViewModel;
+            set => ViewModel = (InputEditorViewModel)value;
+        }
     }
 }
+

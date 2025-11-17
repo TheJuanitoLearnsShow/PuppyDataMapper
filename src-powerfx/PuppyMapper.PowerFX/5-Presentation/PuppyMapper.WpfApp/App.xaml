@@ -2,12 +2,59 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:PuppyMapper.WPFApp"
+             xmlns:views="clr-namespace:PuppyMapper.WpfApp.Views;assembly=PuppyMapper.WpfApp"
+             xmlns:viewsWPF="clr-namespace:PuppyMapper.WPFApp.Views;assembly=PuppyMapper.WpfApp"
+             xmlns:viewsDock="clr-namespace:PuppyMapper.WpfApp.Views.Docking;assembly=PuppyMapper.WpfApp"
+             xmlns:viewsInputs="clr-namespace:PuppyMapper.WpfApp.Views.Inputs;assembly=PuppyMapper.WpfApp"
+             xmlns:viewsOutputs="clr-namespace:PuppyMapper.WpfApp.Views.Outputs;assembly=PuppyMapper.WpfApp"
+             xmlns:vmDock="clr-namespace:PuppyMapper.WpfApp.ViewModels.Docking;assembly=PuppyMapper.WpfApp"
+             xmlns:vmCore="clr-namespace:PuppyMapper.Viewmodels;assembly=PuppyMapper.ViewModels"
+             xmlns:vmInputs="clr-namespace:PuppyMapper.ViewModels.Inputs;assembly=PuppyMapper.ViewModels"
+             xmlns:vmOutputs="clr-namespace:PuppyMapper.ViewModels.Outputs;assembly=PuppyMapper.ViewModels"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <!-- ViewModel -> View DataTemplates -->
+            <DataTemplate DataType="{x:Type vmDock:DocumentViewModel}">
+                <viewsDock:DocumentView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmDock:DocumentEditorViewModel}">
+                <viewsDock:DocumentEditorView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmCore:MappingDocumentIdeEditorViewModel}">
+                <viewsWPF:MappingDocumentIDEEditorView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmInputs:InputEditorViewModel}">
+                <viewsInputs:InputEditorView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmInputs:CsvInputEditorViewModel}">
+                <viewsInputs:CsvInputEditorView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmInputs:MemoryInputEditorViewModel}">
+                <viewsInputs:MemoryInputEditorView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmOutputs:OutputEditorViewModel}">
+                <viewsOutputs:OutputEditorView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmOutputs:CsvOutputEditorViewModel}">
+                <viewsOutputs:CsvOutputEditorView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vmOutputs:MemoryOutputEditorViewModel}">
+                <viewsOutputs:MemoryOutputEditorView />
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

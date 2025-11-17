@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="PuppyMapper.WpfApp.Views.Docking.DocumentDefinitionsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:viewmodels="clr-namespace:PuppyMapper.Viewmodels;assembly=PuppyMapper.ViewModels"
+             xmlns:docking="clr-namespace:PuppyMapper.WpfApp.Views.Docking">
+    <StackPanel Margin="8">
+        <ListBox x:Name="DocumentsList" ItemsSource="{Binding Documents}" SelectedItem="{Binding SelectedDocument}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <docking:MappingDocumentItemView />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button x:Name="OpenMapping" Content="Open Mapping" Margin="8" HorizontalAlignment="Stretch"/>
+        <Button x:Name="AddMapping" Content="Add Mapping" Margin="8,24,8,8" HorizontalAlignment="Stretch"/>
+    </StackPanel>
+</UserControl>
+

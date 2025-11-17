@@ -1,0 +1,20 @@
+﻿<outputs:MemoryOutputEditorViewBase x:Class="PuppyMapper.WpfApp.Views.Outputs.MemoryOutputEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:outputs="clr-namespace:PuppyMapper.WpfApp.Views.Outputs"
+             mc:Ignorable="d"
+             d:DesignHeight="180" d:DesignWidth="400">
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBox x:Name="OutputId" Grid.Row="0" Width="300"/>
+        <TextBox x:Name="PropertyPath" Grid.Row="1" Width="300" Margin="0,8,0,0"/>
+        <Button x:Name="SaveOutputBtn" Grid.Row="2" Content="Save" Width="100" Margin="0,8,0,0"/>
+    </Grid>
+</outputs:MemoryOutputEditorViewBase>
