@@ -14,16 +14,16 @@
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <viewmodels:MappingDocumentIdeEditorViewModel/>
     </Design.DataContext>
-    <Grid RowDefinitions="40,1*,1*" ColumnDefinitions="3*,2*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid RowDefinitions="40,40,1*,1*" ColumnDefinitions="3*,2*" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
               
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
             <TextBlock>Name:</TextBlock>
             <TextBox x:Name="NameTxt"></TextBox>
             <TextBlock>Id:</TextBlock>
             <TextBox x:Name="IdTxt" IsReadOnly="True"></TextBox>
             <Button x:Name="SaveMappingBtn" Content="Save Mapping" 
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                    Margin="8"   />
+                    Margin="4"   />
         </StackPanel>
        
         
@@ -32,20 +32,25 @@
         <!--      -->
         <!--     <TextBlock>Inner row 0</TextBlock> -->
         <!-- </Grid> -->          
-        <avaloniaEdit:TextEditor Grid.Row="1" Grid.Column="0" Name="VarsCode" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Vertical">
+            <TextBlock Theme="{StaticResource SubtitleTextBlockStyle}">Variables</TextBlock>
+            <avaloniaEdit:TextEditor Name="VarsCode" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                     ShowLineNumbers="True"
+                                     FontFamily="Cascadia Code,Consolas,Menlo,Monospace"
+                                     Margin="8"
+            />
+        </StackPanel>
+        
+        <StackPanel Grid.Row="3"  Grid.Column="0"  Orientation="Vertical">
+            <TextBlock Theme="{StaticResource SubtitleTextBlockStyle}">Variables</TextBlock>
+            <avaloniaEdit:TextEditor Name="RulesCode" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                  ShowLineNumbers="True"
-                                 FontFamily="Cascadia Code,Consolas,Menlo,Monospace"
                                  Margin="8"
-                                 MinHeight="200"
-        />
-        <avaloniaEdit:TextEditor Grid.Row="2"  Grid.Column="0" Name="RulesCode" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                 ShowLineNumbers="True"
-                                 Margin="8"
-                                 MinHeight="200"
-                                 FontFamily="Cascadia Code,Consolas,Menlo,Monospace"/>   
+                                 FontFamily="Cascadia Code,Consolas,Menlo,Monospace"/>  
+        </StackPanel> 
         
         <StackPanel  Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                    Grid.Column="1" Grid.Row="0">
+                    Grid.Column="1" Grid.Row="1">
             <Button x:Name="RunMappingBtn" Content="Run Mapping" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                     Margin="4"  />
             <Button x:Name="RunFullMappingBtn" Content="Run Full Mapping" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
@@ -53,7 +58,7 @@
         </StackPanel>
          
          <!-- <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical"> -->
-             <Grid Grid.Column="1" Grid.Row="1">
+             <Grid Grid.Column="1" Grid.Row="2">
                  <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -84,7 +89,7 @@
              </Grid>
          <!-- </StackPanel> -->
         
-        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Vertical">
+        <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Vertical">
             <TextBlock>Outputs</TextBlock>
             <ListBox Name="Outputs">
                 <ListBox.ItemTemplate>

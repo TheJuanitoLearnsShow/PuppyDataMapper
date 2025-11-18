@@ -11,6 +11,7 @@
              xmlns:vmCore="clr-namespace:PuppyMapper.Viewmodels;assembly=PuppyMapper.ViewModels"
              xmlns:vmInputs="clr-namespace:PuppyMapper.ViewModels.Inputs;assembly=PuppyMapper.ViewModels"
              xmlns:vmOutputs="clr-namespace:PuppyMapper.ViewModels.Outputs;assembly=PuppyMapper.ViewModels"
+             xmlns:integration="clr-namespace:PuppyMapper.PowerFX.Service.Integration;assembly=PuppyMapper.PowerFX.Service"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -41,6 +42,19 @@
 
             <DataTemplate DataType="{x:Type vmInputs:MemoryInputEditorViewModel}">
                 <viewsInputs:MemoryInputEditorView />
+            </DataTemplate>
+
+            <!-- Item templates for small input/output list items -->
+            <DataTemplate DataType="{x:Type integration:IHaveInputOptions}">
+                <viewsInputs:InputOptionsItemView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type integration:IHaveOutputOptions}">
+                <viewsOutputs:OutputOptionsItemView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type sys:String}" xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+                <viewsInputs:InputTypeView />
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type vmOutputs:OutputEditorViewModel}">

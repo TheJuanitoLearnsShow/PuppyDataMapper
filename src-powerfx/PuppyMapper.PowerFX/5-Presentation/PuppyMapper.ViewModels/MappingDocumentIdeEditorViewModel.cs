@@ -50,6 +50,14 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject, IRoutab
         _outputEditor = new OutputEditorViewModel(this, hostScreen);
     }
 
+    public MappingDocumentIdeEditorViewModel(IScreen hostScreen, string mappingBaseFolderPath)
+    {
+        HostScreen = hostScreen;
+        _inputEditor = new InputEditorViewModel(this, hostScreen);
+        _outputEditor = new OutputEditorViewModel(this, hostScreen);
+        MappingBaseFolderPath = mappingBaseFolderPath;
+    }
+    
     [ReactiveCommand]
     private void AddInput()
     {

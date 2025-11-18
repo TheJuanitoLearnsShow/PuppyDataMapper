@@ -22,5 +22,19 @@
         <Style Selector="Button">
             <Setter Property="Margin" Value="8"/>
         </Style>
+        
     </Application.Styles>
+    <Application.Resources>
+        <!-- Replaced malformed SubtitleTextBlockStyle with a style that matches WinUI3 Fluent subtitle appearance
+             Assumptions: use Segoe UI (native Windows font), slightly larger font size and semi-bold weight, and reduced opacity
+             so the subtitle reads as a secondary label similar to WinUI3. Keep Margin consistent with other controls. -->
+        <ControlTheme x:Key="SubtitleTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="8" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <!-- Slightly reduced opacity to emulate secondary/ subtitle emphasis in Fluent -->
+            <Setter Property="Opacity" Value="0.88" />
+        </ControlTheme>
+    </Application.Resources>
 </Application>

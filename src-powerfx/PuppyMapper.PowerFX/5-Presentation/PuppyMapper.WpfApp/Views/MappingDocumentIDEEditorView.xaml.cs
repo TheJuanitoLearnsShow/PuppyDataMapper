@@ -1,5 +1,6 @@
 using System;
 using System.Reactive.Disposables;
+using System.Reactive.Disposables.Fluent;
 using System.Windows.Controls;
 using PuppyMapper.PowerFX.Service.Integration;
 using PuppyMapper.Viewmodels;

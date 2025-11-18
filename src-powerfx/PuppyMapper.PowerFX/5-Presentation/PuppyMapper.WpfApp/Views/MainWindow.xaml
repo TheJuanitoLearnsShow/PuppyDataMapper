@@ -7,6 +7,7 @@
         xmlns:vm="clr-namespace:PuppyMapper.WPFApp.ViewModels"
         xmlns:views="clr-namespace:PuppyMapper.WPFApp.Views"
         xmlns:wpfApp="clr-namespace:PuppyMapper.WPFApp"
+        xmlns:wpfApp1="clr-namespace:PuppyMapper.WpfApp"
         mc:Ignorable="d"
         Title="PuppyMapper.WPFApp" Height="450" Width="800">
 
@@ -27,7 +28,7 @@
                            VerticalAlignment="Center" />
             </rxui:RoutedViewHost.DefaultContent>
             <rxui:RoutedViewHost.ViewLocator>
-                <wpfApp:AppViewLocator />
+                <wpfApp1:AppViewLocator />
             </rxui:RoutedViewHost.ViewLocator>
         </rxui:RoutedViewHost>
 

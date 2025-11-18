@@ -10,16 +10,20 @@ public partial class DocumentDefinitionsViewModel : ReactiveObject
     private readonly Action<MappingDocumentIdeEditorViewModel> _openDocumentAction;
     public ObservableCollection<MappingDocumentIdeEditorViewModel> Documents { get; set; } = [];
     [Reactive] private MappingDocumentIdeEditorViewModel? _selectedDocument;
+    [Reactive] private string _mappingBaseFolderPath = string.Empty;
     
-    public DocumentDefinitionsViewModel(IScreen hostScreen, Action<MappingDocumentIdeEditorViewModel> openDocumentAction)
+    public DocumentDefinitionsViewModel(IScreen hostScreen,
+        Action<MappingDocumentIdeEditorViewModel> openDocumentAction,
+        string mappingBaseFolderPath)
     {
         _hostScreen = hostScreen;
         _openDocumentAction = openDocumentAction;
+        MappingBaseFolderPath = mappingBaseFolderPath;
     }
     [ReactiveCommand]
     private void AddDocument()
     {
-        Documents.Add(new MappingDocumentIdeEditorViewModel(_hostScreen));
+        Documents.Add(new MappingDocumentIdeEditorViewModel(_hostScreen, MappingBaseFolderPath));
     }
     [ReactiveCommand]
     private void EditDocument()

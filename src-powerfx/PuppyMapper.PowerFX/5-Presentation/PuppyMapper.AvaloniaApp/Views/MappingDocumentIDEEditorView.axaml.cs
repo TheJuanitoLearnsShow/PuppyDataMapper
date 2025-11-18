@@ -89,7 +89,6 @@ public partial class MappingDocumentIDEEditorView : MappingDocumentIDEEditorView
             
             SetupCodeEditorListeners(disposables);
 
-            ViewModel!.MappingBaseFolderPath = "Samples/Xml/SampleFxMapping.xml";
 
         });
     }

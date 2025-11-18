@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.IO;
 using Dock.Model.Controls;
 using Dock.Model.Core;
 using PuppyMapper.AvaloniaApp.Views.Docking;
@@ -31,7 +32,13 @@ public partial class DockingHostViewModel : ReactiveObject, IRoutableViewModel
         }
         Layout = layout;
         Help = "This is help";
-        _registeredMappings = new DocumentDefinitionsViewModel(HostScreen, OnDocumentOpen);
+        var mappingBaseFolder = "./SampleMap";
+
+        if (!Directory.Exists(mappingBaseFolder))
+        {
+            Directory.CreateDirectory(mappingBaseFolder);
+        }
+        _registeredMappings = new DocumentDefinitionsViewModel(HostScreen, OnDocumentOpen, mappingBaseFolder);
     }
 
     private void OnDocumentOpen(MappingDocumentIdeEditorViewModel documentToOpen)

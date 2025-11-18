@@ -4,7 +4,7 @@ using ReactiveUI;
 
 namespace PuppyMapper.WPFApp.ViewModels;
 
-public partial class MainWindowViewModel : ViewModelBase, IScreen
+public partial class MainWindowViewModel : IScreen
 {
     private readonly MappingDocumentIdeEditorViewModel _mappingDocEditor;
 
