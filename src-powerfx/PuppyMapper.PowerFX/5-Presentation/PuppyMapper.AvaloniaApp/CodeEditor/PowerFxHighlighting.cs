@@ -35,6 +35,12 @@ public partial class PowerFxHighlighting
             FontStyle = FontStyle.Italic
         };
 
+        var operatorColor = new HighlightingColor
+        {
+            Foreground = new SimpleHighlightingBrush(Brushes.Chocolate.Color),
+            FontWeight = FontWeight.DemiBold
+        };
+        
         var rules = new HighlightingRuleSet();
 
         rules.Rules.Add(new HighlightingRule
@@ -66,7 +72,12 @@ public partial class PowerFxHighlighting
             Regex = MyRegex4(),
             Color = commentColor
         });
-
+        rules.Rules.Add(new HighlightingRule
+        {
+            Regex = OperatorRegx(),
+            Color = operatorColor
+        });
+        
         return new CustomHighlightingDefinition("PowerFx", rules);
     }
 
@@ -80,4 +91,7 @@ public partial class PowerFxHighlighting
     private static partial Regex MyRegex3();
     [GeneratedRegex(@"//.*$")]
     private static partial Regex MyRegex4();
+    [GeneratedRegex(@"(?:<=|>=|<>|==|!=|&&|\|\||:=|\+|\\|-|\*|/)")]
+    private static partial Regex OperatorRegx();
+
 }
