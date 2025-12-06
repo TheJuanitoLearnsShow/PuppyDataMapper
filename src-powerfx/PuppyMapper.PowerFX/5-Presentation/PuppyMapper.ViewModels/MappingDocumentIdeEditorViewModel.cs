@@ -20,14 +20,12 @@ namespace PuppyMapper.Viewmodels;
 public partial class MappingDocumentIdeEditorViewModel : ReactiveObject, IRoutableViewModel
 {
     private MappingDocumentEditDto _mappingDocument = new();
-    [Reactive] private string _inputData = string.Empty;
     [Reactive] private string _outputData = string.Empty;
     [Reactive] private string _mappingBaseFolderPath = string.Empty;
 
     [Reactive] private string _varsCode = string.Empty;
 
     [Reactive] private string _rulesCode = string.Empty;
-    [Reactive] private InputEditorViewModel _inputEditor;
     [Reactive] private OutputEditorViewModel _outputEditor;
     [Reactive] private string _name = $"New Mapping {Guid.NewGuid()}";
     [Reactive] private string _id = $"{DateTime.Now:yyyy-MM-dd-HH-mm} - {Guid.NewGuid()}";
@@ -164,14 +162,14 @@ public partial class MappingDocumentIdeEditorViewModel : ReactiveObject, IRoutab
             OutputData = "Input data is empty.";
             return;
         }
-        InputData = await inputProvider.GetRecordAsJson() ?? string.Empty;
-        if (string.IsNullOrWhiteSpace(InputData))
+        InputEditor.InputData = await inputProvider.GetRecordAsJson() ?? string.Empty;
+        if (string.IsNullOrWhiteSpace(InputEditor.InputData))
         {
             OutputData = "Input data is empty.";
             return;
         }
 
-        var dataRow = FormulaValueJSON.FromJson(InputData);
+        var dataRow = FormulaValueJSON.FromJson(InputEditor.InputData);
         SyncToMappingDocument();
         var mapper = new MapperInterpreter(_mappingDocument, ImmutableDictionary<string, IMappingDocument>.Empty);
         var result = mapper.MapRecords([

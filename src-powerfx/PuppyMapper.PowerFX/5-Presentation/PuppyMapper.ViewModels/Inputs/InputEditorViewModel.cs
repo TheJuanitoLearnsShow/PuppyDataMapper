@@ -7,6 +7,23 @@ using ReactiveUI.SourceGenerators;
 
 namespace PuppyMapper.ViewModels.Inputs;
 
+
+
+public partial class InputsSectionView : ReactiveObject, IRoutableViewModel
+{
+    [Reactive] private string _inputData = string.Empty;
+    [Reactive] private MappingDocumentIdeEditorViewModel _docEditor;
+    [Reactive] private InputEditorViewModel _inputEditor;
+    
+    public InputsSectionView(MappingDocumentIdeEditorViewModel docEditor, IScreen hostScreen)
+    {
+        _docEditor = docEditor;
+        HostScreen = hostScreen;
+    }
+    public string? UrlPathSegment { get; } = "inputsSection";
+    public IScreen HostScreen { get; }
+}
+
 public partial class InputEditorViewModel : ReactiveObject, IRoutableViewModel
 {
     private const string Memory = "Memory";

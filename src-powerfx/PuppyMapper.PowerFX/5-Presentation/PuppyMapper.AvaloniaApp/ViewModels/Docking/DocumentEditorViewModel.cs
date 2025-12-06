@@ -4,6 +4,19 @@ using ReactiveUI;
 
 namespace PuppyMapper.AvaloniaApp.ViewModels.Docking;
 
+public class InputDocumentViewModel : ReactiveObject, IRoutableViewModel
+{
+    public string UrlPathSegment { get; }
+    public IScreen HostScreen { get; }
+    public string Title { get; }
+
+    public InputDocumentViewModel(IScreen host, string title)
+    {
+        HostScreen = host;
+        UrlPathSegment = GetType().Name;
+        Title = title;
+    }
+}
 public class DocumentEditorViewModel : ReactiveObject, IRoutableViewModel
 {
     public string UrlPathSegment { get; }

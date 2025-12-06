@@ -1,44 +1,39 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using Dock.Avalonia.Controls;
 using Dock.Model.Controls;
 using Dock.Model.Core;
 using Dock.Model.ReactiveUI;
 using Dock.Model.ReactiveUI.Controls;
-using Dock.Model.ReactiveUI.Navigation.Controls;
 using PuppyMapper.Viewmodels;
 using ReactiveUI;
 
 namespace PuppyMapper.AvaloniaApp.ViewModels.Docking;
 
-public class DockFactory : Factory
+public class EditorDockFactory : Factory
 {
     private readonly IScreen _host;
-    private DocumentDock _documentDock;
+    private readonly MappingDocumentIdeEditorViewModel _editor;
 
-    public DockFactory(IScreen host)
+    public EditorDockFactory(IScreen host, MappingDocumentIdeEditorViewModel editor)
     {
         _host = host;
-    }
-
-    public void ShowDocument(DocumentViewModel openedDocument)
-    {
-        _documentDock.AddDocument(openedDocument);
-        // _documentDock.VisibleDockables?.Add(openedDocument);
-        // _documentDock.ActiveDockable = openedDocument;
-        // _root.VisibleDockables?.Add(openedDocument);
-        // _root.ActiveDockable = openedDocument;
+        _editor = editor;
     }
     public override IRootDock CreateLayout()
     {
-        var document1 = new DocumentViewModel(_host, new MappingDocumentIdeEditorViewModel(_host)) { Id = "Doca1", Title = "Document 1" };
-        _documentDock = new DocumentDock
+        var document1 = new DocumentViewModel(_host, _editor) { Id = "Edit1", Title = "Editor" };
+        var documentInput = new DocumentViewModel(_host, _editor) { Id = "Edit1", Title = "Editor" };
+        var document1 = new DocumentViewModel(_host, _editor) { Id = "Edit1", Title = "Editor" };
+       
+        
+        var _documentDock = new DocumentDock
         {
             Id = "Documents",
-            VisibleDockables = CreateList<IDockable>(document1),
+            VisibleDockables = CreateList<IDockable>(),
             ActiveDockable = null,
             CanCreateDocument = false,
+            CanClose = false
             
         };
         
