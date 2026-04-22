@@ -1,13 +1,44 @@
+using System.Reflection;
 using System.Text;
 
 namespace PuppyMapper.Roslyn;
 
 public class MapperClassRenderer
 {
+    private readonly string _css;
+
+    private string GetResource(string name)
+    {
+        var assembly = Assembly.GetExecutingAssembly();
+
+        // Find the full resource name (namespace + filename)
+        var resourceName = assembly.GetManifestResourceNames()
+            .Single(str => str.EndsWith(name, StringComparison.OrdinalIgnoreCase));
+
+        using var stream = assembly.GetManifestResourceStream(resourceName)
+                           ?? throw new FileNotFoundException($"Resource '{resourceName}' not found in assembly.");
+
+        using var reader = new StreamReader(stream);
+        var fileContents = reader.ReadToEnd();
+        return fileContents;
+    
+    }
+    public MapperClassRenderer()
+    {
+        _css = GetResource("mapperRpt.css");
+    }
+    
     public string GenerateHtml(List<MethodMapInfo> methods)
     {
         var sb = new StringBuilder();
 
+        sb.AppendLine("<html><head>");
+        sb.AppendLine("<style>");
+        sb.AppendLine(_css);
+        sb.AppendLine("</style>");
+        sb.AppendLine("</head><body>");
+
+        
         sb.AppendLine("<table>");
         sb.AppendLine("<tr>");
         sb.AppendLine("<th>Output field</th>");
@@ -56,7 +87,8 @@ public class MapperClassRenderer
         }
 
         sb.AppendLine("</table>");
+
+        sb.AppendLine("</body></html>");
         return sb.ToString();
     }
-
 }
