@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\PuppyMapper.Roslyn\PuppyMapper.Roslyn.csproj" />
+    </ItemGroup>
+    <UsingTask
+            TaskName="GenerateMappingDocumentation"
+            AssemblyFile="PuppyMapper.Roslyn.dll" />
+
+    <Target Name="GenerateMappingDocs" AfterTargets="Build">
+        <GenerateMappingDocumentation
+                SourceFile="StudentMapper.cs"
+                OutputFile="MappingDocs.html" />
+    </Target>
+</Project>
