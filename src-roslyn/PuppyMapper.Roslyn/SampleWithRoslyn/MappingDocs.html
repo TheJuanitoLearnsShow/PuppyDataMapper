@@ -1,0 +1,39 @@
+<table>
+<tr>
+<th>Output field</th>
+<th>Mapped Value</th>
+<th>Comments</th>
+<th>Condition</th>
+<th>Warnings If</th>
+<th>Validation Errors If</th>
+</tr>
+<tr>
+<td>GPA</td>
+<td>_score.TestScore * 0.23M 
+                                       * _score.Weight</td>
+<td>This converts score into gpa</td>
+<td></td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>StudentName</td>
+<td>_score.Test1.Name + _score.Test2.Name</td>
+<td>This converts score into name</td>
+<td>_score.IsStudent</td>
+<td>
+<table>
+<tr><td>_score.TestScore == null</td><td>"No Test found"</td></tr>
+<tr><td>_score.TestScore < 0</td><td>"Test score less than zero"</td></tr>
+</table>
+</td>
+<td>
+<table>
+<tr><td>_score.Test2 == null</td><td>"Missing last Test"</td></tr>
+<tr><td>_score.Test1 == _score.Test2</td><td>"Tests are the same"</td></tr>
+</table>
+</td>
+</tr>
+</table>

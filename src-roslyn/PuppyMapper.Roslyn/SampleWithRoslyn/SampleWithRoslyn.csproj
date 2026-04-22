@@ -12,7 +12,7 @@
     </ItemGroup>
     <UsingTask
             TaskName="GenerateMappingDocumentation"
-            AssemblyFile="PuppyMapper.Roslyn.dll" />
+            AssemblyFile="..\PuppyMapper.Roslyn\bin\Debug\netstandard2.0\PuppyMapper.Roslyn.dll" />
 
     <Target Name="GenerateMappingDocs" AfterTargets="Build">
         <GenerateMappingDocumentation
