@@ -2,7 +2,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace PuppyMapper.Roslyn;
+namespace PuppyMapper.Roslyn.MethodStrategy;
 
 public class MapperClassParser
 {

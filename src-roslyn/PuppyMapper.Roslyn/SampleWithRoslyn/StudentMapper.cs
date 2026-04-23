@@ -9,6 +9,28 @@ public class StudentMapper : BaseMapper
         _output = output;
         _score = score;
     }
+    
+    public void DoMapping()
+    {
+        DoMap(
+            () => _output.GPA = _score.TestScore * 0.23M * _score.Weight, "This converts score into gpa");
+        DoMap(
+            () => _output.StudentName = _score.Test1.Name + _score.Test2.Name,
+                comment: "This converts score into gpa",
+                condition: _score.IsStudent,
+                warningsIf: [
+                    (_score.TestScore == null, "No Test found"),
+                    (_score.TestScore < 0, "Test score less than zero")
+                ],
+                validationErrorsIf: [
+                    (_score.Test2 == null, "Missing last Test"),
+                    (_score.Test1 == _score.Test2, "Tests are the same")
+                ]
+            );
+    }
+
+   
+
     /// <summary>This converts score into gpa</summary>
     void MapTestScoreToGPA() 
     {
@@ -33,7 +55,7 @@ public class StudentMapper : BaseMapper
         return;
     }
 
-    public void DoMapping()
+    public void DoMappingOld()
     {
         MapNameScoreToStudent();
         MapTestScoreToGPA();

@@ -1,7 +1,7 @@
 using System.Reflection;
 using System.Text;
 
-namespace PuppyMapper.Roslyn;
+namespace PuppyMapper.Roslyn.MethodStrategy;
 
 public class MapperClassRenderer
 {

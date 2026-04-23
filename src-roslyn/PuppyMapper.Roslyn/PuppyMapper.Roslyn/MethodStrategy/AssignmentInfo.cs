@@ -1,4 +1,4 @@
-namespace PuppyMapper.Roslyn;
+namespace PuppyMapper.Roslyn.MethodStrategy;
 
 public sealed class AssignmentInfo
 {
