@@ -52,8 +52,16 @@ tbody tr:hover {
 <td>This converts score into gpa</td>
 <td>_score.IsStudent</td>
 <td>
+<table>
+<tr><td>_score.TestScore == null</td><td>"No Test found"</td></tr>
+<tr><td>_score.TestScore < 0</td><td>"Test score less than zero"</td></tr>
+</table>
 </td>
 <td>
+<table>
+<tr><td>_score.Test2 == null</td><td>"Missing last Test"</td></tr>
+<tr><td>_score.Test1 == _score.Test2</td><td>"Tests are the same"</td></tr>
+</table>
 </td>
 </tr>
 </table>

@@ -72,18 +72,51 @@ public sealed class DoMapWalker : CSharpSyntaxWalker
     private void ExtractTupleList(ExpressionSyntax expr,
         List<(string Condition, string Message)> list)
     {
-        if (expr is ImplicitArrayCreationExpressionSyntax implicitArray)
+        switch (expr)
         {
-            foreach (var init in implicitArray.Initializer.Expressions)
-            {
-                if (init is TupleExpressionSyntax tuple &&
-                    tuple.Arguments.Count == 2)
+            // C# 12: [ (cond, msg), (cond2, msg2) ]
+            case CollectionExpressionSyntax collection:
+                foreach (var element in collection.Elements)
                 {
-                    var cond = tuple.Arguments[0].Expression.ToString();
-                    var msg = tuple.Arguments[1].Expression.ToString();
-                    list.Add((cond, msg));
+                    if (element is ExpressionElementSyntax ees &&
+                        ees.Expression is TupleExpressionSyntax tuple &&
+                        tuple.Arguments.Count == 2)
+                    {
+                        var cond = tuple.Arguments[0].Expression.ToString();
+                        var msg = tuple.Arguments[1].Expression.ToString();
+                        list.Add((cond, msg));
+                    }
                 }
-            }
+                break;
+
+            // Older syntax: new[] { (cond, msg) }
+            case ImplicitArrayCreationExpressionSyntax implicitArray:
+                foreach (var init in implicitArray.Initializer.Expressions)
+                {
+                    if (init is TupleExpressionSyntax tuple &&
+                        tuple.Arguments.Count == 2)
+                    {
+                        var cond = tuple.Arguments[0].Expression.ToString();
+                        var msg = tuple.Arguments[1].Expression.ToString();
+                        list.Add((cond, msg));
+                    }
+                }
+                break;
+
+            // new List<(bool,string)> { (cond, msg) }
+            case InitializerExpressionSyntax initExpr:
+                foreach (var init in initExpr.Expressions)
+                {
+                    if (init is TupleExpressionSyntax tuple &&
+                        tuple.Arguments.Count == 2)
+                    {
+                        var cond = tuple.Arguments[0].Expression.ToString();
+                        var msg = tuple.Arguments[1].Expression.ToString();
+                        list.Add((cond, msg));
+                    }
+                }
+                break;
         }
     }
+
 }
